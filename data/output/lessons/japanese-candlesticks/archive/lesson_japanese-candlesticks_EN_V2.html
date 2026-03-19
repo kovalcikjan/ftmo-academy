@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Japanese Candlestick Patterns | FTMO Academy</title>
+  <meta name="description" content="Learn the most important Japanese candlestick patterns used in technical analysis — from marubozu to doji to engulfing patterns. Step-by-step guide for traders.">
+  <meta name="keywords" content="candlestick patterns, japanese candlesticks, how to read candlesticks, reversal candlestick patterns, types of candlesticks">
+  <meta property="og:title" content="Japanese Candlestick Patterns | FTMO Academy">
+  <meta property="og:description" content="Learn the most important Japanese candlestick patterns used in technical analysis.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: #000;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header__inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .site-header__logo {
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .site-header__logo span { color: #0781fe; }
+    .site-header__nav { display: flex; gap: 24px; }
+    .site-header__nav a {
+      color: #c6c6c6;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .site-header__nav a:hover { color: #fff; }
+    .site-header__cta {
+      background: #0781fe;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .site-header__cta:hover { opacity: 0.9; }
+
+    /* ── LAYOUT ── */
+    .page-wrapper {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 32px;
+    }
+    .breadcrumb a { color: #0781fe; text-decoration: none; }
+    .breadcrumb span { margin: 0 6px; }
+
+    /* ── HEADING ── */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #123a83;
+      line-height: 1.2;
+      margin-bottom: 32px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #123a83;
+      line-height: 1.3;
+      margin-top: 48px;
+      margin-bottom: 16px;
+    }
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #123a83;
+      line-height: 1.4;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    /* ── BODY TEXT ── */
+    p { margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 600; }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc {
+      background: #f5f5f7;
+      border-radius: 8px;
+      padding: 20px 28px;
+      margin-bottom: 40px;
+    }
+    .toc__title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #123a83;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .toc ol {
+      list-style: decimal;
+      padding-left: 20px;
+    }
+    .toc li { margin-bottom: 4px; }
+    .toc a {
+      color: #123a83;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .toc a:hover { text-decoration: underline; color: #0781fe; }
+
+    /* ── INTRO TEXT ── */
+    .lesson-intro {
+      font-size: 1.05rem;
+      color: #444;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 32px;
+      margin-bottom: 8px;
+    }
+
+    /* ── IMAGES ── */
+    /* Anatomy / overview image — full width with constrained height */
+    .lesson-image--wide {
+      margin: 24px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f5f5f7;
+    }
+    .lesson-image--wide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Individual candlestick pattern diagrams — compact, centered */
+    .lesson-image {
+      margin: 16px 0;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .lesson-image img {
+      max-width: 300px;
+      width: auto;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      background: #f5f5f7;
+    }
+
+    /* ── LISTS ── */
+    ul.content-list, ol.content-list {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    ul.content-list { list-style: disc; }
+    ol.content-list { list-style: decimal; }
+    ul.content-list li, ol.content-list li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .callout strong { display: inline; }
+    .callout--warning {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+    }
+    .callout--warning strong { color: #92400e; }
+    .callout--tip {
+      background: #eff6ff;
+      border-left: 4px solid #0781fe;
+    }
+    .callout--tip strong { color: #1e40af; }
+    .callout--note {
+      background: #f5f5f7;
+      border-left: 4px solid #9ca3af;
+    }
+    .callout--keep-in-mind {
+      background: #f0fdf4;
+      border-left: 4px solid #16a34a;
+    }
+    .callout--keep-in-mind strong { color: #15803d; }
+    .callout--keep-in-mind ul { list-style: disc; padding-left: 20px; margin-top: 8px; }
+    .callout--keep-in-mind ul li { margin-bottom: 4px; }
+    .callout--risk {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+    }
+    .callout--risk strong { color: #92400e; }
+    .callout--edu {
+      background: #f5f5f7;
+      border-left: 4px solid #9ca3af;
+    }
+
+    /* ── TABLE ── */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 28px 0;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    thead tr {
+      background: #123a83;
+      color: #fff;
+    }
+    thead th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+    }
+    tbody tr:nth-child(even) { background: #f9fafb; }
+    tbody tr:hover { background: #f0f4ff; }
+    tbody td {
+      padding: 11px 16px;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* ── KEY TAKEAWAYS ── */
+    .key-takeaways {
+      background: #f0f4ff;
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+    .key-takeaways h2 {
+      margin-top: 0;
+      color: #123a83;
+      font-size: 1.25rem;
+    }
+    .key-takeaways ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 16px;
+    }
+    .key-takeaways ul li {
+      padding: 8px 0 8px 28px;
+      position: relative;
+      border-bottom: 1px solid #d1d9f0;
+      line-height: 1.6;
+    }
+    .key-takeaways ul li:last-child { border-bottom: none; }
+    .key-takeaways ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #0781fe;
+      font-weight: 700;
+    }
+
+    /* ── NEXT STEPS ── */
+    .next-steps {
+      background: #123a83;
+      color: #fff;
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 32px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .next-steps__text { font-size: 0.9rem; opacity: 0.85; margin-bottom: 4px; }
+    .next-steps__title { font-size: 1.1rem; font-weight: 600; }
+    .next-steps__link {
+      background: #0781fe;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.875rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .next-steps__link:hover { opacity: 0.9; }
+
+    /* ── DIVIDER ── */
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 40px 0;
+    }
+
+    /* ── AUTHOR BOX ── */
+    .author-box {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 32px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.875rem;
+    }
+    .author-box__avatar {
+      width: 48px;
+      height: 48px;
+      background: #123a83;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .author-box__name { font-weight: 600; color: #123a83; }
+    .author-box__role { color: #666; }
+    .author-box__dates { color: #888; margin-top: 4px; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #000;
+      color: #c6c6c6;
+      padding: 40px 24px;
+      font-size: 0.8rem;
+      margin-top: 80px;
+    }
+    .site-footer__inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .site-footer__logo {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .site-footer__logo span { color: #0781fe; }
+    .site-footer__links { display: flex; gap: 20px; }
+    .site-footer__links a { color: #c6c6c6; text-decoration: none; }
+    .site-footer__links a:hover { color: #fff; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.25rem; }
+      .site-header__nav { display: none; }
+      .next-steps { flex-direction: column; }
+      .author-box { flex-direction: column; align-items: flex-start; }
+      .lesson-image img { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="https://academy.ftmo.com" class="site-header__logo">FTMO<span>.</span></a>
+    <nav class="site-header__nav">
+      <a href="https://academy.ftmo.com">Home</a>
+      <a href="https://academy.ftmo.com/courses/">Courses</a>
+      <a href="https://ftmo.com">FTMO.com</a>
+    </nav>
+    <a href="https://trader.ftmo.com/#sign-up" class="site-header__cta">Get Funded</a>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="page-wrapper">
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb">
+    <a href="https://academy.ftmo.com">Home</a>
+    <span>›</span>
+    <a href="https://academy.ftmo.com/courses/technical-analysis/">Technical Analysis</a>
+    <span>›</span>
+    Japanese Candlestick Patterns
+  </nav>
+
+  <!-- H1 -->
+  <h1>Japanese Candlestick Patterns</h1>
+
+  <!-- TABLE OF CONTENTS — compact, H2 only -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc__title">In This Lesson</div>
+    <ol>
+      <li><a href="#what-are">What are Japanese candlesticks?</a></li>
+      <li><a href="#why-matter">Why candlestick patterns matter</a></li>
+      <li><a href="#single-candle">Single-candle patterns</a></li>
+      <li><a href="#two-candle">Two-candle patterns</a></li>
+      <li><a href="#takeaways">Key Takeaways</a></li>
+    </ol>
+  </nav>
+
+  <!-- INTRO -->
+  <p class="lesson-intro">
+    Candlestick patterns are one of the most widely used techniques in price action trading. There are hundreds of different candlestick patterns — you do not need to know all of them. This lesson covers the most common types of candlesticks you should know.
+  </p>
+
+  <!-- SECTION: WHAT ARE -->
+  <h2 id="what-are">What are Japanese candlesticks?</h2>
+  <p><strong>Japanese candlesticks</strong> are among the most widely used tools in technical analysis. Candlestick pattern analysis originated in 18th-century Japan at the rice exchange — the earliest known form of technical trading.</p>
+
+  <!-- Anatomy image: full-width treatment -->
+  <div class="lesson-image--wide">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-6.jpg" alt="Japanese candlestick anatomy — body, wicks, open and close">
+  </div>
+
+  <!-- SECTION: WHY MATTER -->
+  <h2 id="why-matter">Why candlestick patterns matter</h2>
+  <p>The key <strong>advantages of candlestick patterns</strong> are simplicity and informational value. After a brief familiarization, traders learn how to read candlesticks and quickly determine what is happening in the market — whether buyers or sellers are in control, and whether a trend is likely to continue or reverse.</p>
+  <p>Candlestick patterns reveal the psychology of market participants. Various candlestick shapes indicate who has the upper hand. A typical example can be seen in the candlestick chart below.</p>
+
+  <!-- SECTION: SINGLE-CANDLE -->
+  <h2 id="single-candle">Single-candle patterns</h2>
+
+  <div class="callout callout--warning">
+    <strong>Warning:</strong> Single-candle patterns provide directional context, not standalone entry or exit signals. Always confirm with additional patterns, <a href="/lesson/support-and-resistance/">support and resistance levels</a>, or <a href="/lesson/technical-indicators/">technical indicators</a>.
+  </div>
+
+  <h3 id="long-day-bullish">Long day bullish</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-7.jpg" alt="Long day bullish candlestick pattern">
+  </div>
+  <p>The long day bullish candlestick consists of one candle with a long body and short wicks. It signals strength and is often seen as a breakout candle at the beginning of a trend. Traders use it as a confluence signal, not as a standalone entry or exit.</p>
+
+  <h3 id="long-day-bearish">Long day bearish</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-8.jpg" alt="Long day bearish candlestick pattern">
+  </div>
+  <p>The long day bearish candlestick displays a large bearish body with small wicks. It signals weakness and a potential start of a downtrend. Both long day patterns provide directional clues, but neither should be used as a standalone entry or exit signal.</p>
+
+  <h3 id="short-day-bullish">Short day bullish</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-9.jpg" alt="Short day bullish candlestick pattern">
+  </div>
+  <p>The short day bullish candlestick is a single-candle pattern defined by its relatively small body. There is no fixed definition of how short the candle must be — use surrounding price history as a reference. It is not used as an entry or exit signal. The short day candlestick indicates that price stayed within a range during the trading period, suggesting an expansion may follow. It gains relevance when found within a larger pattern.</p>
+
+  <h3 id="short-day-bearish">Short day bearish</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-10.jpg" alt="Short day bearish candlestick pattern">
+  </div>
+  <p>The short day bearish candlestick is the opposite of its bullish counterpart. Like the short day bullish, it carries little weight in isolation. Always evaluate it within a larger context, considering what buyers and sellers are attempting to achieve.</p>
+
+  <h3 id="bullish-marubozu">Bullish marubozu</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-11.jpg" alt="Bullish marubozu candlestick pattern">
+  </div>
+  <p>The <strong>marubozu</strong> is one of the most straightforward candlestick patterns to identify. It features a full body with no upper or lower wick. The bullish marubozu candlestick signals clear buyer dominance — price moved in one direction from open to close without any pushback.</p>
+  <p>There are two situations where you can make a trading decision with a bullish marubozu candlestick:</p>
+  <ul class="content-list">
+    <li>If you spot bullish marubozu in an uptrend, trend continuation is likely.</li>
+    <li>If a bullish marubozu occurs in a downtrend, a reversal is likely to happen.</li>
+  </ul>
+
+  <h3 id="bearish-marubozu">Bearish marubozu</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-13.jpg" alt="Bearish marubozu candlestick pattern">
+  </div>
+  <p>The bearish marubozu follows the same logic as its bullish counterpart, reversed:</p>
+  <ul class="content-list">
+    <li>If bearish marubozu happens in a downtrend, the trend is likely to continue.</li>
+    <li>If bearish marubozu occurs in an uptrend, a reversal is likely to happen.</li>
+  </ul>
+
+  <div class="callout callout--tip">
+    <strong>Tip:</strong> After identifying a marubozu candle, wait for further confirmation — from additional candlestick patterns, <a href="/lesson/support-and-resistance/">support and resistance</a> levels, or indicators — before entering a trade.
+  </div>
+
+  <h3 id="bullish-closing-marubozu">Bullish closing marubozu</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-14.jpg" alt="Bullish closing marubozu candlestick pattern">
+  </div>
+  <p>The bullish closing marubozu differs from a full bullish marubozu by one element: a lower wick. This indicates that sellers briefly stepped in after the open, but buyers were stronger and closed the candle higher. In an uptrend, it signals continuation. At a key support area, it signals a potential move higher.</p>
+
+  <h3 id="bearish-closing-marubozu">Bearish closing marubozu</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-15.jpg" alt="Bearish closing marubozu candlestick pattern">
+  </div>
+  <p>The bearish closing marubozu features a small upper wick and a large bearish body. Watch for it in two locations: in a downtrend, it signals continuation; at a key resistance level, it signals a potential move lower.</p>
+
+  <h3 id="bullish-opening-marubozu">Bullish opening marubozu</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-16.jpg" alt="Bullish opening marubozu candlestick pattern">
+  </div>
+  <p>Despite the small upper wick, the bullish opening marubozu is a strong bullish signal. Buyers took control from the open — even though sellers appeared at the top, the bullish bias held.</p>
+
+  <h3 id="bearish-opening-marubozu">Bearish opening marubozu</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-17.jpg" alt="Bearish opening marubozu candlestick pattern">
+  </div>
+  <p>The bearish opening marubozu signals strong seller conviction. A small lower wick indicates a brief buying attempt that sellers quickly overcame. In a downtrend, this pattern signals continuation; in an uptrend, it can signal a trend reversal.</p>
+
+  <h3 id="spinning-top">The spinning top</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-18.jpg" alt="Spinning top candlestick pattern">
+  </div>
+  <p>The <strong>spinning top</strong> candlestick pattern is neutral — the direction of the close (bullish or bearish) matters less than where the candle closes relative to key levels. It consists of a single candle with a small body and long wicks, signaling indecision in the market. At a resistance level, the spinning top is a bearish reversal signal. At a support area, it signals a bullish reversal.</p>
+
+  <h3 id="doji">The doji candlestick pattern</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-19.jpg" alt="Doji candlestick pattern">
+  </div>
+  <p>Like the spinning top, the <strong>doji</strong> is an indecision candlestick pattern. A doji candle has a small body where the open and close are virtually equal. It is often found at trend tops and bottoms and is considered one of the most common reversal candlestick patterns. More complex doji patterns can also appear in trend continuation.</p>
+  <p>The doji has three key variations: <strong>long-legged doji</strong>, <strong>gravestone doji</strong>, and <strong>dragonfly doji</strong>.</p>
+
+  <div class="callout callout--keep-in-mind">
+    <strong>Keep in Mind:</strong> Some human tendencies can work against you when reading candlestick patterns:
+    <ul>
+      <li>Seeing patterns where there are none</li>
+      <li>Sticking with an original signal bias after market conditions have changed</li>
+      <li>Looking at what happened rather than what is likely to happen next</li>
+    </ul>
+  </div>
+
+  <h3 id="long-legged-doji">Long-legged Doji</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-20.jpg" alt="Long-legged doji candlestick pattern">
+  </div>
+  <p>The long-legged doji closely resembles the spinning top. Compared to a regular doji, it is more dramatic — with long upper and lower wicks extending significantly in both directions. Like the spinning top, it signals indecision and a possible reversal.</p>
+
+  <h3 id="gravestone-doji">Gravestone Doji</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-21.jpg" alt="Gravestone doji candlestick pattern">
+  </div>
+  <p>The <strong>gravestone doji</strong> is a bearish candlestick pattern. Buyers pushed price higher after the open, but sellers overcame them and drove price back to the open level. In an uptrend, it signals a potential bearish reversal. In a downtrend, it can serve as a continuation signal.</p>
+
+  <h3 id="dragonfly-doji">Dragonfly Doji</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-22.jpg" alt="Dragonfly doji candlestick pattern">
+  </div>
+  <p>The <strong>dragonfly doji</strong> is a bullish candlestick pattern. Sellers pushed price lower after the open, but buyers overcame them and drove price back to the open level. In a downtrend, it signals a potential bullish reversal. In an uptrend, it can serve as a continuation signal.</p>
+
+  <!-- SECTION: TWO-CANDLE -->
+  <h2 id="two-candle">Two-candle patterns</h2>
+
+  <h3 id="bullish-engulfing">Bullish engulfing</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-23.jpg" alt="Bullish engulfing candlestick pattern">
+  </div>
+  <p>The <strong>bullish engulfing</strong> is the first two-candle pattern in this lesson. It forms with a small bearish candle on the left and a larger bullish candle on the right. The bullish candle must completely engulf the body of the previous candle.</p>
+
+  <h3 id="bearish-engulfing">Bearish engulfing</h3>
+  <div class="lesson-image">
+    <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-24.jpg" alt="Bearish engulfing candlestick pattern">
+  </div>
+  <p>The <strong>bearish engulfing</strong> forms with a small bullish candle on the left and a larger bearish candle on the right. The bearish candle must completely engulf the body of the previous candle.</p>
+
+  <!-- PATTERN REFERENCE TABLE -->
+  <h2>Pattern Reference</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Pattern</th>
+          <th>Candles</th>
+          <th>Signal</th>
+          <th>Context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Long day bullish</td>
+          <td>1</td>
+          <td>Bullish</td>
+          <td>Trend start, confluence</td>
+        </tr>
+        <tr>
+          <td>Long day bearish</td>
+          <td>1</td>
+          <td>Bearish</td>
+          <td>Trend start, confluence</td>
+        </tr>
+        <tr>
+          <td>Short day bullish / bearish</td>
+          <td>1</td>
+          <td>Neutral</td>
+          <td>Range, part of larger pattern</td>
+        </tr>
+        <tr>
+          <td>Marubozu (all variants)</td>
+          <td>1</td>
+          <td>Bullish / Bearish</td>
+          <td>Trend continuation or reversal</td>
+        </tr>
+        <tr>
+          <td>Spinning top</td>
+          <td>1</td>
+          <td>Neutral</td>
+          <td>Key support / resistance levels</td>
+        </tr>
+        <tr>
+          <td>Doji (all variants)</td>
+          <td>1</td>
+          <td>Neutral / Reversal</td>
+          <td>Trend tops and bottoms</td>
+        </tr>
+        <tr>
+          <td>Bullish engulfing</td>
+          <td>2</td>
+          <td>Bullish</td>
+          <td>Reversal signal</td>
+        </tr>
+        <tr>
+          <td>Bearish engulfing</td>
+          <td>2</td>
+          <td>Bearish</td>
+          <td>Reversal signal</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- KEY TAKEAWAYS -->
+  <section class="key-takeaways" id="takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Candlestick patterns reveal market psychology — they show whether buyers or sellers are in control at any given moment.</li>
+      <li>Single-candle patterns provide directional context. Use them as confluence, not as standalone entry or exit signals.</li>
+      <li><strong>Marubozu</strong> candles signal the strongest conviction. Wait for confirmation from support/resistance or indicators before acting.</li>
+      <li><strong>Indecision patterns</strong> (doji, spinning top) carry the most weight at key support and resistance levels.</li>
+      <li><strong>Engulfing patterns</strong> are two-candle reversal signals — the second candle must completely engulf the body of the first.</li>
+    </ul>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <div class="next-steps">
+    <div>
+      <div class="next-steps__text">Next lesson</div>
+      <div class="next-steps__title">Types of Trading Charts</div>
+    </div>
+    <a href="/lesson/types-of-trading-charts/" class="next-steps__link">Continue →</a>
+  </div>
+
+  <hr>
+
+  <!-- DISCLAIMERS -->
+  <div class="callout callout--risk">
+    <strong>Risk Warning:</strong> Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.
+  </div>
+
+  <div class="callout callout--edu">
+    <strong>Educational Notice:</strong> This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.
+  </div>
+
+  <!-- AUTHOR BOX -->
+  <div class="author-box">
+    <div class="author-box__avatar">FA</div>
+    <div>
+      <div class="author-box__name">FTMO Academy</div>
+      <div class="author-box__role">Content Lead — Technical Analysis</div>
+      <div class="author-box__dates">Published: 2023-03-01 &nbsp;·&nbsp; Last Updated: 2026-03-05</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__logo">FTMO<span>.</span></div>
+    <div class="site-footer__links">
+      <a href="https://ftmo.com/en/risk-disclosure/">Risk Disclosure</a>
+      <a href="https://ftmo.com/en/terms-and-conditions/">Terms</a>
+      <a href="https://ftmo.com/en/privacy-policy/">Privacy</a>
+    </div>
+    <div>&copy; 2026 FTMO. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

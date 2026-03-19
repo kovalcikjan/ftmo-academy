@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Log &mdash; Japanese Candlesticks</title>
+    <style>
+:root {
+    --red-bg: #ffeef0;
+    --red-text: #b91c1c;
+    --red-border: #f87171;
+    --green-bg: #f0fdf4;
+    --green-text: #15803d;
+    --green-border: #4ade80;
+    --gray-bg: #f8f9fa;
+    --border: #e1e5eb;
+    --dark: #111827;
+    --muted: #6b7280;
+    --blue: #0781fe;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--dark);
+    background: #fff;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.doc-header {
+    border-bottom: 3px solid var(--dark);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.doc-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.doc-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.25rem 2rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+.doc-meta span strong { color: var(--dark); }
+
+.legend {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--gray-bg);
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+.legend-item { display: flex; align-items: center; gap: 0.5rem; }
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+.legend-dot-red { background: var(--red-bg); border: 1.5px solid var(--red-border); }
+.legend-dot-green { background: var(--green-bg); border: 1.5px solid var(--green-border); }
+.legend-dot-gray { background: #e5e7eb; border: 1.5px solid #9ca3af; }
+
+.step-section {
+    margin-bottom: 3rem;
+    page-break-inside: avoid;
+}
+.step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+.step-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+.step-meta {
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+
+.diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.8125rem;
+}
+.diff-table thead tr {
+    background: var(--gray-bg);
+    border-bottom: 1px solid var(--border);
+}
+.diff-table thead th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.diff-table th:first-child { width: 28px; }
+.diff-table th.col-orig { width: 34%; }
+.diff-table th.col-new { width: 34%; }
+.diff-table th.col-reason { width: auto; }
+
+.diff-row { border-bottom: 1px solid var(--border); }
+.diff-row:last-child { border-bottom: none; }
+.diff-row td {
+    padding: 0.625rem 0.75rem;
+    vertical-align: top;
+}
+.diff-row td:first-child {
+    text-align: center;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.75rem;
+    background: var(--gray-bg);
+    border-right: 1px solid var(--border);
+}
+
+.cell-orig {
+    background: var(--red-bg);
+    border-right: 1px solid var(--border);
+}
+.cell-orig .text {
+    color: var(--red-text);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.8rem;
+}
+.cell-orig .text::before {
+    content: "- ";
+    font-weight: 700;
+    opacity: 0.7;
+}
+
+.cell-new {
+    background: var(--green-bg);
+    border-right: 1px solid var(--border);
+}
+.cell-new .text {
+    color: var(--green-text);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.8rem;
+}
+.cell-new .text::before {
+    content: "+ ";
+    font-weight: 700;
+    opacity: 0.7;
+}
+
+.cell-merged {
+    background: #f3f4f6;
+    border-right: 1px solid var(--border);
+}
+.cell-merged .text {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.cell-reason {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+.cell-reason .tag {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    margin-right: 0.25rem;
+}
+.cell-reason .tag-tov { background: #e0e7ff; color: #3730a3; }
+.cell-reason .tag-kw { background: #dcfce7; color: #166534; }
+.cell-reason .tag-skip { background: #fef9c3; color: #854d0e; }
+.cell-reason .tag-struct { background: #fce7f3; color: #9d174d; }
+
+.kw-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.8125rem;
+}
+.kw-table thead tr { background: var(--gray-bg); }
+.kw-table thead th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+}
+.kw-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+.kw-table tr:last-child td { border-bottom: none; }
+.kw-table .orig {
+    color: var(--red-text);
+    background: var(--red-bg);
+    font-family: monospace;
+    font-size: 0.775rem;
+}
+.kw-table .orig::before { content: "- "; font-weight: 700; opacity: 0.7; }
+.kw-table .newv {
+    color: var(--green-text);
+    background: var(--green-bg);
+    font-family: monospace;
+    font-size: 0.775rem;
+}
+.kw-table .newv::before { content: "+ "; font-weight: 700; opacity: 0.7; }
+.kw-table .skip-row td { opacity: 0.55; }
+
+.badge {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+.badge-done { background: #dcfce7; color: #166534; }
+.badge-skip { background: #fef9c3; color: #854d0e; }
+.badge-pending { background: #fed7aa; color: #9a3412; }
+.badge-new { background: #dbeafe; color: #1e40af; }
+.badge-rejected { background: #fee2e2; color: #991b1b; }
+.vol { color: var(--muted); font-size: 0.75rem; }
+
+.gap-note {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #fff8e1;
+    border-left: 4px solid #f0a500;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.8125rem;
+    color: var(--dark);
+}
+.gap-note strong { color: #854d0e; }
+
+.struct-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    font-size: 0.8125rem;
+}
+.struct-table thead tr { background: var(--gray-bg); }
+.struct-table thead th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+}
+.struct-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+.struct-table tr:last-child td { border-bottom: none; }
+.struct-table .added { color: var(--green-text); font-weight: 600; }
+.struct-table .changed { color: #b45309; font-weight: 600; }
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.875rem;
+}
+.summary-table thead tr { background: var(--dark); }
+.summary-table thead th {
+    padding: 0.625rem 1rem;
+    text-align: left;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.summary-table td {
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.status-done { color: var(--green-text); font-weight: 600; }
+.status-pending { color: #b45309; font-weight: 600; }
+
+@media print {
+    body { padding: 1cm; font-size: 11px; }
+    .step-section { page-break-inside: avoid; }
+    .diff-table { page-break-inside: auto; }
+    .diff-row { page-break-inside: avoid; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="doc-header">
+    <h1>Edit Log &mdash; Japanese Candlesticks</h1>
+    <div class="doc-meta">
+        <span><strong>Article:</strong> lesson_japanese-candlesticks_EN.md</span>
+        <span><strong>Source:</strong> https://academy.ftmo.com/lesson/japanese-candlesticks/</span>
+        <span><strong>Date:</strong> 2026-03-05</span>
+        <span><strong>Status:</strong> Steps 1&ndash;3 complete</span>
+    </div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+    <div class="legend-item">
+        <div class="legend-dot legend-dot-red"></div>
+        <span>Original sentence (removed / changed)</span>
+    </div>
+    <div class="legend-item">
+        <div class="legend-dot legend-dot-green"></div>
+        <span>New sentence (replacement)</span>
+    </div>
+    <div class="legend-item">
+        <div class="legend-dot legend-dot-gray"></div>
+        <span>Merged into another row / skipped</span>
+    </div>
+</div>
+
+
+<!-- ===================== STEP 1 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 1 &mdash; Keyword Integration</span>
+        <span class="step-meta">Keywords file: `japanese-candlesticks_keywords.xlsx` &nbsp;&middot;&nbsp; 5 integrated &nbsp;&middot;&nbsp; 1 SEO gap flagged</span>
+    </div>
+    <table class="kw-table">
+        <thead>
+            <tr>
+                <th style="width:24px">#</th>
+                <th style="width:37%">Original sentence</th>
+                <th style="width:37%">New sentence</th>
+                <th style="width:12%">Keyword</th>
+                <th style="width:6%">Vol.</th>
+                <th style="width:5%">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td style="color:var(--muted);text-align:center">1</td><td><span class="orig">"We have picked the most common and important ones we should know."</span></td><td><span class="newv">"We have picked the most common and important Japanese candlestick patterns you should know."</span></td><td style="font-size:0.75rem">japanese candlestick patterns</td><td class="vol">300</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">2</td><td><span class="orig">"What are Japanese candlesticks?" (H2)</span></td><td><span class="newv">"What Are Japanese Candlestick Charts?" (H2)</span></td><td style="font-size:0.75rem">candlestick chart / what are candlesticks in trading</td><td class="vol">3500</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">3</td><td><span class="orig">"After a brief familiarization, the trader can quickly analyze market developments..."</span></td><td><span class="newv">"After a brief familiarization, learning how to read candlesticks allows you to quickly analyze market developments..."</span></td><td style="font-size:0.75rem">how to read candlesticks</td><td class="vol">1500</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">4</td><td><span class="orig">"The spinning top" (H3)</span></td><td><span class="newv">"The Spinning Top Candle Pattern" (H3)</span></td><td style="font-size:0.75rem">spinning top candle pattern</td><td class="vol">70</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">5</td><td><span class="orig">"A doji is often found at the tops and bottoms of trends, so it is considered as a sign of possible reversal of the movement."</span></td><td><span class="newv">"A doji is often found at the tops and bottoms of trends, making it one of the most recognized reversal candlestick patterns in technical analysis."</span></td><td style="font-size:0.75rem">reversal candlestick patterns</td><td class="vol">900</td><td><span class="badge badge-done">DONE</span></td></tr>
+        </tbody>
+    </table>
+
+    <div class="gap-note">
+        <strong>SEO Gap flagged (requires new content &mdash; out of scope for Step 1):</strong><br>
+        <code>hammer candlestick</code> (5,800 vol, KD 7) &mdash; Hammer and Inverted Hammer patterns are entirely absent from this article. Recommended: add 2 H3 sections between Marubozu and Spinning Top as a separate content task.
+    </div>
+</div>
+
+
+<!-- ===================== STEP 2 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 2 &mdash; Tone of Voice Rewrite</span>
+        <span class="step-meta">Topic classification: BEGINNER &mdash; Part 2, Technical Analysis, Lesson 1. Introductory candlestick patterns. &nbsp;&middot;&nbsp; 58 changes</span>
+    </div>
+    <table class="diff-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="col-orig">Original sentence (full)</th>
+                <th class="col-new">New sentence (full)</th>
+                <th class="col-reason">Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr class="diff-row"><td>1</td><td class="cell-orig"><span class="text">Candlestick patterns are one of the most common price action techniques.</span></td><td class="cell-new"><span class="text">Candlestick patterns are one of the most widely used price action techniques in technical analysis.</span></td><td class="cell-reason">&ldquo;most common&rdquo; is vague; adds &ldquo;in technical analysis&rdquo; for context</td></tr>
+<tr class="diff-row"><td>2</td><td class="cell-orig"><span class="text">There are literally hundreds of different candlestick patterns we can find online. Do we need to know all of them? Of course not.</span></td><td class="cell-new"><span class="text">Hundreds of patterns exist, but you don&rsquo;t need to know all of them.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes &ldquo;literally&rdquo; filler; merges 3 choppy sentences; shifts to 2nd person</td></tr>
+<tr class="diff-row"><td>3</td><td class="cell-orig"><span class="text">We have picked the most common and important Japanese candlestick patterns you should know. They are easily spotted on Japanese candlestick charts.</span></td><td class="cell-new"><span class="text">This lesson covers the most common and important Japanese candlestick patterns &mdash; the ones most frequently found on Japanese candlestick charts.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes editorial &ldquo;We have picked&rdquo;; merges sentences; &ldquo;you should know&rdquo; is redundant</td></tr>
+<tr class="diff-row"><td>4</td><td class="cell-orig"><span class="text">Searching for specific candlestick patterns was first used in the 18th century in Japan at the rice exchange. These were the very beginnings of technical trading.</span></td><td class="cell-new"><span class="text">The technique dates back to the 18th century, when traders at Japanese rice exchanges first began identifying recurring price patterns &mdash; marking the earliest foundations of technical trading.</span></td><td class="cell-reason">Fixes awkward passive &ldquo;was first used&rdquo;; combines sentences; more precise framing</td></tr>
+<tr class="diff-row"><td>5</td><td class="cell-orig"><span class="text">The benefits of using candlestick patterns while trading price action (H2)</span></td><td class="cell-new"><span class="text">Why Use Candlestick Patterns? (H2)</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> direct and punchy; removes academic bloat from heading</td></tr>
+<tr class="diff-row"><td>6</td><td class="cell-orig"><span class="text">Among the greatest advantages of candlestick patterns are their simplicity and informational value.</span></td><td class="cell-new"><span class="text">The key advantage of candlestick patterns is their combination of simplicity and informational value.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> inverted pyramid: leads with the point directly; removes &ldquo;Among the greatest&rdquo; padding</td></tr>
+<tr class="diff-row"><td>7</td><td class="cell-orig"><span class="text">After a brief familiarization, learning how to read candlesticks allows you to quickly analyze market developments and determine what is happening in the market.</span></td><td class="cell-new"><span class="text">Learning how to read candlesticks allows you to quickly assess market dynamics: are buyers stronger than sellers, or vice versa?</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes &ldquo;After a brief familiarization&rdquo; padding; colon structure pulls in the key question</td></tr>
+<tr class="diff-row"><td>8</td><td class="cell-orig"><span class="text">Can we expect the trend to cease, or on the contrary, could it gain in strength again?</span></td><td class="cell-new"><span class="text">Is the trend likely to continue or reverse?</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes &ldquo;or on the contrary&rdquo; filler; direct phrasing; removes &ldquo;we&rdquo;</td></tr>
+<tr class="diff-row"><td>9</td><td class="cell-orig"><span class="text">In fact, candlestick patterns can reveal the psychology of traders. Various candlestick shapes can suggest whether buyers or sellers are stronger.</span></td><td class="cell-new"><span class="text">Candlestick shapes reveal trader psychology &mdash; each pattern reflects the balance of buying and selling pressure during a given period.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes &ldquo;In fact&rdquo; filler; removes weak &ldquo;can suggest&rdquo; &rarr; &ldquo;reveal&rdquo;; combines into one richer sentence</td></tr>
+<tr class="diff-row"><td>10</td><td class="cell-orig"><span class="text">Starting with the easiest one, long day bullish candlestick. Long day bullish candlestick consists of just one candle with a long body and short wicks.</span></td><td class="cell-new"><span class="text">The long day bullish candlestick consists of one candle with a long body and short wicks.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes casual opener; adds &ldquo;The&rdquo;; removes &ldquo;just&rdquo;</td></tr>
+<tr class="diff-row"><td>11</td><td class="cell-orig"><span class="text">This candlestick usually shows strength and it can be used as a &ldquo;breakout&rdquo; candle at the beginning of a trend.</span></td><td class="cell-new"><span class="text">It signals market strength and is often seen at the beginning of a trend, acting as a breakout candle.</span></td><td class="cell-reason">&ldquo;usually shows strength&rdquo; &rarr; &ldquo;signals market strength&rdquo; (direct); &ldquo;it can be used as&rdquo; &rarr; &ldquo;is often seen as&rdquo; (active)</td></tr>
+<tr class="diff-row"><td>12</td><td class="cell-orig"><span class="text">Traders don&rsquo;t use long day bullish candlestick as entry or exit signals but more as a confluence with their ideas.</span></td><td class="cell-new"><span class="text">Traders use it as confluence rather than a standalone entry or exit signal.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes double-negative construction; &ldquo;their ideas&rdquo; is vague; &ldquo;standalone&rdquo; adds precision</td></tr>
+<tr class="diff-row"><td>13</td><td class="cell-orig"><span class="text">Long day bearish candlestick is represented by a big sell candle body and small wicks.</span></td><td class="cell-new"><span class="text">The long day bearish candlestick features a large bearish body with small wicks.</span></td><td class="cell-reason">&ldquo;is represented by&rdquo; (passive) &rarr; &ldquo;features&rdquo; (active); &ldquo;big sell candle body&rdquo; &rarr; &ldquo;large bearish body&rdquo;</td></tr>
+<tr class="diff-row"><td>14</td><td class="cell-orig"><span class="text">It signals a weakness in the market and the fact we should start looking for the possible start of a downtrend.</span></td><td class="cell-new"><span class="text">It signals market weakness and a potential start of a downtrend.</span></td><td class="cell-reason">&ldquo;a weakness in the market&rdquo; &rarr; &ldquo;market weakness&rdquo; (concise); removes verbose &ldquo;the fact we should start looking for&rdquo;</td></tr>
+<tr class="diff-row"><td>15</td><td class="cell-orig"><span class="text">Long day candlesticks are simple. They can give us clues about what might happen next, but as we mentioned before, they should not be used as entry and exit signals alone.</span></td><td class="cell-new"><span class="text">Like its bullish counterpart, it provides directional clues but should not be used as a standalone entry or exit signal.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes &ldquo;as we mentioned before&rdquo; (conversational cross-reference); removes &ldquo;us&rdquo;; combines into one sentence</td></tr>
+<tr class="diff-row"><td>16</td><td class="cell-orig"><span class="text">The short bullish day candlestick is an easy to spot pattern. It consists of one candlestick. Short day candlestick is defined by its length. How short must the candle be? This is not 100% defined, so we should always use our discretion and review past trading periods to have a comparison.</span></td><td class="cell-new"><span class="text">The short day bullish candlestick is defined by its minimal length &mdash; there is no fixed threshold, so compare it against recent candles in context.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> merges 5 choppy sentences into 1; removes &ldquo;easy to spot&rdquo; (vague); removes &ldquo;we should always use our discretion&rdquo;</td></tr>
+<tr class="diff-row"><td>17</td><td class="cell-orig"><span class="text">Short day candlestick is not used as an entry/exit signal. The short day candlestick pattern signals the fact that the price stayed in the range during a trading period and we can expect an expansion soon.</span></td><td class="cell-new"><span class="text">It signals that price stayed in a narrow range during the period, with expansion likely to follow.</span></td><td class="cell-reason">&ldquo;signals the fact that&rdquo; &rarr; factual statement; &ldquo;we can expect&rdquo; removed; inverted order (signal first)</td></tr>
+<tr class="diff-row"><td>18</td><td class="cell-orig"><span class="text">They can be found in the larger patterns providing relevance.</span></td><td class="cell-new"><span class="text">This pattern is not used as a standalone entry signal; its value lies in the broader pattern context.</span></td><td class="cell-reason">&ldquo;providing relevance&rdquo; is vague; clarifies the actual limitation explicitly</td></tr>
+<tr class="diff-row"><td>19</td><td class="cell-orig"><span class="text">This is the opposite of a short bullish day candlestick.</span></td><td class="cell-new"><span class="text">The short day bearish candlestick is the bearish equivalent.</span></td><td class="cell-reason">Adds subject name for clarity; &ldquo;is the opposite&rdquo; &rarr; &ldquo;is the bearish equivalent&rdquo;</td></tr>
+<tr class="diff-row"><td>20</td><td class="cell-orig"><span class="text">Same as his bullish colleague, this candle is common but not so worthy on its own.</span></td><td class="cell-new"><span class="text">Like the bullish version, it carries limited significance on its own &mdash;</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes gendered &ldquo;his bullish colleague&rdquo;; &ldquo;not so worthy&rdquo; &rarr; &ldquo;carries limited significance&rdquo;</td></tr>
+<tr class="diff-row"><td>21</td><td class="cell-orig"><span class="text">We should always wait to spot it in a larger context and think about what are buyers or sellers trying to achieve in current market conditions.</span></td><td class="cell-new"><span class="text">its value comes from the surrounding context and what it reveals about the balance between buyers and sellers.</span></td><td class="cell-reason">Removes &ldquo;We should always&rdquo;; rephrased as factual statement; fixes grammar</td></tr>
+<tr class="diff-row"><td>22</td><td class="cell-orig"><span class="text">A very simple and powerful candlestick pattern is called marubozu. Spotting marubozu candlestick is one of the easiest things we can do. It signals a real long body without an upper or lower wick.</span></td><td class="cell-new"><span class="text">Marubozu is one of the most straightforward candlestick patterns to identify: a long body with no upper or lower wick.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes weak intro; merges 3 sentences; &ldquo;easiest things we can do&rdquo; &rarr; &ldquo;most straightforward to identify&rdquo; (removes &ldquo;we&rdquo;); &ldquo;a real long body&rdquo; &rarr; &ldquo;a long body&rdquo;</td></tr>
+<tr class="diff-row"><td>23</td><td class="cell-orig"><span class="text">Bullish marubozu candlestick shows us one pretty obvious thing, the buyers stepping in the market.</span></td><td class="cell-new"><span class="text">The bullish marubozu signals clear buyer dominance throughout the entire trading period.</span></td><td class="cell-reason">Removes &ldquo;us one pretty obvious thing&rdquo; (condescending/vague); &ldquo;buyers stepping in&rdquo; &rarr; &ldquo;buyer dominance&rdquo; (professional)</td></tr>
+<tr class="diff-row"><td>24</td><td class="cell-orig"><span class="text">There are two situations where we can make a trading decision with a bullish marubozu candlestick:</span></td><td class="cell-new"><span class="text">Two key contexts for the bullish marubozu:</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes verbose &ldquo;There are...where we can make a trading decision with&rdquo;; concise; removes &ldquo;we&rdquo;</td></tr>
+<tr class="diff-row"><td>25</td><td class="cell-orig"><span class="text">Bearish marubozu has the same two uses as bullish one, they are just reversed.</span></td><td class="cell-new"><span class="text">The bearish marubozu signals seller dominance &mdash; the mirror image of the bullish version.</span></td><td class="cell-reason">&ldquo;same two uses... just reversed&rdquo; &rarr; &ldquo;the mirror image&rdquo; (concise, professional); adds explicit &ldquo;seller dominance&rdquo;</td></tr>
+<tr class="diff-row"><td>26</td><td class="cell-orig"><span class="text">The smart thing to do after we see a marubozu candle is to wait for further confirmation in term of another candlestick patterns, support and resistance or indicators.</span></td><td class="cell-new"><span class="text">After spotting a marubozu, wait for further confirmation: another candlestick pattern, a key support or resistance level, or a confirming indicator signal.</span></td><td class="cell-reason">Removes &ldquo;The smart thing to do&rdquo; (condescending); removes &ldquo;we see&rdquo;; fixes grammar &ldquo;in term of&rdquo; &rarr; colon list</td></tr>
+<tr class="diff-row"><td>27</td><td class="cell-orig"><span class="text">There is only one small difference from a bullish marubozu: a lower wick.</span></td><td class="cell-new"><span class="text">The bullish closing marubozu differs from the standard bullish marubozu by a single feature: a small lower wick.</span></td><td class="cell-reason">&ldquo;There is only one small difference&rdquo; &rarr; names the subject; adds &ldquo;standard&rdquo; for clarity</td></tr>
+<tr class="diff-row"><td>28</td><td class="cell-orig"><span class="text">This candlestick suggests that we had some sellers trying to step in after the candle opened but buyers were much stronger and closed higher.</span></td><td class="cell-new"><span class="text">Sellers briefly entered after the open, but buyers regained control and drove price higher by the close.</span></td><td class="cell-reason">Removes &ldquo;This candlestick suggests that we had some&rdquo; (weak, verbose); active voice</td></tr>
+<tr class="diff-row"><td>29</td><td class="cell-orig"><span class="text">If a bullish closing marubozu appears in an uptrend, it gives us a signal of continuation.</span></td><td class="cell-new"><span class="text">In an uptrend, it signals continuation.</span></td><td class="cell-reason">&ldquo;gives us a signal of&rdquo; &rarr; &ldquo;signals&rdquo; (concise); removes conditional framing &rarr; factual</td></tr>
+<tr class="diff-row"><td>30</td><td class="cell-orig"><span class="text">Another great location of bullish closing marubozu is at a key support area where we can expect the price to rise higher.</span></td><td class="cell-new"><span class="text">At a key support level, it signals a potential move higher.</span></td><td class="cell-reason">&ldquo;Another great location&rdquo; &rarr; &ldquo;At&rdquo; (professional); removes &ldquo;we can expect&rdquo;; concise</td></tr>
+<tr class="diff-row"><td>31</td><td class="cell-orig"><span class="text">Bearish closing marubozu is a bearish candlestick pattern which is signalled with a small upper wick and a big bearish body.</span></td><td class="cell-new"><span class="text">The bearish closing marubozu features a small upper wick and a large bearish body.</span></td><td class="cell-reason">Passive &ldquo;which is signalled with&rdquo; &rarr; &ldquo;features&rdquo; (active); &ldquo;big&rdquo; &rarr; &ldquo;large&rdquo;</td></tr>
+<tr class="diff-row"><td>32</td><td class="cell-orig"><span class="text">There are 2 locations where we should be watching for bearish closing marubozu.</span></td><td class="cell-merged"><span class="text">[removed &mdash; replaced by direct description]</span></td><td class="cell-reason">Meta-sentence replaced by direct explanation in following sentences</td></tr>
+<tr class="diff-row"><td>33</td><td class="cell-orig"><span class="text">In a downtrend, this signals that trend is likely to continue and at a key resistance level where we can expect a new move down to begin.</span></td><td class="cell-new"><span class="text">In a downtrend, it signals continuation. At key resistance, it signals a potential move lower.</span></td><td class="cell-reason">Splits run-on; removes &ldquo;we can expect a new move down to begin&rdquo;; parallel structure with bullish version</td></tr>
+<tr class="diff-row"><td>34</td><td class="cell-orig"><span class="text">Even though bullish opening marubozu has a small upside wick, it is a very bullish signal in the market.</span></td><td class="cell-new"><span class="text">The bullish opening marubozu has a small upper wick but remains a strongly bullish signal.</span></td><td class="cell-reason">Removes &ldquo;Even though...in the market&rdquo; structure; &ldquo;upside wick&rdquo; &rarr; &ldquo;upper wick&rdquo; (standard term)</td></tr>
+<tr class="diff-row"><td>35</td><td class="cell-orig"><span class="text">It shows the fact that buyers took control straight from the open and even though they met some sellers at the top, the bullish bias prevails.</span></td><td class="cell-new"><span class="text">Buyers dominated from the open; the small upper wick shows that sellers appeared briefly near the top but failed to shift the bullish momentum.</span></td><td class="cell-reason">&ldquo;shows the fact that&rdquo; removed; &ldquo;the bullish bias prevails&rdquo; &rarr; &ldquo;failed to shift the bullish momentum&rdquo; (more specific)</td></tr>
+<tr class="diff-row"><td>36</td><td class="cell-orig"><span class="text">Bearish opening marubozu signals strong conviction from sellers in the market.</span></td><td class="cell-new"><span class="text">The bearish opening marubozu signals strong seller conviction.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> adds &ldquo;The&rdquo;; &ldquo;conviction from sellers in the market&rdquo; &rarr; &ldquo;seller conviction&rdquo; (concise)</td></tr>
+<tr class="diff-row"><td>37</td><td class="cell-orig"><span class="text">Although there is a small lower wick, we can notice a price rally right after the candle opens.</span></td><td class="cell-new"><span class="text">Sellers dominated from the open; the small lower wick indicates a brief counter-move by buyers that failed to overcome selling pressure.</span></td><td class="cell-reason">&ldquo;we can notice a price rally&rdquo; is confusing in a bearish candle context; rephrased for clarity; removes &ldquo;we&rdquo;</td></tr>
+<tr class="diff-row"><td>38</td><td class="cell-orig"><span class="text">Bearish opening marubozu in a downtrend signals continuation; in an uptrend, it can signal a possible trend reversal.</span></td><td class="cell-new"><span class="text">In a downtrend, it signals continuation; in an uptrend, it indicates a potential reversal.</span></td><td class="cell-reason">Removes repetition of pattern name; &ldquo;can signal a possible&rdquo; &rarr; &ldquo;indicates a potential&rdquo; (cleaner hedge)</td></tr>
+<tr class="diff-row"><td>39</td><td class="cell-orig"><span class="text">The spinning top candlestick pattern is a neutral candlestick. By neutral, we mean the fact that it doesn&rsquo;t matter that much if the candlestick closes bullish or bearish, the important factor is the candlestick closing location. The spinning top candlestick pattern has a single candle with a small body and long wicks.</span></td><td class="cell-new"><span class="text">The spinning top is a neutral candlestick pattern: a small body with long upper and lower wicks. The direction of the close matters less than location.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> removes &ldquo;By neutral, we mean the fact that&rdquo; (wordy); condenses 3 sentences into 2; removes repetition of full pattern name</td></tr>
+<tr class="diff-row"><td>40</td><td class="cell-orig"><span class="text">It signals indecision in the market, the general rule of thumb is that if we see the spinning top candlestick at the resistance level, it&rsquo;s a short reversal signal.</span></td><td class="cell-new"><span class="text">At resistance, it signals a potential bearish reversal.</span></td><td class="cell-reason">Removes &ldquo;general rule of thumb&rdquo;; removes &ldquo;if we see&rdquo;; &ldquo;short reversal signal&rdquo; is ambiguous &rarr; &ldquo;bearish reversal&rdquo;</td></tr>
+<tr class="diff-row"><td>41</td><td class="cell-orig"><span class="text">Vice versa, spotting the spinning top candlestick at the support area signals a long reversal.</span></td><td class="cell-new"><span class="text">At support, it signals a potential bullish reversal.</span></td><td class="cell-reason">&ldquo;Vice versa, spotting&rdquo; &rarr; &ldquo;At support&rdquo;; &ldquo;long reversal&rdquo; &rarr; &ldquo;bullish reversal&rdquo; (unambiguous); parallel structure</td></tr>
+<tr class="diff-row"><td>42</td><td class="cell-orig"><span class="text">Similar to the spinning top candlestick, doji is an indecision candlestick pattern. We can recognize a doji candle with a very small body with an open and close that are virtually equal.</span></td><td class="cell-new"><span class="text">Like the spinning top, the doji is an indecision pattern &mdash; defined by a very small body where the open and close are virtually equal.</span></td><td class="cell-reason">&ldquo;Similar to&rdquo; &rarr; &ldquo;Like&rdquo;; &ldquo;We can recognize a doji candle with&rdquo; &rarr; passive definition (removes &ldquo;we&rdquo;); merged</td></tr>
+<tr class="diff-row"><td>43</td><td class="cell-orig"><span class="text">A doji is often found at the tops and bottoms of trends, making it one of the most recognized reversal candlestick patterns in technical analysis.</span></td><td class="cell-new"><span class="text">A doji frequently appears at trend extremes, making it one of the most recognized reversal candlestick patterns in technical analysis.</span></td><td class="cell-reason">&ldquo;often found at the tops and bottoms of trends&rdquo; &rarr; &ldquo;frequently appears at trend extremes&rdquo; (concise)</td></tr>
+<tr class="diff-row"><td>44</td><td class="cell-orig"><span class="text">That being said, more complex doji patterns can also be used in trend continuation.</span></td><td class="cell-new"><span class="text">That said, doji patterns can also signal trend continuation in the right context.</span></td><td class="cell-reason">&ldquo;That being said&rdquo; &rarr; &ldquo;That said&rdquo;; &ldquo;more complex&rdquo; removed (vague); &ldquo;can be used in&rdquo; &rarr; &ldquo;can also signal&rdquo; (active)</td></tr>
+<tr class="diff-row"><td>45</td><td class="cell-orig"><span class="text">Although doji is an indecision candlestick pattern, there are three different variations that are going to help us make more educated trading decisions, there are long-legged doji, gravestone doji, and dragonfly doji.</span></td><td class="cell-new"><span class="text">Three key doji variations provide more specific signals: the long-legged doji, gravestone doji, and dragonfly doji.</span></td><td class="cell-reason">Removes repetitive intro clause; removes &ldquo;help us make more educated trading decisions&rdquo; (verbose); fixes &ldquo;there are...there are&rdquo;</td></tr>
+<tr class="diff-row"><td>46</td><td class="cell-orig"><span class="text">A long-legged doji is very similar to the spinning top candlestick. Compared to regular doji, it is a much more dramatic candle with long upper and lower wicks.</span></td><td class="cell-new"><span class="text">The long-legged doji features extended upper and lower wicks relative to its near-zero body &mdash; more dramatic than a regular doji.</span></td><td class="cell-reason">Merges two sentences; structural description first; &ldquo;near-zero body&rdquo; is precise</td></tr>
+<tr class="diff-row"><td>47</td><td class="cell-orig"><span class="text">Long-legged doji is the same as the spinning top candlestick, it signals indecision in the market and a possible reversal in play.</span></td><td class="cell-new"><span class="text">Like the spinning top, it signals strong market indecision and a potential reversal.</span></td><td class="cell-reason">&ldquo;is the same as&rdquo; removed (contradicts &ldquo;similar to&rdquo;); &ldquo;in play&rdquo; removed (casual); parallel structure</td></tr>
+<tr class="diff-row"><td>48</td><td class="cell-orig"><span class="text">Gravestone Doji is a bearish candlestick pattern.</span></td><td class="cell-new"><span class="text">The gravestone doji is a bearish pattern.</span></td><td class="cell-reason">Adds &ldquo;The&rdquo;; &ldquo;candlestick pattern&rdquo; &rarr; &ldquo;pattern&rdquo; (implied); lowercase for consistency</td></tr>
+<tr class="diff-row"><td>49</td><td class="cell-orig"><span class="text">It shows us the fact that buyers tried to step in, but sellers strongly overcame them and pushed the price back to open.</span></td><td class="cell-new"><span class="text">Buyers pushed price up during the period, but sellers overcame them and drove it back to the open.</span></td><td class="cell-reason">&ldquo;shows us the fact that&rdquo; removed; &ldquo;tried to step in&rdquo; &rarr; &ldquo;pushed price up during the period&rdquo; (precise); removes &ldquo;strongly&rdquo; (vague intensifier)</td></tr>
+<tr class="diff-row"><td>50</td><td class="cell-orig"><span class="text">In an uptrend, gravestone doji indicates that the market is ready to turn around.</span></td><td class="cell-new"><span class="text">In an uptrend, it signals a potential reversal.</span></td><td class="cell-reason">&ldquo;the market is ready to turn around&rdquo; &rarr; &ldquo;a potential reversal&rdquo; (professional); removes repetition of pattern name</td></tr>
+<tr class="diff-row"><td>51</td><td class="cell-orig"><span class="text">In a downtrend, we can use a gravestone doji as our continuation signal.</span></td><td class="cell-new"><span class="text">In a downtrend, it serves as a continuation signal.</span></td><td class="cell-reason">&ldquo;we can use...as our&rdquo; &rarr; &ldquo;it serves as&rdquo; (removes &ldquo;we&rdquo;; active pattern description)</td></tr>
+<tr class="diff-row"><td>52</td><td class="cell-orig"><span class="text">Dragonfly doji is a bullish candlestick pattern.</span></td><td class="cell-new"><span class="text">The dragonfly doji is a bullish pattern.</span></td><td class="cell-reason">Adds &ldquo;The&rdquo;; lowercase for consistency; &ldquo;candlestick pattern&rdquo; &rarr; &ldquo;pattern&rdquo; (implied)</td></tr>
+<tr class="diff-row"><td>53</td><td class="cell-orig"><span class="text">It shows us the fact that sellers tried to step in, but buyers strongly overcame them and pushed the price back to open.</span></td><td class="cell-new"><span class="text">Sellers pushed price lower during the period, but buyers overcame them and drove it back to the open.</span></td><td class="cell-reason">Same as #49, mirrored for bullish pattern</td></tr>
+<tr class="diff-row"><td>54</td><td class="cell-orig"><span class="text">In a downtrend, dragonfly doji indicates that the market is ready to turn around.</span></td><td class="cell-new"><span class="text">In a downtrend, it signals a potential reversal.</span></td><td class="cell-reason">Same as #50, mirrored</td></tr>
+<tr class="diff-row"><td>55</td><td class="cell-orig"><span class="text">In an uptrend, we can use dragonfly doji as our continuation signal.</span></td><td class="cell-new"><span class="text">In an uptrend, it serves as a continuation signal.</span></td><td class="cell-reason">Same as #51, mirrored</td></tr>
+<tr class="diff-row"><td>56</td><td class="cell-orig"><span class="text">A bullish engulfing is the first 2 candlestick patterns we have.</span></td><td class="cell-new"><span class="text">The bullish engulfing is a two-candle pattern.</span></td><td class="cell-reason">Removes meta-comment &ldquo;first 2 patterns we have&rdquo; (article structure, not pattern description)</td></tr>
+<tr class="diff-row"><td>57</td><td class="cell-orig"><span class="text">It forms with a small red candle on the left and a big green candle on the right. The big green candle on the right has to completely overlap/engulf the candle on the left.</span></td><td class="cell-new"><span class="text">A small bearish candle is followed by a larger bullish candle that completely engulfs the first candle&rsquo;s body.</span></td><td class="cell-reason">&ldquo;red/green&rdquo; &rarr; &ldquo;bearish/bullish&rdquo; (color-independent professional terminology); merges into one sentence</td></tr>
+<tr class="diff-row"><td>58</td><td class="cell-orig"><span class="text">Bearish engulfing forms with a small green candle on the left and a big red candle on the right. The big red candle on the right has to completely overlap/engulf the candle on the left.</span></td><td class="cell-new"><span class="text">The bearish engulfing is the bearish counterpart: a small bullish candle followed by a larger bearish candle that completely engulfs the first candle&rsquo;s body.</span></td><td class="cell-reason">Same as #57; adds &ldquo;the bearish counterpart&rdquo; for clear parallel structure</td></tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- ===================== STEP 3 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 3 &mdash; Structure &amp; Formatting</span>
+        <span class="step-meta">~1,800 words &rarr; Long (&gt;1,500 words) &rarr; ToC required &middot; 3&ndash;7 H2s &middot; max 2 callouts per H2 &middot; 14 changes</span>
+    </div>
+    <table class="struct-table">
+        <thead>
+            <tr>
+                <th style="width:24px">#</th>
+                <th style="width:18%">Change Type</th>
+                <th style="width:42%">Description</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td style="color:var(--muted);text-align:center">1</td><td><span class="added">ToC added</span></td><td>&ldquo;In This Lesson&rdquo; with 4 H2-level anchors after intro paragraph</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> &gt;1,500 words &mdash; required per Structure Guide</td></tr>
+<tr><td style="color:var(--muted);text-align:center">2</td><td><span class="added">H2 added</span></td><td>`## Single Candlestick Patterns` grouping 10 pattern H3s</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> increases from 2 to 5 H2s; meets 3&ndash;7 guideline; improves scannability</td></tr>
+<tr><td style="color:var(--muted);text-align:center">3</td><td><span class="added">H2 added</span></td><td>`## Multi-Candlestick Patterns` grouping engulfing patterns</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> proper grouping; content type distinct from single-candle patterns</td></tr>
+<tr><td style="color:var(--muted);text-align:center">4</td><td><span class="changed">H3 &rarr; H4</span></td><td>Long-legged doji, Gravestone doji, Dragonfly doji demoted from H3 to H4</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> sub-sections of &ldquo;Doji&rdquo; H3 &mdash; H3&rarr;H3 skipped hierarchy level; H4 is correct</td></tr>
+<tr><td style="color:var(--muted);text-align:center">5</td><td><span class="added">Table added</span></td><td>Marubozu summary table (6 variants &times; Pattern / Wick(s) / Signal)</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> 6 related patterns across separate H3s &mdash; table reduces cognitive load</td></tr>
+<tr><td style="color:var(--muted);text-align:center">6</td><td><span class="added">Table added</span></td><td>Doji variants summary table (3 types &times; Shape / Bias / In uptrend / In downtrend)</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> consolidates reversal/continuation signals for all 3 doji types</td></tr>
+<tr><td style="color:var(--muted);text-align:center">7</td><td><span class="added">Callout Tip added</span></td><td>After Marubozu table: &ldquo;Marubozu patterns signal strong conviction, but a single candle is rarely sufficient...&rdquo;</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> key usage guideline buried in body text &mdash; callout increases visibility</td></tr>
+<tr><td style="color:var(--muted);text-align:center">8</td><td><span class="added">Callout Keep in Mind added</span></td><td>After Doji table: cognitive bias warning (seeing patterns, market lore, anchoring, sticking with targets)</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> required for TA lessons per Structure Guide (cognitive bias disclaimer)</td></tr>
+<tr><td style="color:var(--muted);text-align:center">9</td><td><span class="added">Key Takeaways added</span></td><td>6 bullet points: trader psychology, confluence, marubozu, doji/spinning top, engulfing, confirmation</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> lesson template requirement; scannable recap; E-E-A-T helpfulness signal</td></tr>
+<tr><td style="color:var(--muted);text-align:center">10</td><td><span class="added">Next Steps added</span></td><td>3 links: Types of Trading Charts (next lesson), Support and Resistance, Technical Indicators</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> 3&ndash;5 internal links requirement met (5 total including 2 inline links)</td></tr>
+<tr><td style="color:var(--muted);text-align:center">11</td><td><span class="added">Author box added</span></td><td>&ldquo;FTMO Academy Content Team&rdquo; with review statement</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-tov">E-E-A-T</span> authorship and freshness signals</td></tr>
+<tr><td style="color:var(--muted);text-align:center">12</td><td><span class="added">Disclaimers added</span></td><td>Educational Content Notice + Risk Warning at article end</td><td style="color:var(--muted);font-size:0.75rem">YMYL: required for all trading content</td></tr>
+<tr><td style="color:var(--muted);text-align:center">13</td><td><span class="added">Internal links added</span></td><td>2 inline links: `/lesson/support-and-resistance/` (×2) and `/lesson/technical-indicators/` in Key Takeaways</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> minimum 3&ndash;5 internal links per lesson</td></tr>
+<tr><td style="color:var(--muted);text-align:center">14</td><td><span class="added">Bold terms added</span></td><td><strong>trader psychology</strong>, <strong>Marubozu</strong>, <strong>bullish engulfing</strong>, <strong>bearish engulfing</strong>, <strong>Doji</strong>, <strong>spinning top</strong></td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> scanning anchors for key terms (Structure Guide §5)</td></tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- ===================== SUMMARY ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Summary</span>
+    </div>
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>Status</th>
+                <th>Changes</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td><strong>Step 1: Keywords</strong></td><td><span class="status-done">DONE</span></td><td>5 changes applied &middot; 1 SEO gap flagged: <code>hammer candlestick</code> (5,800 vol, KD 7) &mdash; requires new content</td></tr>
+<tr><td><strong>Step 2: ToV Rewrite</strong></td><td><span class="status-done">DONE</span></td><td>58 changes &mdash; casual markers, gendered language, hype words, passive voice, sentence fragments, filler phrases, &ldquo;we/us/our&rdquo; removal</td></tr>
+<tr><td><strong>Step 3: Structure</strong></td><td><span class="status-done">DONE</span></td><td>14 changes &mdash; 2 H2s added, H3&rarr;H4 demotion, 2 tables, 2 callouts, Key Takeaways, Next Steps, E-E-A-T elements</td></tr>
+<tr><td><strong>Step 4: HTML</strong></td><td><span class="status-done">DONE</span></td><td>CSS variables matching types-of-trading-charts reference; 18 images from FTMO CDN at 30% width; BEM callouts; black header/footer; responsive</td></tr>
+<tr><td><strong>Step 5: QA</strong></td><td><span class="status-pending">PENDING</span></td><td>&mdash;</td></tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

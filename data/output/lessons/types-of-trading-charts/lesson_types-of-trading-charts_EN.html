@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Types of Trading Charts: Candlestick, Renko, Heikin Ashi | FTMO Academy</title>
+    <meta name="description" content="Learn the key types of trading charts — candlestick, bar, Renko, and Heikin Ashi. Understand how each chart works and when to use it for better technical analysis.">
+    <link rel="canonical" href="https://academy.ftmo.com/lesson/types-of-trading-charts/">
+    <meta property="og:title" content="Types of Trading Charts: Candlestick, Renko, Heikin Ashi | FTMO Academy">
+    <meta property="og:description" content="Learn the key types of trading charts — candlestick, bar, Renko, and Heikin Ashi. Understand how each chart works and when to use it for better technical analysis.">
+    <meta property="og:type" content="article">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Variables ───────────────────────────────────────────── */
+        :root {
+            --azure:      #0781fe;
+            --torea-bay:  #123a83;
+            --silver:     #c6c6c6;
+            --black:      #000000;
+            --white:      #ffffff;
+            --light-gray: #f5f5f7;
+            --body-text:  #1a1a2e;
+            --muted:      #555;
+        }
+
+        /* ── Reset & Base ────────────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--body-text);
+            background: var(--white);
+        }
+
+        a { color: var(--azure); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* ── Site Header ─────────────────────────────────────────── */
+        .site-header {
+            background: var(--black);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .site-header__logo {
+            color: var(--white);
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        .site-header__nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .site-header__nav a {
+            color: var(--silver);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .site-header__cta {
+            background: var(--azure);
+            color: var(--white);
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .site-header__cta:hover { text-decoration: none; opacity: 0.9; }
+
+        /* ── Breadcrumbs ─────────────────────────────────────────── */
+        .breadcrumbs {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            font-size: 0.8125rem;
+            color: var(--muted);
+        }
+
+        .breadcrumbs a { color: var(--muted); }
+        .breadcrumbs a:hover { color: var(--azure); }
+        .breadcrumbs span { margin: 0 0.4rem; }
+
+        /* ── Main Layout ─────────────────────────────────────────── */
+        .lesson-wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+        }
+
+        /* ── Lesson Header ───────────────────────────────────────── */
+        .lesson-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .lesson-header__module {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--azure);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-header h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--torea-bay);
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .lesson-header__meta {
+            font-size: 0.8125rem;
+            color: var(--muted);
+        }
+
+        /* ── Lesson Intro ────────────────────────────────────────── */
+        .lesson-intro {
+            font-size: 1.0625rem;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* ── Table of Contents ───────────────────────────────────── */
+        .toc {
+            background: var(--light-gray);
+            border-left: 4px solid var(--torea-bay);
+            border-radius: 0 6px 6px 0;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            min-width: 260px;
+        }
+
+        .toc__title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--torea-bay);
+            margin-bottom: 0.75rem;
+        }
+
+        .toc ol {
+            padding-left: 1.25rem;
+            margin: 0;
+        }
+
+        .toc li {
+            font-size: 0.875rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .toc a {
+            color: var(--torea-bay);
+            font-weight: 600;
+        }
+
+        .toc a:hover { color: var(--azure); text-decoration: underline; }
+
+        /* ── Article Content ─────────────────────────────────────── */
+        .lesson-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--torea-bay);
+            line-height: 1.3;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--torea-bay);
+            line-height: 1.4;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .lesson-content p {
+            margin-bottom: 1rem;
+        }
+
+        .lesson-content ul,
+        .lesson-content ol {
+            margin: 0.75rem 0 1rem 1.5rem;
+        }
+
+        .lesson-content li { margin-bottom: 0.35rem; }
+
+        .lesson-content strong { font-weight: 600; }
+        .lesson-content em { font-style: italic; }
+
+        .lesson-content figure {
+            margin: 1.5rem 0;
+        }
+
+        .lesson-content figcaption {
+            font-size: 0.8125rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .lesson-content hr {
+            border: none;
+            border-top: 1px solid var(--silver);
+            margin: 2rem 0;
+        }
+
+        /* ── Tables ──────────────────────────────────────────────── */
+        .lesson-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9375rem;
+        }
+
+        .lesson-content thead th {
+            background: var(--torea-bay);
+            color: var(--white);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .lesson-content tbody td {
+            padding: 0.65rem 1rem;
+            border-bottom: 1px solid var(--silver);
+            vertical-align: top;
+        }
+
+        .lesson-content tbody tr:last-child td { border-bottom: none; }
+        .lesson-content tbody tr:nth-child(even) td { background: var(--light-gray); }
+
+        /* ── Callouts (BEM) ──────────────────────────────────────── */
+        .callout {
+            border-radius: 6px;
+            padding: 1rem 1.25rem;
+            margin: 1.25rem 0;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0 0.75rem;
+            align-items: start;
+        }
+
+        .callout__label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            white-space: nowrap;
+            margin-top: 0.1rem;
+        }
+
+        .callout p,
+        .callout ul { margin: 0; }
+        .callout ul { padding-left: 1.2rem; }
+        .callout li { margin-bottom: 0.2rem; }
+
+        .callout--tip {
+            background: #e8f4ff;
+            border-left: 4px solid var(--azure);
+        }
+        .callout--tip .callout__label {
+            background: var(--azure);
+            color: var(--white);
+        }
+
+        .callout--keep-in-mind {
+            background: #f0f4e8;
+            border-left: 4px solid #6a8f3c;
+        }
+        .callout--keep-in-mind .callout__label {
+            background: #6a8f3c;
+            color: var(--white);
+        }
+
+        /* ── Key Takeaways ───────────────────────────────────────── */
+        .key-takeaways {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 1.5rem 1.75rem;
+            margin-top: 2rem;
+        }
+
+        .key-takeaways h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--torea-bay);
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .key-takeaways li {
+            padding: 0.4rem 0 0.4rem 1.5rem;
+            position: relative;
+            border-bottom: 1px solid var(--silver);
+            font-size: 0.9375rem;
+        }
+
+        .key-takeaways li:last-child { border-bottom: none; }
+
+        .key-takeaways li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--azure);
+            font-weight: 700;
+        }
+
+        /* ── Next Steps ──────────────────────────────────────────── */
+        .next-steps {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--light-gray);
+        }
+
+        .next-steps h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--torea-bay);
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .next-steps a { font-weight: 600; }
+        .next-steps li { font-size: 0.9375rem; }
+
+        /* ── Author Box ──────────────────────────────────────────── */
+        .author-box {
+            margin-top: 3rem;
+            padding: 1.25rem 1.5rem;
+            border: 1px solid var(--silver);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        .author-box strong { color: var(--body-text); }
+
+        /* ── Disclaimers ─────────────────────────────────────────── */
+        .disclaimer {
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            line-height: 1.6;
+        }
+
+        .disclaimer--educational {
+            background: var(--light-gray);
+            border-left: 3px solid var(--silver);
+            color: var(--muted);
+        }
+
+        .disclaimer--risk {
+            background: #fff5f5;
+            border-left: 3px solid #c0392b;
+            color: var(--muted);
+        }
+
+        .disclaimer strong { color: var(--body-text); }
+
+        /* ── Site Footer ─────────────────────────────────────────── */
+        .site-footer {
+            background: var(--black);
+            color: var(--silver);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8125rem;
+            margin-top: 4rem;
+        }
+
+        .site-footer a { color: var(--silver); }
+
+        /* ── Responsive ──────────────────────────────────────────── */
+        @media (max-width: 768px) {
+            .lesson-header h1 { font-size: 1.5rem; }
+            .lesson-wrap { padding: 1.25rem 1.25rem 3rem; }
+            .site-header__nav { display: none; }
+            .callout { grid-template-columns: 1fr; }
+            .callout__label { display: inline-block; margin-bottom: 0.5rem; }
+            .toc { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Site Header ─────────────────────────────────────────────────── -->
+<header class="site-header">
+    <a href="https://ftmo.com" class="site-header__logo">FTMO</a>
+    <ul class="site-header__nav">
+        <li><a href="https://ftmo.com/en/">Home</a></li>
+        <li><a href="https://academy.ftmo.com/">Academy</a></li>
+        <li><a href="https://ftmo.com/en/challenges/">Challenges</a></li>
+    </ul>
+    <a href="https://ftmo.com/en/get-funded/" class="site-header__cta">Get Funded</a>
+</header>
+
+<!-- ── Breadcrumbs ─────────────────────────────────────────────────── -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="https://academy.ftmo.com/">Academy</a>
+    <span aria-hidden="true">›</span>
+    <a href="https://academy.ftmo.com/category/technical-analysis/">Technical Analysis</a>
+    <span aria-hidden="true">›</span>
+    Types of Trading Charts
+</nav>
+
+<!-- ── Main ───────────────────────────────────────────────────────── -->
+<main class="lesson-wrap">
+
+    <!-- Lesson Header -->
+    <header class="lesson-header">
+        <span class="lesson-header__module">Technical Analysis &mdash; Lesson 2</span>
+        <h1>Types of Trading Charts: Candlestick Charts, Renko Charts, and Heikin Ashi</h1>
+        <div class="lesson-header__meta">Last updated: March 5, 2026 &nbsp;&bull;&nbsp; FTMO Academy Content Team</div>
+    </header>
+
+    <!-- Lesson Intro (outside article, before ToC) -->
+    <p class="lesson-intro">
+        There are several ways to display price data on a chart &mdash; each with distinct advantages for technical analysis. This lesson covers candlestick charts, bar charts, Renko charts, and Heikin Ashi candles: what makes each one different and how to choose the right display for your analysis.
+    </p>
+
+    <!-- Table of Contents (H2 only) -->
+    <nav class="toc" aria-label="Table of contents">
+        <p class="toc__title">In This Lesson</p>
+        <ol>
+            <li><a href="#candlestick-charts">Candlestick Charts</a></li>
+            <li><a href="#bar-charts">Bar Charts</a></li>
+            <li><a href="#renko-charts">Renko Charts</a></li>
+            <li><a href="#heikin-ashi-candles">Heikin Ashi Candles</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ol>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="lesson-content">
+
+        <p>Price charts can be displayed in nearly unlimited ways. This is why no two traders watch exactly the same things. Although most traders use <strong>candlestick charts</strong> &mdash; covered in the previous lesson &mdash; there is more depth to explore. This lesson also covers <strong>bar charts</strong>, <strong>Renko charts</strong>, and <strong>Heikin Ashi candles</strong>.</p>
+
+        <!-- Candlestick Charts -->
+        <h2 id="candlestick-charts">Candlestick Charts</h2>
+
+        <p><a href="/lesson/japanese-candlesticks/">Japanese Candlesticks</a> are covered in the previous lesson. Here is a quick recap. They are the most widely used chart type in technical analysis. The anatomy of a candlestick consists of the <strong>body</strong> and the <strong>wick</strong>. If the candle closes above the open, it is a bullish candlestick. If the candle closes below the open, it is a bearish candlestick. Wicks represent the highest and lowest points where the market traded.</p>
+
+        <figure>
+            <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-25.jpg" alt="Candlestick chart anatomy — body, wick, bullish and bearish candles" style="width: 30%; height: auto;">
+            <figcaption>Candlestick anatomy: body, wick, bullish and bearish candles</figcaption>
+        </figure>
+
+        <p>The image below shows two candlestick charts side by side in the FTMO cTrader platform.</p>
+
+        <figure>
+            <img src="https://academy.ftmo.com/wp-content/uploads/2021/03/timeframevsrange.png" alt="Time-based vs range-based candlestick charts in FTMO cTrader">
+            <figcaption>Left: time-based candlestick chart. Right: range-based candlestick chart.</figcaption>
+        </figure>
+
+        <h3>Time-Based Charts</h3>
+
+        <p>Although they look the same, there is one significant difference. The chart on the left is time-based; the chart on the right is not. <strong>Chart periodicity</strong> is the main variable to control when setting up a candlestick chart. Time periodicity is the most common choice among traders. Most trading platforms support charts based on minutes, hours, days, weeks, and seconds. The most popular timeframes are 1-minute, 5-minute, 15M, 30M, 60M, 4-hour, daily, weekly, and monthly.</p>
+
+        <p>You can set up a chart with any periodicity, but standard timeframes work because many traders monitor them. A 40-minute or 3-hour chart carries less weight &mdash; fewer traders monitor those intervals, so candlestick patterns formed on them have reduced significance.</p>
+
+        <div class="callout callout--tip">
+            <span class="callout__label">Tip</span>
+            <p>Standard timeframes (1H, 4H, Daily) are monitored by a large number of traders simultaneously. Candlestick patterns on these timeframes carry more market weight because more participants react to them at the same time.</p>
+        </div>
+
+        <h3>Tick and Range Charts</h3>
+
+        <p>Non-time-based charts are less common, but they can still provide valuable information. In the FTMO cTrader platform, traders can access <strong>tick charts</strong> and <strong>range charts</strong> &mdash; the two most popular non-time-based options. In a tick chart, one tick represents one transaction. One tick occurs when the market moves by the minimum price increment.</p>
+
+        <p>Take EURUSD as an example &mdash; it is quoted in five decimal places. One tick equals 0.00001, or 1 pipette. In a range bar, every bar closes once the range between its high and low equals the chosen range value. This means every bar has the same range and closes either at its high or low. Range and tick charts eliminate noise and display trends more clearly by removing periods when price is not moving.</p>
+
+        <p>The effect is visible when comparing a DAX four-hour chart with a 100-range chart in cTrader. Both the uptrend and downtrend appear cleaner on the range chart once the time factor is removed and focus shifts to price rotations.</p>
+
+        <!-- Bar Charts -->
+        <h2 id="bar-charts">Bar Charts</h2>
+
+        <p>The only difference between a candlestick and a <strong>bar chart</strong> is the visual representation.</p>
+
+        <figure>
+            <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115043.png" alt="OHLC bar chart example — vertical bars with open and close notches">
+            <figcaption>Bar chart (OHLC): vertical bars with notches for open and close</figcaption>
+        </figure>
+
+        <p>Bar charts, often called OHLC charts, display as vertical bars with two notches indicating the open and close of each bar. Compared to Japanese candlesticks, bar charts are less intuitive for new traders when reading candlestick patterns. On the other hand, they may provide a clearer view for marking <a href="/lesson/support-and-resistance/">support and resistance</a> levels.</p>
+
+        <!-- Renko Charts -->
+        <h2 id="renko-charts">Renko Charts</h2>
+
+        <p>Renko charts are similar to range and tick charts. Renko eliminates the time factor from trading and changes the chart&rsquo;s visual representation entirely. Instead of candlesticks, the chart displays bricks. The name comes from the Japanese word <em>renga</em>, meaning brick.</p>
+
+        <figure>
+            <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115503.png" alt="Renko chart example — price bricks with no time axis">
+            <figcaption>Renko chart: bricks are drawn only when price moves a defined distance</figcaption>
+        </figure>
+
+        <p>A Renko chart prints a new brick when the market moves more than the brick size away from the previous brick. For example, if one brick represents 5 pips, no new brick is drawn until the market moves those 5 pips in one direction from the close of the last brick. Renko charts are effective for filtering out noise and marking <a href="/lesson/support-and-resistance/">support and resistance</a> areas.</p>
+
+        <!-- Heikin Ashi Candles -->
+        <h2 id="heikin-ashi-candles">Heikin Ashi Candles</h2>
+
+        <p>Heikin Ashi candles are another chart representation that comes from Japan. The name translates to &ldquo;average bar.&rdquo; Here is how the Heikin Ashi candle formula works: the chart is constructed the same way as a candlestick chart but uses a different calculation method. A Heikin Ashi chart can be set up on any preferred timeframe &mdash; time-based, range, or tick.</p>
+
+        <figure>
+            <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115656.png" alt="Heikin Ashi candlestick chart — smoothed price display for trend following">
+            <figcaption>Heikin Ashi chart: smoothed candles make trends easier to identify</figcaption>
+        </figure>
+
+        <p>Heikin Ashi smooths price movements and simplifies trend following. Many traders incorporate it into their Heikin Ashi strategy specifically for trend-following entries. The trade-off is that some price detail is lost &mdash; the smoothing can obscure short-term signals. However, it remains an effective tool for both entries and trade management.</p>
+
+        <div class="callout callout--keep-in-mind">
+            <span class="callout__label">Keep in Mind</span>
+            <div>
+                <p>Some human tendencies can work against you when reading charts:</p>
+                <ul>
+                    <li>Seeing patterns where there are none</li>
+                    <li>Favouring a chart type based on habit rather than evidence</li>
+                    <li>Sticking with a chart setup after market conditions have changed</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <h2 id="conclusion">Conclusion</h2>
+
+        <p>Experimenting with different charts and settings is the most effective way to find what works for your trading style. Regular time-based candlestick charts remain the most popular, used by traders worldwide. However, tick charts, range charts, Renko charts, or Heikin Ashi candles can all be incorporated into your strategy and add value to your trading.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Chart Type</th>
+                    <th>Time-Based</th>
+                    <th>Best For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Candlestick</strong></td>
+                    <td>Yes (also Range / Tick)</td>
+                    <td>General analysis, pattern recognition</td>
+                </tr>
+                <tr>
+                    <td><strong>Bar (OHLC)</strong></td>
+                    <td>Yes</td>
+                    <td>Support and resistance marking</td>
+                </tr>
+                <tr>
+                    <td><strong>Renko</strong></td>
+                    <td>No (price-based)</td>
+                    <td>Noise filtering, trend clarity</td>
+                </tr>
+                <tr>
+                    <td><strong>Heikin Ashi</strong></td>
+                    <td>Yes (also Range / Tick)</td>
+                    <td>Trend following, entries</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Key Takeaways -->
+        <section class="key-takeaways">
+            <h2>Key Takeaways</h2>
+            <ul>
+                <li><strong>Candlestick charts</strong> are the most widely used chart type; time periodicity determines how each candle forms.</li>
+                <li><strong>Standard timeframes</strong> (1H, 4H, Daily) carry more market weight because more traders monitor them simultaneously.</li>
+                <li><strong>Tick and range charts</strong> remove the time factor and can display trends more clearly by eliminating low-activity periods.</li>
+                <li><strong>Bar charts</strong> use a different visual format &mdash; useful for traders who prefer a cleaner view when marking support and resistance.</li>
+                <li><strong>Renko charts</strong> filter noise by only drawing a new brick when price moves a defined distance.</li>
+                <li><strong>Heikin Ashi candles</strong> smooth price data to simplify trend following &mdash; at the cost of some short-term detail.</li>
+            </ul>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="next-steps">
+            <h2>Next Steps</h2>
+            <ul>
+                <li><a href="/lesson/market-environment-range-vs-trend/">Market Environment: Range vs. Trend</a> &mdash; understand the conditions each chart type is designed to display</li>
+                <li><a href="/lesson/support-and-resistance/">Support and Resistance</a> &mdash; apply the chart reading skills from this lesson</li>
+                <li><a href="/lesson/technical-indicators/">Technical Indicators</a> &mdash; combine chart types with indicators for a complete analysis framework</li>
+            </ul>
+        </section>
+
+    </article>
+
+    <!-- Author Box -->
+    <div class="author-box">
+        <strong>Author:</strong> FTMO Academy Content Team &nbsp;&bull;&nbsp;
+        <strong>Last Updated:</strong> March 5, 2026
+    </div>
+
+    <!-- Disclaimers -->
+    <div class="disclaimer disclaimer--educational">
+        <strong>Educational Content Notice:</strong> This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.
+    </div>
+
+    <div class="disclaimer disclaimer--risk">
+        <strong>Risk Warning:</strong> Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.
+    </div>
+
+</main>
+
+<!-- ── Site Footer ─────────────────────────────────────────────────── -->
+<footer class="site-footer">
+    <p>&copy; 2026 FTMO. All rights reserved. &nbsp;&bull;&nbsp;
+    <a href="https://ftmo.com/en/privacy-policy/">Privacy Policy</a> &nbsp;&bull;&nbsp;
+    <a href="https://ftmo.com/en/terms-and-conditions/">Terms &amp; Conditions</a></p>
+</footer>
+
+</body>
+</html>

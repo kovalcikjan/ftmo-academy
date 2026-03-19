@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Log &mdash; Japanese Candlestick Patterns - Edit Log (V3)</title>
+    <style>
+:root {
+    --red-bg: #ffeef0;
+    --red-text: #b91c1c;
+    --red-border: #f87171;
+    --green-bg: #f0fdf4;
+    --green-text: #15803d;
+    --green-border: #4ade80;
+    --gray-bg: #f8f9fa;
+    --border: #e1e5eb;
+    --dark: #111827;
+    --muted: #6b7280;
+    --blue: #0781fe;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--dark);
+    background: #fff;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.doc-header {
+    border-bottom: 3px solid var(--dark);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.doc-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.doc-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.25rem 2rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+.doc-meta span strong { color: var(--dark); }
+
+.legend {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--gray-bg);
+    border-radius: 6px;
+    margin-bottom: 2rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+.legend-item { display: flex; align-items: center; gap: 0.5rem; }
+.legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+.legend-dot-red { background: var(--red-bg); border: 1.5px solid var(--red-border); }
+.legend-dot-green { background: var(--green-bg); border: 1.5px solid var(--green-border); }
+.legend-dot-gray { background: #e5e7eb; border: 1.5px solid #9ca3af; }
+
+.step-section {
+    margin-bottom: 3rem;
+    page-break-inside: avoid;
+}
+.step-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+.step-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+.step-meta {
+    font-size: 0.8125rem;
+    color: var(--muted);
+}
+
+.diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.8125rem;
+}
+.diff-table thead tr {
+    background: var(--gray-bg);
+    border-bottom: 1px solid var(--border);
+}
+.diff-table thead th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.diff-table th:first-child { width: 28px; }
+.diff-table th.col-orig { width: 34%; }
+.diff-table th.col-new { width: 34%; }
+.diff-table th.col-reason { width: auto; }
+
+.diff-row { border-bottom: 1px solid var(--border); }
+.diff-row:last-child { border-bottom: none; }
+.diff-row td {
+    padding: 0.625rem 0.75rem;
+    vertical-align: top;
+}
+.diff-row td:first-child {
+    text-align: center;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.75rem;
+    background: var(--gray-bg);
+    border-right: 1px solid var(--border);
+}
+
+.cell-orig {
+    background: var(--red-bg);
+    border-right: 1px solid var(--border);
+}
+.cell-orig .text {
+    color: var(--red-text);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.8rem;
+}
+.cell-orig .text::before {
+    content: "- ";
+    font-weight: 700;
+    opacity: 0.7;
+}
+
+.cell-new {
+    background: var(--green-bg);
+    border-right: 1px solid var(--border);
+}
+.cell-new .text {
+    color: var(--green-text);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.8rem;
+}
+.cell-new .text::before {
+    content: "+ ";
+    font-weight: 700;
+    opacity: 0.7;
+}
+
+.cell-merged {
+    background: #f3f4f6;
+    border-right: 1px solid var(--border);
+}
+.cell-merged .text {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+.cell-reason {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+.cell-reason .tag {
+    display: inline-block;
+    background: #e0e7ff;
+    color: #3730a3;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    margin-right: 0.25rem;
+}
+.cell-reason .tag-tov { background: #e0e7ff; color: #3730a3; }
+.cell-reason .tag-kw { background: #dcfce7; color: #166534; }
+.cell-reason .tag-skip { background: #fef9c3; color: #854d0e; }
+.cell-reason .tag-struct { background: #fce7f3; color: #9d174d; }
+
+.kw-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.8125rem;
+}
+.kw-table thead tr { background: var(--gray-bg); }
+.kw-table thead th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+}
+.kw-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+.kw-table tr:last-child td { border-bottom: none; }
+.kw-table .orig {
+    color: var(--red-text);
+    background: var(--red-bg);
+    font-family: monospace;
+    font-size: 0.775rem;
+}
+.kw-table .orig::before { content: "- "; font-weight: 700; opacity: 0.7; }
+.kw-table .newv {
+    color: var(--green-text);
+    background: var(--green-bg);
+    font-family: monospace;
+    font-size: 0.775rem;
+}
+.kw-table .newv::before { content: "+ "; font-weight: 700; opacity: 0.7; }
+.kw-table .skip-row td { opacity: 0.55; }
+
+.badge {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+.badge-done { background: #dcfce7; color: #166534; }
+.badge-skip { background: #fef9c3; color: #854d0e; }
+.badge-pending { background: #fed7aa; color: #9a3412; }
+.badge-new { background: #dbeafe; color: #1e40af; }
+.badge-rejected { background: #fee2e2; color: #991b1b; }
+.vol { color: var(--muted); font-size: 0.75rem; }
+
+.struct-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    font-size: 0.8125rem;
+}
+.struct-table thead tr { background: var(--gray-bg); }
+.struct-table thead th {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+}
+.struct-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+.struct-table tr:last-child td { border-bottom: none; }
+.struct-table .added { color: var(--green-text); font-weight: 600; }
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.875rem;
+}
+.summary-table thead tr { background: var(--dark); }
+.summary-table thead th {
+    padding: 0.625rem 1rem;
+    text-align: left;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.summary-table td {
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.summary-table tr:last-child td { border-bottom: none; }
+.status-done { color: var(--green-text); font-weight: 600; }
+.status-pending { color: #b45309; font-weight: 600; }
+
+@media print {
+    body { padding: 1cm; font-size: 11px; }
+    .step-section { page-break-inside: avoid; }
+    .diff-table { page-break-inside: auto; }
+    .diff-row { page-break-inside: avoid; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="doc-header">
+    <h1>Edit Log &mdash; Japanese Candlestick Patterns - Edit Log (V3)</h1>
+    <div class="doc-meta">
+        <span><strong>Article:</strong> lesson_japanese-candlesticks_EN_V3.md</span>
+        <span><strong>Source:</strong> https://academy.ftmo.com/lesson/japanese-candlesticks/</span>
+        <span><strong>Date:</strong> 2026-03-05</span>
+    </div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+    <div class="legend-item">
+        <div class="legend-dot legend-dot-red"></div>
+        <span>Original sentence (removed / changed)</span>
+    </div>
+    <div class="legend-item">
+        <div class="legend-dot legend-dot-green"></div>
+        <span>New sentence (replacement)</span>
+    </div>
+    <div class="legend-item">
+        <div class="legend-dot legend-dot-gray"></div>
+        <span>Merged into another row / skipped</span>
+    </div>
+</div>
+
+
+<!-- ===================== STEP 1 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 1 — Keyword Integration</span>
+        <span class="step-meta">Keywords file: `japanese-candlesticks_keywords.xlsx` &nbsp;&middot;&nbsp; 7 integrated &nbsp;&middot;&nbsp; 3 skipped</span>
+    </div>
+    <table class="kw-table">
+        <thead>
+            <tr>
+                <th style="width:24px">#</th>
+                <th style="width:37%">Original sentence</th>
+                <th style="width:37%">New sentence</th>
+                <th style="width:12%">Keyword</th>
+                <th style="width:6%">Vol.</th>
+                <th style="width:5%">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td style="color:var(--muted);text-align:center">1</td><td><span class="orig">There are hundreds of different candlestick patterns — you do not need to know all of them.</span></td><td><span class="newv">There are hundreds of different candlestick chart patterns — you do not need to know all of them.</span></td><td style="font-size:0.75rem">candlestick chart</td><td class="vol">3500</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">2</td><td><span class="orig">This lesson covers the most common types of candlesticks you should know.</span></td><td><span class="newv">This lesson covers the most common types of candlesticks used in candlestick trading.</span></td><td style="font-size:0.75rem">candlestick trading</td><td class="vol">800</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">3</td><td><span class="orig">Japanese candlesticks are among the most widely used tools in technical analysis.</span></td><td><span class="newv">Japanese candlestick patterns are among the most widely used tools in technical analysis.</span></td><td style="font-size:0.75rem">japanese candlestick patterns</td><td class="vol">300</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">4</td><td><span class="orig">The key advantages of candlestick patterns are simplicity and informational value.</span></td><td><span class="newv">The key advantages of candlestick analysis are simplicity and informational value.</span></td><td style="font-size:0.75rem">candlestick analysis</td><td class="vol">100</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">5</td><td><span class="orig">&quot;traders learn how to read candlesticks&quot; already present in V2</span></td><td style="color:var(--muted);font-style:italic;font-size:0.775rem;padding:0.5rem 0.75rem">unchanged</td><td style="font-size:0.75rem">how to read candlesticks</td><td class="vol">1500</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">6</td><td><span class="orig">(no intro sentence before Two-candle H3s)</span></td><td><span class="newv">Added: &quot;Engulfing candlestick patterns are the most common two-candle reversal signals in price action trading.&quot;</span></td><td style="font-size:0.75rem">engulfing candlestick patterns</td><td class="vol">50</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr><td style="color:var(--muted);text-align:center">7</td><td><span class="orig">Indecision patterns (doji, spinning top) carry the most weight at key support and resistance levels.</span></td><td><span class="newv">Reversal candlestick patterns — especially doji and spinning top — carry the most weight at key support and resistance levels.</span></td><td style="font-size:0.75rem">reversal candlestick patterns</td><td class="vol">900</td><td><span class="badge badge-done">DONE</span></td></tr>
+<tr class="skip-row"><td style="color:var(--muted);text-align:center">8</td><td colspan="3" style="color:var(--muted);font-style:italic;font-size:0.775rem">hammer candlestick</td><td class="vol">5800</td><td><span class="badge badge-skip">SKIP</span></td></tr>
+<tr class="skip-row"><td style="color:var(--muted);text-align:center">9</td><td colspan="3" style="color:var(--muted);font-style:italic;font-size:0.775rem">bullish hammer</td><td class="vol">600</td><td><span class="badge badge-skip">SKIP</span></td></tr>
+<tr class="skip-row"><td style="color:var(--muted);text-align:center">10</td><td colspan="3" style="color:var(--muted);font-style:italic;font-size:0.775rem">falling three methods</td><td class="vol">150</td><td><span class="badge badge-skip">SKIP</span></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===================== STEP 2 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 2 — Tone of Voice Rewrite</span>
+        <span class="step-meta">Topic classification: BEGINNER &nbsp;&middot;&nbsp; 9 changes</span>
+    </div>
+    <table class="diff-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="col-orig">Original sentence (full)</th>
+                <th class="col-new">New sentence (full)</th>
+                <th class="col-reason">Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr class="diff-row"><td>1</td><td class="cell-orig"><span class="text">After a brief familiarization, traders learn how to read candlesticks and quickly determine what is happening in the market — whether buyers or sellers are in control, and whether a trend is likely to continue or reverse.</span></td><td class="cell-new"><span class="text">Traders learn how to read candlesticks quickly — identifying whether buyers or sellers are in control, and whether a trend is likely to continue or reverse.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;After a brief familiarization&quot; = academic preamble; &quot;determine what is happening in the market&quot; → specifics already follow in the dash clause</td></tr>
+<tr class="diff-row"><td>2</td><td class="cell-orig"><span class="text">A typical example can be seen in the candlestick chart below.</span></td><td class="cell-new"><span class="text">The patterns covered in this lesson illustrate this directly.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> passive &quot;can be seen&quot;; dangling &quot;below&quot; (no image in this section)</td></tr>
+<tr class="diff-row"><td>3</td><td class="cell-orig"><span class="text">The long day bullish candlestick consists of one candle with a long body and short wicks.</span></td><td class="cell-new"><span class="text">The long day bullish candlestick has a long body with short wicks.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;consists of one candle with&quot; redundant in single-candle section; tighter active construction</td></tr>
+<tr class="diff-row"><td>4</td><td class="cell-orig"><span class="text">It signals strength and is often seen as a breakout candle at the beginning of a trend.</span></td><td class="cell-new"><span class="text">It signals market strength — often appearing as a breakout candle at the start of a new trend.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;is often seen as&quot; passive → active participial; &quot;at the beginning of&quot; → &quot;at the start of&quot; (concise)</td></tr>
+<tr class="diff-row"><td>5</td><td class="cell-orig"><span class="text">There are two situations where you can make a trading decision with a bullish marubozu candlestick:</span></td><td class="cell-new"><span class="text">A bullish marubozu provides two clear trading signals:</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> existential &quot;There are... situations where you can&quot; → direct active construction</td></tr>
+<tr class="diff-row"><td>6</td><td class="cell-orig"><span class="text">The short day candlestick indicates that price stayed within a range during the trading period, suggesting an expansion may follow.</span></td><td class="cell-new"><span class="text">The short day candlestick indicates that price stayed within a range, with expansion likely to follow.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;during the trading period&quot; redundant (candle = trading period); &quot;suggesting... may&quot; → &quot;likely to&quot; (confidence level 4)</td></tr>
+<tr class="diff-row"><td>7</td><td class="cell-orig"><span class="text">Compared to a regular doji, it is more dramatic — with long upper and lower wicks extending significantly in both directions.</span></td><td class="cell-new"><span class="text">Compared to a regular doji, it is more pronounced — with upper and lower wicks extending well beyond the body in both directions.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;dramatic&quot; subjective/casual → &quot;pronounced&quot; precise; &quot;significantly&quot; vague → &quot;well beyond the body&quot; specific</td></tr>
+<tr class="diff-row"><td>8</td><td class="cell-orig"><span class="text">Like the spinning top, it signals indecision and a possible reversal.</span></td><td class="cell-new"><span class="text">Like the spinning top, it signals indecision and a potential reversal.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;possible&quot; = weak hedging → &quot;potential&quot; standard professional framing</td></tr>
+<tr class="diff-row"><td>9</td><td class="cell-orig"><span class="text">The **bullish engulfing** is the first two-candle pattern in this lesson. It forms with a small bearish candle on the left and a larger bullish candle on the right.</span></td><td class="cell-new"><span class="text">The **bullish engulfing** forms with a small bearish candle on the left and a larger bullish candle on the right.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;is the first two-candle pattern in this lesson&quot; = lesson-meta reference, redundant after Step 1 intro sentence; two sentences merged</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===================== STEP 3 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 3 — Structure &amp; Formatting</span>
+        <span class="step-meta"></span>
+    </div>
+    <table class="struct-table">
+        <thead>
+            <tr>
+                <th style="width:24px">#</th>
+                <th style="width:18%">Change Type</th>
+                <th style="width:42%">Description</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td style="color:var(--muted);text-align:center">1</td><td><span class="added">Prerequisites added</span></td><td>Blockquote after ToC: Introduction to Trading + Trader&#x27;s Dictionary</td><td style="color:var(--muted);font-size:0.75rem">Structure Guide: prerequisites always stated; BEGINNER lesson requires learning path context</td></tr>
+<tr><td style="color:var(--muted);text-align:center">2</td><td><span class="added">Table repositioned</span></td><td>Pattern summary table moved from after Key Takeaways → before Key Takeaways</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> reference summary precedes takeaways (inverted pyramid at section level)</td></tr>
+<tr><td style="color:var(--muted);text-align:center">3</td><td><span class="added">Internal link added</span></td><td>&quot;uptrend&quot; → /lesson/market-environment-range-vs-trend/ in Bullish marubozu section</td><td style="color:var(--muted);font-size:0.75rem">Structure Guide: min. 3–5 internal links; brings total to 4 unique links</td></tr>
+<tr><td style="color:var(--muted);text-align:center">4</td><td><span class="added">Author box updated</span></td><td>&quot;Published: 2023-03-01&quot; added alongside Last Updated</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-tov">E-E-A-T</span> Trustworthiness — content freshness signals require both publish and update dates</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===================== STEP 4 ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Step 4 — HTML Conversion</span>
+    </div>
+    <table class="struct-table">
+        <thead>
+            <tr>
+                <th style="width:24px">#</th>
+                <th style="width:22%">Element</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td style="color:var(--muted);text-align:center">1</td><td style="font-weight:500">Template</td><td style="color:var(--muted);font-size:0.75rem">v2_balanced applied</td></tr>
+<tr><td style="color:var(--muted);text-align:center">2</td><td style="font-weight:500">ToC</td><td style="color:var(--muted);font-size:0.75rem">Styled block: #f5f5f7 bg, #123a83 text, nested H2-level</td></tr>
+<tr><td style="color:var(--muted);text-align:center">3</td><td style="font-weight:500">Prerequisites</td><td style="color:var(--muted);font-size:0.75rem">Removed (CMS handles — markdown only)</td></tr>
+<tr><td style="color:var(--muted);text-align:center">4</td><td style="font-weight:500">Callouts</td><td style="color:var(--muted);font-size:0.75rem">Warning (#fff8e1 + orange border), Tip (#e8f4fd + blue border), Keep in Mind (#f0f4e8 + olive border)</td></tr>
+<tr><td style="color:var(--muted);text-align:center">5</td><td style="font-weight:500">Table</td><td style="color:var(--muted);font-size:0.75rem">#123a83 header, striped rows</td></tr>
+<tr><td style="color:var(--muted);text-align:center">6</td><td style="font-weight:500">Images</td><td style="color:var(--muted);font-size:0.75rem">All 18 images at original positions with descriptive alt text</td></tr>
+<tr><td style="color:var(--muted);text-align:center">7</td><td style="font-weight:500">Author box</td><td style="color:var(--muted);font-size:0.75rem">Published + Last Updated dates</td></tr>
+<tr><td style="color:var(--muted);text-align:center">8</td><td style="font-weight:500">Disclaimers</td><td style="color:var(--muted);font-size:0.75rem">Educational Notice (gray bg) + Risk Warning (yellow bg, orange border)</td></tr>
+<tr><td style="color:var(--muted);text-align:center">9</td><td style="font-weight:500">Typo fix</td><td style="color:var(--muted);font-size:0.75rem">Bearish engulfing: &quot;small bullish candle on the right&quot; → &quot;on the left&quot;</td></tr>
+<tr><td style="color:var(--muted);text-align:center">10</td><td style="font-weight:500">Branding</td><td style="color:var(--muted);font-size:0.75rem">Poppins font, #0781fe / #123a83 / #c6c6c6, max-width 1160px, responsive</td></tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- ===================== SUMMARY ===================== -->
+<div class="step-section">
+    <div class="step-header">
+        <span class="step-title">Summary</span>
+    </div>
+    <table class="summary-table">
+        <thead>
+            <tr>
+                <th>Step</th>
+                <th>Status</th>
+                <th>Changes</th>
+            </tr>
+        </thead>
+        <tbody>
+<tr><td><strong>Step 1: Keywords</strong></td><td><span class="status-done">DONE</span></td><td>7 applied, 3 skipped (hammer/bullish hammer/falling three methods — not in original article)</td></tr>
+<tr><td><strong>Step 2: ToV Rewrite</strong></td><td><span class="status-done">DONE</span></td><td>9 sentence changes; classification: BEGINNER</td></tr>
+<tr><td><strong>Step 3: Structure</strong></td><td><span class="status-done">DONE</span></td><td>4 structural changes; paragraph audit: all clear</td></tr>
+<tr><td><strong>Step 4: HTML</strong></td><td><span class="status-done">DONE</span></td><td>v2_balanced template; 18 images; 4 internal links</td></tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+"""FTMO Academy content tools."""

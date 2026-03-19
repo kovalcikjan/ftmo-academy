@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US">
+
+<head>
+    <title>Types of Trading Charts: Candlestick, Renko & Heikin Ashi | FTMO Academy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about different types of trading charts including candlestick, Renko, Heikin Ashi, tick, range, and Point & Figure charts. Understand when to use each chart type for optimal trading analysis.">
+    <meta property="og:title" content="Types of Trading Charts: Candlestick, Renko & Heikin Ashi Explained">
+    <meta property="og:description" content="Complete guide to trading chart types. Learn candlestick, Renko, Heikin Ashi, tick, range, and Point & Figure charts with practical examples.">
+    <link rel="canonical" href="https://academy.ftmo.com/lesson/types-of-trading-charts/">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FTMO Academy Light Theme Styles -->
+    <style>
+        :root {
+            --ftmo-primary: #00A86B;
+            --ftmo-primary-dark: #008F5B;
+            --ftmo-bg: #ffffff;
+            --ftmo-bg-secondary: #F8F9FA;
+            --ftmo-text: #1a1a1a;
+            --ftmo-text-secondary: #5a5a5a;
+            --ftmo-text-muted: #8a8a8a;
+            --ftmo-border: #E5E7EB;
+            --ftmo-border-light: #F0F0F0;
+            --ftmo-warning-bg: #FFF8E6;
+            --ftmo-warning-border: #F5A623;
+            --ftmo-danger-bg: #FEF2F2;
+            --ftmo-danger-border: #EF4444;
+            --ftmo-info-bg: #EFF6FF;
+            --ftmo-info-border: #3B82F6;
+            --ftmo-success-bg: #ECFDF5;
+            --ftmo-success-border: #10B981;
+            --ftmo-keep-bg: #F0FDF4;
+            --ftmo-keep-border: #6B8E23;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--ftmo-bg);
+            color: var(--ftmo-text);
+            line-height: 1.75;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Lesson Layout */
+        .lesson { padding: 48px 0 80px; }
+
+        .lesson__category { margin-bottom: 16px; }
+        .lesson__category a {
+            color: var(--ftmo-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .lesson__category a:hover { text-decoration: underline; }
+
+        .lesson__title {
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.15;
+            color: var(--ftmo-text);
+            letter-spacing: -0.02em;
+        }
+
+        .lesson__meta {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--ftmo-text-muted);
+        }
+
+        .lesson__content {
+            margin-top: 32px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--ftmo-border);
+            margin: 28px 0;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin: 56px 0 24px;
+            color: var(--ftmo-text);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin: 36px 0 16px;
+            color: var(--ftmo-text);
+        }
+
+        p {
+            margin-bottom: 18px;
+            color: var(--ftmo-text-secondary);
+        }
+
+        strong {
+            color: var(--ftmo-text);
+            font-weight: 600;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 18px 0 24px 24px;
+            color: var(--ftmo-text-secondary);
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+
+        /* Links */
+        a {
+            color: var(--ftmo-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: var(--ftmo-primary-dark);
+        }
+
+        /* Images */
+        .lesson__image {
+            margin: 32px 0;
+            text-align: center;
+        }
+
+        .lesson__image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .lesson__image figcaption {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--ftmo-text-muted);
+            font-style: italic;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 28px 0;
+            font-size: 15px;
+            background: var(--ftmo-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--ftmo-border);
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--ftmo-bg-secondary);
+            font-weight: 600;
+            color: var(--ftmo-text);
+            border-bottom: 2px solid var(--ftmo-border);
+        }
+
+        td {
+            color: var(--ftmo-text-secondary);
+            border-bottom: 1px solid var(--ftmo-border-light);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: var(--ftmo-bg-secondary);
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 28px 0;
+            border-left: 4px solid;
+        }
+
+        .callout-warning {
+            background: var(--ftmo-warning-bg);
+            border-color: var(--ftmo-warning-border);
+        }
+
+        .callout-tip {
+            background: var(--ftmo-success-bg);
+            border-color: var(--ftmo-success-border);
+        }
+
+        .callout-note {
+            background: var(--ftmo-info-bg);
+            border-color: var(--ftmo-info-border);
+        }
+
+        .callout-important {
+            background: var(--ftmo-danger-bg);
+            border-color: var(--ftmo-danger-border);
+        }
+
+        .callout-keep-in-mind {
+            background: var(--ftmo-keep-bg);
+            border-color: var(--ftmo-keep-border);
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--ftmo-text);
+            font-size: 15px;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            font-size: 15px;
+        }
+
+        .callout ul {
+            margin: 12px 0 0 20px;
+            font-size: 15px;
+        }
+
+        .callout li {
+            margin-bottom: 6px;
+        }
+
+        /* Code/Formula blocks */
+        .formula {
+            background: var(--ftmo-bg-secondary);
+            padding: 20px 24px;
+            border-radius: 12px;
+            font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 24px 0;
+            border: 1px solid var(--ftmo-border);
+            line-height: 1.8;
+            color: var(--ftmo-text);
+        }
+
+        /* Table of Contents */
+        .ez-toc-container {
+            background: var(--ftmo-bg-secondary);
+            border: 1px solid var(--ftmo-border);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 32px 0;
+        }
+
+        .ez-toc-title {
+            font-weight: 600;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            color: var(--ftmo-text);
+        }
+
+        .ez-toc-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            columns: 2;
+            column-gap: 24px;
+        }
+
+        @media (max-width: 600px) {
+            .ez-toc-list { columns: 1; }
+        }
+
+        .ez-toc-list li {
+            margin: 10px 0;
+            break-inside: avoid;
+        }
+
+        .ez-toc-list a {
+            color: var(--ftmo-text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .ez-toc-list a:hover {
+            color: var(--ftmo-primary);
+        }
+
+        /* Prerequisites */
+        .prerequisites {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .prerequisites-label {
+            color: var(--ftmo-text-muted);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .prerequisites a {
+            background: var(--ftmo-bg-secondary);
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 13px;
+            color: var(--ftmo-text-secondary);
+            border: 1px solid var(--ftmo-border);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .prerequisites a:hover {
+            background: var(--ftmo-primary);
+            color: white;
+            border-color: var(--ftmo-primary);
+            text-decoration: none;
+        }
+
+        /* Next Steps */
+        .next-steps {
+            background: linear-gradient(135deg, var(--ftmo-bg-secondary) 0%, #f0f7f4 100%);
+            border: 1px solid var(--ftmo-border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 56px;
+        }
+
+        .next-steps h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--ftmo-text);
+        }
+
+        .next-steps > p {
+            margin-bottom: 20px;
+            color: var(--ftmo-text-muted);
+        }
+
+        .next-steps ul {
+            margin: 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-steps li {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--ftmo-border);
+            margin: 0;
+        }
+
+        .next-steps li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .next-steps li a {
+            font-weight: 600;
+        }
+
+        .next-steps li span {
+            color: var(--ftmo-text-muted);
+            font-size: 15px;
+        }
+
+        /* Footer note */
+        .lesson-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--ftmo-border);
+            font-size: 14px;
+            color: var(--ftmo-text-muted);
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lesson__title {
+                font-size: 2rem;
+            }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.2rem; }
+            body { font-size: 16px; }
+            .container { padding: 0 16px; }
+        }
+    </style>
+</head>
+
+<body>
+<main class="lesson">
+    <div class="container">
+
+        <!-- Category -->
+        <div class="lesson__category">
+            <a href="https://academy.ftmo.com/category/trading-analysis/technical-analysis/">Technical Analysis</a>
+        </div>
+
+        <!-- Title -->
+        <h1 class="lesson__title">Types of Trading Charts: Candlestick, Renko & Heikin Ashi Explained</h1>
+
+        <!-- Meta -->
+        <div class="lesson__meta">
+            <span>Last Updated: February 2026</span>
+            <span>Reading time: 8 min</span>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="prerequisites">
+            <span class="prerequisites-label">Prerequisites:</span>
+            <a href="/lesson/japanese-candlesticks/">Japanese Candlesticks</a>
+            <a href="/lesson/technical-fundamental-sentiment-and-statistical-analysis-which-one-is-best/">Introduction to Technical Analysis</a>
+        </div>
+
+        <hr>
+
+        <!-- Content -->
+        <div class="lesson__content">
+
+            <!-- Intro -->
+            <p>The method you use to display price data on your charts directly affects how you interpret market movements. While <strong>candlestick charts</strong> remain the most widely used tool among traders globally, alternatives such as <strong>Renko</strong>, <strong>Heikin Ashi</strong>, and <strong>Point and Figure charts</strong> offer distinct advantages for specific trading approaches.</p>
+
+            <p>This lesson covers the most common chart types, explains when to use each one, and helps you determine which visualization best fits your trading style.</p>
+
+            <!-- Table of Contents -->
+            <div class="ez-toc-container">
+                <p class="ez-toc-title">Table of Contents</p>
+                <nav>
+                    <ul class="ez-toc-list">
+                        <li><a href="#time-vs-price">Time-Based vs Price-Based Charts</a></li>
+                        <li><a href="#candlestick">Candlestick Charts</a></li>
+                        <li><a href="#bar-charts">Bar Charts (OHLC)</a></li>
+                        <li><a href="#heikin-ashi">Heikin Ashi Charts</a></li>
+                        <li><a href="#renko">Renko Charts</a></li>
+                        <li><a href="#tick-range">Tick and Range Charts</a></li>
+                        <li><a href="#point-figure">Point and Figure Charts</a></li>
+                        <li><a href="#choosing">Choosing the Right Chart Type</a></li>
+                        <li><a href="#takeaways">Key Takeaways</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Section: Time vs Price -->
+            <h2 id="time-vs-price">Time-Based vs Price-Based Charts</h2>
+
+            <p>Before examining individual chart types, understanding this fundamental distinction will help you choose the right tool:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>How It Works</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Time-Based</strong></td>
+                        <td>New bar forms after fixed time interval (1M, 5M, 1H, Daily)</td>
+                        <td>General analysis, pattern recognition</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price-Based</strong></td>
+                        <td>New bar forms after price moves specific amount</td>
+                        <td>Trend following, noise reduction</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Time-based charts</strong> (candlestick, bar, line) create new bars at regular intervals regardless of price movement. <strong>Price-based charts</strong> (Renko, Point & Figure, tick, range) ignore time entirely—new elements appear only when price moves a specified amount.</p>
+
+            <div class="callout callout-tip">
+                <strong>Tip</strong>
+                <p>Many traders use both approaches: time-based charts for overall market context, price-based charts for cleaner trend identification.</p>
+            </div>
+
+            <!-- Section: Candlestick -->
+            <h2 id="candlestick">Candlestick Charts</h2>
+
+            <p>Japanese candlesticks represent the most popular method of charting and viewing technical analysis. Each candlestick displays four data points: open, close, high, and low prices.</p>
+
+            <h3>How Candlesticks Work</h3>
+
+            <ul>
+                <li><strong>Bullish candlestick:</strong> Close price is higher than open price</li>
+                <li><strong>Bearish candlestick:</strong> Close price is lower than open price</li>
+                <li><strong>Body:</strong> The filled area between open and close</li>
+                <li><strong>Wicks (shadows):</strong> Lines extending above and below the body, showing the high and low</li>
+            </ul>
+
+            <figure class="lesson__image">
+                <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/c-25.jpg" alt="Candlestick anatomy showing bullish and bearish candles with body and wicks" width="366" height="366">
+                <figcaption>Anatomy of a candlestick: body represents open-close range, wicks show high and low</figcaption>
+            </figure>
+
+            <h3>Candlestick Timeframes</h3>
+
+            <p>Candlestick charts operate on two primary bases:</p>
+
+            <p><strong>Time-based options:</strong></p>
+            <ul>
+                <li>Minutes: 1M, 5M, 15M, 30M</li>
+                <li>Hours: 1H, 4H</li>
+                <li>Days, weeks, months</li>
+            </ul>
+
+            <p>Many traders prefer these standard timeframes because their widespread adoption creates meaningful, recognizable patterns.</p>
+
+            <figure class="lesson__image">
+                <img src="https://academy.ftmo.com/wp-content/uploads/2021/03/timeframevsrange.png" alt="Comparison of time-based chart vs range-based chart in cTrader" width="906" height="475">
+                <figcaption>Time-based chart (left) vs Range chart (right) - notice the cleaner trends on the range chart</figcaption>
+            </figure>
+
+            <p><strong>Non-time-based options:</strong></p>
+            <ul>
+                <li><strong>Tick charts:</strong> One tick represents one transaction (the minimum price increment). For EURUSD quoted in five decimal places, one tick equals 0.00001 or 1 pipette.</li>
+                <li><strong>Range charts:</strong> Each bar completes once the high-low range reaches a specified value, ensuring consistent bar ranges.</li>
+            </ul>
+
+            <p>Both non-time-based approaches eliminate noise from sideways markets, revealing cleaner trends. This can be clearly seen when comparing a DAX four-hour chart with a 100-range chart—both uptrend and downtrend appear much cleaner on the range chart.</p>
+
+            <div class="callout callout-note">
+                <strong>Note</strong>
+                <p>Regular time-based candlestick charts remain the most popular choice globally because of their versatility and widespread adoption.</p>
+            </div>
+
+            <!-- Section: Bar Charts -->
+            <h2 id="bar-charts">Bar Charts (OHLC)</h2>
+
+            <p>Bar charts, also called <strong>OHLC charts</strong> (Open-High-Low-Close), use vertical lines with small notches indicating the open and close prices.</p>
+
+            <h3>Structure</h3>
+            <ul>
+                <li>Vertical line spans from high to low</li>
+                <li>Left notch marks the open price</li>
+                <li>Right notch marks the close price</li>
+            </ul>
+
+            <figure class="lesson__image">
+                <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115043.png" alt="Bar chart (OHLC) display showing vertical bars with open and close notches" width="1771" height="761">
+                <figcaption>Bar chart visualization - vertical lines with notches for open (left) and close (right)</figcaption>
+            </figure>
+
+            <h3>When to Use Bar Charts</h3>
+
+            <p>Bar charts provide the same information as candlesticks but with a different visual presentation. Some traders find they present a cleaner picture when marking out <strong>support and resistance</strong> levels, particularly on higher timeframes where candlestick patterns become less relevant.</p>
+
+            <p>The choice between bar charts and candlesticks often comes down to personal preference—both convey identical price information.</p>
+
+            <!-- Section: Heikin Ashi -->
+            <h2 id="heikin-ashi">Heikin Ashi Charts</h2>
+
+            <p><strong>Heikin Ashi</strong>—Japanese for "average bar"—is a candlestick modification that smooths price data to clarify trend direction.</p>
+
+            <h3>Heikin Ashi Candle Formula</h3>
+
+            <p>Unlike regular candlesticks that use actual OHLC prices, Heikin Ashi candles use averaged values:</p>
+
+            <div class="formula">
+Open  = (Previous HA Open + Previous HA Close) / 2
+Close = (Current Open + High + Low + Close) / 4
+High  = Maximum of (Current High, HA Open, HA Close)
+Low   = Minimum of (Current Low, HA Open, HA Close)
+            </div>
+
+            <h3>How to Read Heikin Ashi Candles</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candle Appearance</th>
+                        <th>What It Indicates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Green candles with no lower wick</td>
+                        <td>Strong uptrend</td>
+                    </tr>
+                    <tr>
+                        <td>Red candles with no upper wick</td>
+                        <td>Strong downtrend</td>
+                    </tr>
+                    <tr>
+                        <td>Small body with long wicks</td>
+                        <td>Potential reversal or consolidation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <figure class="lesson__image">
+                <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115656.png" alt="Heikin Ashi chart showing smoothed price action and clear trend direction" width="1607" height="867">
+                <figcaption>Heikin Ashi chart - notice how the smoothing effect makes trends easier to identify</figcaption>
+            </figure>
+
+            <h3>Heikin Ashi vs Regular Candlesticks</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Regular Candlesticks</th>
+                        <th>Heikin Ashi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Price accuracy</td>
+                        <td>Exact OHLC</td>
+                        <td>Averaged values</td>
+                    </tr>
+                    <tr>
+                        <td>Trend clarity</td>
+                        <td>Can be noisy</td>
+                        <td>Smoother, cleaner</td>
+                    </tr>
+                    <tr>
+                        <td>Entry/exit precision</td>
+                        <td>High</td>
+                        <td>Lower (lagging)</td>
+                    </tr>
+                    <tr>
+                        <td>Best for</td>
+                        <td>Pattern recognition</td>
+                        <td>Trend following</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Basic Heikin Ashi Strategy</h3>
+
+            <p>Heikin Ashi filters out minor price movements and makes trend-following approaches more straightforward. A simple application:</p>
+
+            <ol>
+                <li>Enter when candles change from red to green (potential uptrend)</li>
+                <li>Hold while green candles continue</li>
+                <li>Exit when candles change back to red</li>
+            </ol>
+
+            <div class="callout callout-important">
+                <strong>Important</strong>
+                <p>Because Heikin Ashi uses averaged data, it can obscure important price information. Consider using it alongside regular candlestick charts for entry and exit precision.</p>
+            </div>
+
+            <!-- Section: Renko -->
+            <h2 id="renko">Renko Charts</h2>
+
+            <p><strong>Renko</strong>—from the Japanese word "renga" meaning brick—eliminates time from the equation entirely. These charts consist of bricks that only form when price moves a specified amount.</p>
+
+            <h3>How Renko Charts Work</h3>
+
+            <p>The Renko chart prints a new brick when the market moves more than the brick size away from the previous brick. For example, if one brick signifies a movement of 5 pips, no more bricks will be drawn until the market moves those 5 pips in one direction from the previous brick's closing value.</p>
+
+            <figure class="lesson__image">
+                <img src="https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115503.png" alt="Renko chart showing brick-based price visualization" width="1608" height="905">
+                <figcaption>Renko chart - bricks form only when price moves the specified amount, filtering market noise</figcaption>
+            </figure>
+
+            <h3>Brick Size Methods</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fixed</strong></td>
+                        <td>Set specific pip/point value</td>
+                        <td>Consistent visual, predictable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ATR-based</strong></td>
+                        <td>Uses Average True Range indicator</td>
+                        <td>Adapts to volatility changes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Advantages and Limitations</h3>
+
+            <p><strong>Advantages:</strong></p>
+            <ul>
+                <li>Excellent noise reduction</li>
+                <li>Clear support and resistance identification</li>
+                <li>Clean trend visualization</li>
+            </ul>
+
+            <p><strong>Limitations:</strong></p>
+            <ul>
+                <li>Unpredictable timing of new bricks</li>
+                <li>No volume or time information</li>
+                <li>Can miss entries due to delayed signals</li>
+            </ul>
+
+            <div class="callout callout-tip">
+                <strong>Tip</strong>
+                <p>Renko charts work best when combined with other analysis methods rather than used in isolation.</p>
+            </div>
+
+            <!-- Section: Tick and Range -->
+            <h2 id="tick-range">Tick and Range Charts</h2>
+
+            <h3>Tick Charts</h3>
+
+            <p>A <strong>tick chart</strong> creates a new bar after a specified number of transactions, regardless of time or price movement.</p>
+
+            <ul>
+                <li>Each tick represents one transaction (one minimal price increment)</li>
+                <li>For EURUSD quoted to five decimal places: 1 tick = 0.00001 (1 pipette)</li>
+                <li>Useful for analyzing market activity intensity</li>
+            </ul>
+
+            <h3>Range Charts</h3>
+
+            <p>A <strong>range chart</strong> creates a new bar when price moves a specified distance (the "range").</p>
+
+            <ul>
+                <li>Every bar has exactly the same high-low range</li>
+                <li>Eliminates time-based noise during low-activity periods</li>
+                <li>Popular for intraday trading</li>
+            </ul>
+
+            <p><strong>Practical comparison:</strong> When comparing a DAX four-hour chart with a 100-range chart, both uptrend and downtrend appear much cleaner on the range chart due to noise elimination.</p>
+
+            <!-- Section: Point and Figure -->
+            <h2 id="point-figure">Point and Figure Charts</h2>
+
+            <p><strong>Point and Figure (P&F) charts</strong> are among the oldest charting methods, using X's and O's instead of bars or candles.</p>
+
+            <h3>How P&F Charts Work</h3>
+
+            <ul>
+                <li><strong>X columns:</strong> Rising prices</li>
+                <li><strong>O columns:</strong> Falling prices</li>
+                <li>New column forms only when price reverses by a specified amount</li>
+            </ul>
+
+            <h3>Key Characteristics</h3>
+
+            <ul>
+                <li>Completely ignores time</li>
+                <li>Focuses purely on significant price movements</li>
+                <li>Excellent for identifying support, resistance, and breakout levels</li>
+                <li>Popular for long-term analysis</li>
+            </ul>
+
+            <div class="callout callout-note">
+                <strong>Note</strong>
+                <p>Point and Figure charts have a steeper learning curve but offer valuable perspective for traders focused on major price levels.</p>
+            </div>
+
+            <!-- Section: Choosing -->
+            <h2 id="choosing">Choosing the Right Chart Type</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Your Trading Goal</th>
+                        <th>Recommended Chart</th>
+                        <th>Why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>General analysis</td>
+                        <td>Candlestick</td>
+                        <td>Versatile, pattern-rich</td>
+                    </tr>
+                    <tr>
+                        <td>Trend following</td>
+                        <td>Heikin Ashi, Renko</td>
+                        <td>Noise reduction</td>
+                    </tr>
+                    <tr>
+                        <td>Precise entries/exits</td>
+                        <td>Candlestick</td>
+                        <td>Exact price data</td>
+                    </tr>
+                    <tr>
+                        <td>Support/resistance focus</td>
+                        <td>Renko, P&F, Bar</td>
+                        <td>Cleaner levels</td>
+                    </tr>
+                    <tr>
+                        <td>Scalping/active trading</td>
+                        <td>Tick, Range</td>
+                        <td>Time-independent</td>
+                    </tr>
+                    <tr>
+                        <td>Long-term positioning</td>
+                        <td>Candlestick, P&F</td>
+                        <td>Broader perspective</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-keep-in-mind">
+                <strong>Keep in Mind</strong>
+                <p>Some of our human tendencies can be dangerous for investors:</p>
+                <ul>
+                    <li>See patterns where there aren't any</li>
+                    <li>Believe "market lore," technical and fundamental, without evidence</li>
+                    <li>Look backwards rather than forward</li>
+                    <li>Stick with original price targets of patterns after conditions have changed</li>
+                </ul>
+            </div>
+
+            <p>The most effective approach is to experiment with different charts and settings to discover what suits your trading style. While regular time-based candlestick charts will always be the most popular choice, tick charts, range charts, Renko, and Heikin Ashi offer valuable alternatives for specific situations.</p>
+
+            <!-- Risk Warning -->
+            <div class="callout callout-warning">
+                <strong>Risk Warning</strong>
+                <p>Trading involves significant risk of loss. The chart types discussed in this lesson are analytical tools—they do not guarantee profitable trades. Always apply proper risk management.</p>
+            </div>
+
+            <!-- Section: Takeaways -->
+            <h2 id="takeaways">Key Takeaways</h2>
+
+            <ul>
+                <li><strong>Candlestick charts</strong> remain the most widely used due to their versatility and pattern recognition capability</li>
+                <li><strong>Heikin Ashi</strong> smooths price action using averaged calculations—ideal for trend following, but lacks precision for exact entries</li>
+                <li><strong>Renko charts</strong> ignore time and only print new bricks when price moves significantly—excellent for noise reduction</li>
+                <li><strong>Tick and Range charts</strong> create bars based on activity or price movement, not time—useful for eliminating sideways noise</li>
+                <li><strong>Point and Figure charts</strong> use X's and O's to track significant price movements—valuable for support/resistance analysis</li>
+                <li>The best chart type depends on your trading style and specific goals—experimentation is key</li>
+            </ul>
+
+            <!-- Next Steps -->
+            <div class="next-steps">
+                <h3>Continue Your Learning</h3>
+                <p>Build on this foundation with related lessons:</p>
+                <ul>
+                    <li><a href="/lesson/support-and-resistance/">Support and Resistance</a> <span>— Apply chart reading to identify key levels</span></li>
+                    <li><a href="/lesson/technical-indicators/">Technical Indicators</a> <span>— Combine chart types with indicator analysis</span></li>
+                    <li><a href="/lesson/chart-patterns-trading/">Chart Patterns Trading</a> <span>— Recognize patterns across chart types</span></li>
+                </ul>
+            </div>
+
+            <!-- Footer -->
+            <div class="lesson-footer">
+                This lesson is part of FTMO Academy's Technical Analysis module.
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Article",
+            "@id": "https://academy.ftmo.com/lesson/types-of-trading-charts/#article",
+            "headline": "Types of Trading Charts: Candlestick, Renko & Heikin Ashi Explained",
+            "description": "Complete guide to trading chart types including candlestick, Renko, Heikin Ashi, tick, range, and Point & Figure charts.",
+            "image": "https://academy.ftmo.com/wp-content/uploads/2023/03/c-25.jpg",
+            "datePublished": "2023-03-24",
+            "dateModified": "2026-02-27",
+            "author": {
+                "@type": "Organization",
+                "name": "FTMO Academy"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "FTMO",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://academy.ftmo.com/wp-content/uploads/2023/06/6d241722779c18fae91da26c888ce230.jpg"
+                }
+            }
+        },
+        {
+            "@type": "Course",
+            "name": "Types of Trading Charts",
+            "description": "Learn about different types of trading charts and when to use each one",
+            "provider": {
+                "@type": "Organization",
+                "name": "FTMO Academy"
+            },
+            "hasCourseInstance": {
+                "@type": "CourseInstance",
+                "courseMode": "online"
+            }
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "What is Heikin Ashi?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Heikin Ashi, Japanese for 'average bar,' is a candlestick modification that smooths price data using averaged values to clarify trend direction."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How do Renko charts work?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Renko charts print a new brick only when price moves more than the specified brick size away from the previous brick, ignoring time completely."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the difference between time-based and price-based charts?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Time-based charts create new bars after fixed time intervals regardless of price movement. Price-based charts create new elements only when price moves a specified amount, ignoring time."
+                    }
+                }
+            ]
+        }
+    ]
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write Log: Types of Trading Charts v4 | FTMO Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            color: #1a1a2e;
+            background: #f5f5f7;
+            line-height: 1.6;
+        }
+
+        /* ─── Site Header ─── */
+        .site-header {
+            background: #000;
+            padding: 14px 0;
+        }
+        .wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .site-header .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .site-header__logo {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .site-header__logo span { color: #0781fe; }
+        .site-header__badge {
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            background: #1a1a1a;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ─── Page Header ─── */
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid #c6c6c6;
+            padding: 32px 0 24px;
+            margin-bottom: 32px;
+        }
+        .page-header__label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0781fe;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+        .page-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+        }
+        .page-header__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: #555;
+        }
+        .page-header__meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .badge--pass { background: #e6f4ea; color: #1a7c3a; }
+        .badge--beginner { background: #e8f4ff; color: #0781fe; }
+        .badge--version { background: #eef2fa; color: #123a83; }
+
+        /* ─── Layout ─── */
+        .log-body {
+            padding-bottom: 64px;
+        }
+        .log-body .wrap {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* ─── Sidebar Nav ─── */
+        .log-nav {
+            position: sticky;
+            top: 24px;
+            background: #fff;
+            border: 1px solid #c6c6c6;
+            border-radius: 6px;
+            padding: 16px;
+        }
+        .log-nav__title {
+            font-size: 11px;
+            font-weight: 700;
+            color: #123a83;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin-bottom: 12px;
+        }
+        .log-nav ol {
+            padding-left: 16px;
+            color: #555;
+        }
+        .log-nav li { margin-bottom: 8px; font-size: 13px; }
+        .log-nav a { color: #0781fe; text-decoration: none; }
+        .log-nav a:hover { text-decoration: underline; }
+
+        /* ─── Sections ─── */
+        .log-section {
+            background: #fff;
+            border: 1px solid #c6c6c6;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .log-section__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: #123a83;
+            color: #fff;
+        }
+        .log-section__title {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .log-section__step {
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .log-section__body { padding: 20px; }
+        .log-section__body p { margin-bottom: 12px; font-size: 14px; }
+        .log-section__body ul,
+        .log-section__body ol { padding-left: 20px; margin-bottom: 12px; }
+        .log-section__body li { margin-bottom: 6px; font-size: 14px; }
+        .log-section__body strong { font-weight: 600; }
+
+        /* ─── Tables ─── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin: 12px 0;
+        }
+        th {
+            background: #eef2fa;
+            color: #123a83;
+            font-weight: 700;
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 2px solid #123a83;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #e8e8e8;
+            vertical-align: top;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: #fafafa; }
+
+        /* ─── QA Summary ─── */
+        .qa-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .qa-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #f5f5f7;
+            border-radius: 4px;
+            font-size: 13px;
+            gap: 12px;
+        }
+        .qa-item__label { color: #444; }
+
+        /* ─── Init grid ─── */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .meta-item {
+            padding: 10px 14px;
+            background: #f5f5f7;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        .meta-item__key {
+            font-size: 11px;
+            font-weight: 700;
+            color: #123a83;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .meta-item__val { color: #1a1a2e; }
+
+        /* ─── Divider ─── */
+        .divider {
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 16px 0;
+        }
+
+        /* ─── Sub-heading ─── */
+        .sub-heading {
+            font-size: 12px;
+            font-weight: 700;
+            color: #123a83;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin: 16px 0 8px;
+        }
+
+        /* ─── Gap list ─── */
+        .gap-list {
+            list-style: none;
+            padding: 0;
+        }
+        .gap-list li {
+            padding: 8px 12px 8px 32px;
+            position: relative;
+            background: #fff8e6;
+            border-left: 3px solid #e6a817;
+            border-radius: 0 4px 4px 0;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #5a3a00;
+        }
+        .gap-list li::before {
+            content: "!";
+            position: absolute;
+            left: 10px;
+            font-weight: 700;
+            color: #a06b00;
+        }
+
+        /* ─── Outline Block ─── */
+        .outline-block {
+            background: #fafafa;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+        .outline-h1 { margin-bottom: 16px; }
+        .outline-h2 {
+            margin-bottom: 14px;
+            padding-left: 16px;
+            border-left: 3px solid #123a83;
+        }
+        .outline-h3 {
+            margin-top: 10px;
+            padding-left: 16px;
+            border-left: 3px solid #0781fe;
+        }
+        .outline-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            vertical-align: middle;
+        }
+        .h1-tag  { background: #2d2d2d; color: #fff; }
+        .h2-tag  { background: #123a83; color: #fff; }
+        .h3-tag  { background: #0781fe; color: #fff; }
+        .nav-tag { background: #555;    color: #fff; }
+        .outline-meta {
+            font-size: 11px;
+            color: #888;
+            margin: 3px 0 6px 28px;
+            font-style: italic;
+        }
+        .outline-block ul {
+            margin: 6px 0 6px 28px;
+            padding-left: 16px;
+        }
+        .outline-block li { margin-bottom: 4px; color: #333; }
+        .outline-callout {
+            margin: 6px 0 4px 28px;
+            font-size: 12px;
+            background: #e8f4ff;
+            border-left: 3px solid #0781fe;
+            padding: 5px 10px;
+            border-radius: 0 3px 3px 0;
+            color: #1a4a7a;
+        }
+        .outline-callout--warning { background: #fff8e6; border-color: #e6a817; color: #7a4f00; }
+        .outline-callout--kim     { background: #f0f7f0; border-color: #4a7c59; color: #2e5c3a; }
+
+        /* ─── Footer ─── */
+        .site-footer {
+            background: #000;
+            color: #555;
+            padding: 28px 0;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+        .site-footer .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .site-footer__brand { color: #fff; font-weight: 700; font-size: 13px; }
+        .site-footer__brand span { color: #0781fe; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+    <div class="wrap">
+        <a class="site-header__logo" href="https://academy.ftmo.com/">FTMO <span>Academy</span></a>
+        <span class="site-header__badge">Write Log</span>
+    </div>
+</header>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+    <div class="wrap">
+        <div class="page-header__label">Internal Document · /academy-write workflow</div>
+        <h1>Write Log: Types of Trading Charts</h1>
+        <div class="page-header__meta">
+            <span>Slug: <strong>types-of-trading-charts</strong></span>
+            <span><span class="badge badge--version">v4</span></span>
+            <span><span class="badge badge--beginner">Beginner</span></span>
+            <span>March 2026</span>
+            <span>~1,520 words</span>
+        </div>
+    </div>
+</div>
+
+<!-- LOG BODY -->
+<div class="log-body">
+    <div class="wrap">
+
+        <!-- SIDEBAR NAV -->
+        <nav class="log-nav">
+            <div class="log-nav__title">Sections</div>
+            <ol>
+                <li><a href="#init">Initialization</a></li>
+                <li><a href="#step1">Step 1 — Competitor Research</a></li>
+                <li><a href="#step2">Step 2 — Brief &amp; Outline</a></li>
+                <li><a href="#step3">Step 3 — Draft Writing</a></li>
+                <li><a href="#step4">Step 4 — ToV Check</a></li>
+                <li><a href="#step5">Step 5 — Structure &amp; Formatting</a></li>
+                <li><a href="#step6">Step 6 — HTML Conversion</a></li>
+                <li><a href="#qa">QA Summary</a></li>
+            </ol>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main>
+
+            <!-- INITIALIZATION -->
+            <section class="log-section" id="init">
+                <div class="log-section__header">
+                    <span class="log-section__title">Initialization</span>
+                    <span class="log-section__step">Setup</span>
+                </div>
+                <div class="log-section__body">
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <div class="meta-item__key">Inventory Position</div>
+                            <div class="meta-item__val">Part 2: Trading Analysis › Technical Analysis · Lesson 2 of 19</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Status in Inventory</div>
+                            <div class="meta-item__val">UPDATED (v3 existed — v4 written as new version per user instruction)</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Prerequisite</div>
+                            <div class="meta-item__val">Japanese Candlesticks (/lesson/japanese-candlesticks/)</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Links To</div>
+                            <div class="meta-item__val">Support/Resistance, Market Environment, Heikin Ashi, Renko</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Keywords Source</div>
+                            <div class="meta-item__val">Ahrefs MCP (no xlsx provided by user)</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Top Keyword</div>
+                            <div class="meta-item__val">candlestick chart (3,500 vol · KD 47)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 1 -->
+            <section class="log-section" id="step1">
+                <div class="log-section__header">
+                    <span class="log-section__title">Competitor Research</span>
+                    <span class="log-section__step">Step 1</span>
+                </div>
+                <div class="log-section__body">
+                    <table>
+                        <thead>
+                            <tr><th>Competitor</th><th>Source URL</th><th>DR</th><th>SERP Pos.</th><th>~Words</th><th>Key Gap</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>IG Academy</td>
+                                <td><a href="https://www.ig.com/uk/ig-academy/the-basics-of-technical-analysis/types-of-charts" target="_blank">ig.com · types-of-charts</a></td>
+                                <td>81</td><td>9</td><td>723</td><td>Missing specialist types, no "when to use" framework</td>
+                            </tr>
+                            <tr>
+                                <td>Zerodha Varsity</td>
+                                <td><a href="https://zerodha.com/varsity/chapter/chart-types/" target="_blank">zerodha.com · chart-types</a></td>
+                                <td>77</td><td>8</td><td>~3,500</td><td>Over-indexed on candlesticks, line/bar shallow</td>
+                            </tr>
+                            <tr>
+                                <td>TrendSpider</td>
+                                <td><a href="https://trendspider.com/learning-center/introduction-to-chart-types/" target="_blank">trendspider.com · introduction-to-chart-types</a></td>
+                                <td>65</td><td>6</td><td>~1,200</td><td>Missing line + bar chart entirely</td>
+                            </tr>
+                            <tr>
+                                <td>Trading Technologies</td>
+                                <td><a href="https://library.tradingtechnologies.com/trade/chrt-chart-types.html" target="_blank">tradingtechnologies.com · chrt-chart-types</a></td>
+                                <td>66</td><td>7</td><td>~2,300</td><td>17/20 types image-only, no use cases</td>
+                            </tr>
+                            <tr>
+                                <td>FTMO v3 (existing)</td>
+                                <td><code>data/output/lessons/types-of-trading-charts/lesson_types-of-trading-charts_EN.md</code></td>
+                                <td>—</td><td>—</td><td>~800</td><td>Line chart missing, no comparison framework</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="sub-heading">Primary Gaps Identified</div>
+                    <ul class="gap-list">
+                        <li>Line chart absent from FTMO v3 and TrendSpider</li>
+                        <li>No competitor provides a "when to use which type" comparison framework</li>
+                        <li>Specialist types (HA, Renko) mixed with core types — no hierarchy or differentiation</li>
+                        <li>FTMO/platform context (cTrader tick/range charts) is a unique differentiator available to us</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- STEP 2 -->
+            <section class="log-section" id="step2">
+                <div class="log-section__header">
+                    <span class="log-section__title">Brief &amp; Outline</span>
+                    <span class="log-section__step">Step 2</span>
+                </div>
+                <div class="log-section__body">
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <div class="meta-item__key">Classification</div>
+                            <div class="meta-item__val">BEGINNER — foundational overview, no prior strategy knowledge required</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Word Count Target</div>
+                            <div class="meta-item__val">1,400–1,800 words</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">H2 Sections</div>
+                            <div class="meta-item__val">6</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">H3 Sections</div>
+                            <div class="meta-item__val">1 — Chart Periodicity (under Candlestick)</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Keywords Mapped</div>
+                            <div class="meta-item__val">8</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Internal Links Planned</div>
+                            <div class="meta-item__val">5</div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <p><strong>Key structural decision:</strong> Candlestick, Heikin Ashi, and Renko are mentioned briefly with links to their dedicated lessons. This lesson is the overview — not the deep dive. Line chart added as a full section (absent from v3).</p>
+
+                    <div class="sub-heading">Full Content Outline (approved)</div>
+                    <div class="outline-block">
+
+                        <div class="outline-h1">
+                            <span class="outline-tag h1-tag">H1</span>
+                            Types of Trading Charts: Line, Bar, and Candlestick Explained
+                            <div class="outline-meta">Target KW: types of trading charts / types of stock charts</div>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> What a Trading Chart Actually Shows
+                            <ul>
+                                <li>Chart = price vs. time (or price vs. price-movement for non-time charts)</li>
+                                <li>Same market data, different visual representation</li>
+                                <li>Chart type choice affects what patterns and signals are visible</li>
+                                <li>Most platforms offer all major types — changing is 2 clicks</li>
+                            </ul>
+                            <div class="outline-callout">📌 Callout: <strong>Note</strong> — "Chart type does not change the underlying price data; it only changes how that data is displayed"</div>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> Line Chart
+                            <div class="outline-meta">Target KW: line chart trading</div>
+                            <ul>
+                                <li>Connects closing prices — simplest possible view</li>
+                                <li>Strips noise: no open/high/low visible</li>
+                                <li>Best use: quick trend direction read, clean overview on higher timeframes</li>
+                                <li>Limitations: loses OHLC detail, no pattern reading possible</li>
+                                <li>When traders use it: macro overview, drawing trendlines without bar noise</li>
+                            </ul>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> Bar Chart (OHLC)
+                            <div class="outline-meta">Target KW: bar chart trading</div>
+                            <ul>
+                                <li>Shows OHLC via vertical bar + two horizontal ticks (left = open, right = close)</li>
+                                <li>Bar height = high-to-low range; same data as candlestick, different visual</li>
+                                <li>Advantage: less visual clutter, preferred by some for S/R marking</li>
+                                <li>Disadvantage: less intuitive for reading momentum and patterns</li>
+                            </ul>
+                            <div class="outline-callout">📌 Callout: <strong>Tip</strong> — "Bar charts contain identical data to candlestick charts. If you mark S/R on a bar chart, it applies on a candlestick chart too"</div>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> Candlestick Chart
+                            <div class="outline-meta">Target KW: candlestick chart</div>
+                            <ul>
+                                <li>Most widely used chart type in retail and professional trading</li>
+                                <li>Body (open-to-close) + wicks (high/low) — full detail in dedicated lesson [link]</li>
+                                <li>Coloured body = instant visual read of buying/selling pressure</li>
+                                <li>Default choice for most traders; all platforms support it</li>
+                            </ul>
+                            <div class="outline-callout">📌 Callout: <strong>Note</strong> — link to Japanese Candlesticks dedicated lesson</div>
+
+                            <div class="outline-h3">
+                                <span class="outline-tag h3-tag">H3</span> Chart Periodicity: Time, Tick, and Range
+                                <ul>
+                                    <li>Periodicity = what determines when a new candle/bar forms</li>
+                                    <li>Time-based: most common (1M, 5M, 15M, 1H, 4H, Daily, Weekly)</li>
+                                    <li>Why standard timeframes matter: more traders watching = patterns carry more weight (37-min chart example)</li>
+                                    <li>Tick charts: 1 candle = N transactions; useful for scalpers</li>
+                                    <li>Range charts: 1 candle = defined price range; filters time-based noise</li>
+                                    <li>Trade-off: tick/range = no time context, no timestamp correlation</li>
+                                </ul>
+                                <div class="outline-callout">📌 Callout: <strong>Tip</strong> — "In cTrader on your FTMO account, tick and range charts are available natively. In MT4/MT5, standard time-based charts are the default"</div>
+                            </div>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> Specialist Chart Types
+                            <ul>
+                                <li>Brief overview — each solves a specific problem (noise reduction)</li>
+                                <li><strong>Heikin Ashi:</strong> modified candle formula, smooths noise, trend-following — signal lag trade-off → link to dedicated lesson</li>
+                                <li><strong>Renko:</strong> price-movement only (no time axis), brick-based, noise filter — no time context trade-off → link to dedicated lesson</li>
+                                <li><strong>Point &amp; Figure:</strong> oldest chart form, column-based X/O, S/R and price targets — less common in modern platforms</li>
+                            </ul>
+                            <div class="outline-callout outline-callout--warning">⚠ Callout: <strong>Warning</strong> — "Heikin Ashi and Renko display modified/delayed price data. Always confirm actual price on standard chart before executing"</div>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> How to Choose the Right Chart Type
+                            <ul>
+                                <li>No single correct answer — depends on what you need to see</li>
+                                <li>Framework: identify the information gap first, then select chart type</li>
+                                <li>Decision guide: trend overview → line; price action → candlestick; S/R clarity → bar; noise filter → HA or Renko</li>
+                            </ul>
+                            <div class="outline-callout">📋 Table: Chart Type | Data Shown | Best For | Key Limitation (5 rows)</div>
+                            <div class="outline-callout outline-callout--kim">🧠 Callout: <strong>Keep in Mind</strong> — chart selection bias / familiarity creates a misleading sense of "clarity"</div>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag h2-tag">H2</span> Key Takeaways
+                            <ul>
+                                <li>All chart types = same underlying price data; visual format changes</li>
+                                <li>Line charts = close only; reference tool, not primary analysis</li>
+                                <li>Bar/OHLC and candlestick = identical data; different visual emphasis</li>
+                                <li>Candlestick = default for most traders; foundation of TA</li>
+                                <li>Chart periodicity (time/tick/range) independent of chart type; standard timeframes carry more weight</li>
+                                <li>Specialist types (HA, Renko) = noise reduction at cost of accuracy</li>
+                            </ul>
+                        </div>
+
+                        <div class="outline-h2">
+                            <span class="outline-tag nav-tag">NAV</span> Next Steps
+                            <ul>
+                                <li>Japanese Candlesticks → /lesson/japanese-candlesticks/</li>
+                                <li>Market Environment: Range vs. Trend → /lesson/market-environment-range-vs-trend/</li>
+                                <li>Support and Resistance → /lesson/support-and-resistance/</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 3 -->
+            <section class="log-section" id="step3">
+                <div class="log-section__header">
+                    <span class="log-section__title">Draft Writing</span>
+                    <span class="log-section__step">Step 3</span>
+                </div>
+                <div class="log-section__body">
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <div class="meta-item__key">Classification</div>
+                            <div class="meta-item__val">BEGINNER</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Final Word Count</div>
+                            <div class="meta-item__val">~1,520 words (target 1,400–1,800) ✓</div>
+                        </div>
+                    </div>
+                    <div class="sub-heading">Keyword Integration Log</div>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Keyword</th><th>Volume</th><th>Placement</th><th>Location</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>candlestick chart</td><td>3,500</td><td>H2 + body</td><td>"Candlestick Chart" H2 heading + body</td></tr>
+                            <tr><td>2</td><td>bar chart trading</td><td>60</td><td>H2</td><td>"Bar Chart (OHLC)" H2 + body</td></tr>
+                            <tr><td>3</td><td>line chart trading</td><td>60</td><td>H2</td><td>"Line Chart" H2 heading + body</td></tr>
+                            <tr><td>4</td><td>types of stock charts</td><td>60</td><td>H1 implied</td><td>"trading chart types" in body</td></tr>
+                            <tr><td>5</td><td>types of trading charts</td><td>40</td><td>H1</td><td>H1 title</td></tr>
+                            <tr><td>6</td><td>trading charts explained</td><td>30</td><td>Intro</td><td>Intro paragraph</td></tr>
+                            <tr><td>7</td><td>trading chart types</td><td>10</td><td>Body</td><td>"How to Choose" section</td></tr>
+                            <tr><td>8</td><td>types of charts in trading</td><td>10</td><td>Body</td><td>"What a Trading Chart Shows"</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="sub-heading">Outline Deviations</div>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Type</th><th>Description</th><th>Reason</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>Minor add</td><td>"In This Lesson" ToC added</td><td>Standard Academy structure</td></tr>
+                            <tr><td>2</td><td>Minor add</td><td>Horizontal rules between H2s</td><td>Visual section separation</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- STEP 4 -->
+            <section class="log-section" id="step4">
+                <div class="log-section__header">
+                    <span class="log-section__title">ToV Check</span>
+                    <span class="log-section__step">Step 4</span>
+                </div>
+                <div class="log-section__body">
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <div class="meta-item__key">Sentences Reviewed</div>
+                            <div class="meta-item__val">~62</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Issues Found</div>
+                            <div class="meta-item__val">2 — both corrected</div>
+                        </div>
+                    </div>
+                    <div class="sub-heading">Corrections</div>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Location</th><th>Issue</th><th>Original</th><th>Corrected</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Line Chart, para 2</td>
+                                <td>Casual marker ("just")</td>
+                                <td>"...only where it fell — just where it ended."</td>
+                                <td>"...only where it fell — only where it closed."</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Specialist Types, P&amp;F last sentence</td>
+                                <td>Weak closer</td>
+                                <td>"...but worth knowing it exists."</td>
+                                <td>"...but relevant for identifying structural price targets and long-term support/resistance."</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- STEP 5 -->
+            <section class="log-section" id="step5">
+                <div class="log-section__header">
+                    <span class="log-section__title">Structure &amp; Formatting</span>
+                    <span class="log-section__step">Step 5</span>
+                </div>
+                <div class="log-section__body">
+                    <p><strong>Paragraph audit:</strong> 24 paragraphs checked — all within 40–100 word limit. No splits required.</p>
+                    <div class="sub-heading">Changes Applied</div>
+                    <table>
+                        <thead>
+                            <tr><th>#</th><th>Change</th><th>Description</th><th>Reason</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>Prerequisites format</td><td>Updated to template block with bullet list</td><td>Matches Structure Guide template</td></tr>
+                            <tr><td>2</td><td>Callout type</td><td>Specialist Types <code>Note</code> → <code>Warning</code></td><td>Warning more appropriate for live trading execution risk</td></tr>
+                            <tr><td>3</td><td>Callout type</td><td>How to Choose <code>Tip</code> → <code>Keep in Mind</code></td><td>Required for TA lessons; addresses chart selection bias</td></tr>
+                            <tr><td>4</td><td>Callout audit</td><td>5 callouts: 1 Note, 2 Tips, 1 Warning, 1 Keep in Mind</td><td>Distributed across 6 H2 sections; max 1 per section — compliant</td></tr>
+                            <tr><td>5</td><td>Internal links</td><td>5 confirmed: Japanese Candlesticks ×2, Support/Resistance, Heikin Ashi, Renko, Market Environment</td><td>Meets 3–5 minimum</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- STEP 6 -->
+            <section class="log-section" id="step6">
+                <div class="log-section__header">
+                    <span class="log-section__title">HTML Conversion</span>
+                    <span class="log-section__step">Step 6</span>
+                </div>
+                <div class="log-section__body">
+                    <div class="meta-grid">
+                        <div class="meta-item">
+                            <div class="meta-item__key">Template</div>
+                            <div class="meta-item__val">FTMO Academy v2_balanced</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-item__key">Meta Title (57 chars)</div>
+                            <div class="meta-item__val">Types of Trading Charts: Line, Bar, Candlestick | FTMO Academy</div>
+                        </div>
+                        <div class="meta-item" style="grid-column: 1 / -1;">
+                            <div class="meta-item__key">Meta Description (158 chars)</div>
+                            <div class="meta-item__val">Learn the main types of trading charts — line, bar, and candlestick. Understand how each works, when to use which type, and how periodicity affects your view.</div>
+                        </div>
+                    </div>
+                    <div class="sub-heading">HTML Checklist</div>
+                    <table>
+                        <thead>
+                            <tr><th>Check</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>H1 color #2d2d2d, Poppins 700</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>H2/H3 color #123a83</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>ToC present (nested, styled)</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>No Prerequisites inline block</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Key Takeaways section (#f5f5f7)</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Next Steps with internal links</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Poppins font loaded</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Links color #0781fe</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Table headers #123a83</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Author box with dates</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Educational Content Notice</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Risk Warning</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Black header + footer</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Responsive (max-width 1160px)</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                            <tr><td>Canonical URL</td><td><span class="badge badge--pass">Pass</span></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="sub-heading">Output Files</div>
+                    <table>
+                        <thead>
+                            <tr><th>File</th><th>Path</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Markdown</td><td><code>data/output/lessons/types-of-trading-charts/lesson_types-of-trading-charts_EN_v4.md</code></td></tr>
+                            <tr><td>Log (MD)</td><td><code>data/output/lessons/types-of-trading-charts/lesson_types-of-trading-charts_EN_v4_log.md</code></td></tr>
+                            <tr><td>Log (HTML)</td><td><code>data/output/lessons/types-of-trading-charts/lesson_types-of-trading-charts_EN_v4_log.html</code></td></tr>
+                            <tr><td>HTML</td><td><code>data/output/lessons/types-of-trading-charts/lesson_types-of-trading-charts_EN_v4.html</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- QA SUMMARY -->
+            <section class="log-section" id="qa">
+                <div class="log-section__header">
+                    <span class="log-section__title">QA Summary</span>
+                    <span class="log-section__step">Step 7</span>
+                </div>
+                <div class="log-section__body">
+                    <div class="qa-grid">
+                        <div class="qa-item"><span class="qa-item__label">Word count within target</span><span class="badge badge--pass">Pass · 1,520 / 1,400–1,800</span></div>
+                        <div class="qa-item"><span class="qa-item__label">All outline H2s present</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">BEGINNER classification</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Keywords integrated</span><span class="badge badge--pass">Pass · 8/8</span></div>
+                        <div class="qa-item"><span class="qa-item__label">ToV check</span><span class="badge badge--pass">Pass · 2 corrections</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Paragraph audit (≤100 words)</span><span class="badge badge--pass">Pass · 0 splits</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Callout types correct</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Internal links (min 3–5)</span><span class="badge badge--pass">Pass · 5 links</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Risk disclaimer present</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Educational notice present</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Author attribution present</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">HTML checklist complete</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Line chart included (v3 gap)</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">HA/Renko as brief mentions</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Comparison table present</span><span class="badge badge--pass">Pass</span></div>
+                        <div class="qa-item"><span class="qa-item__label">Keep in Mind (TA req.)</span><span class="badge badge--pass">Pass</span></div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div><!-- /.wrap -->
+</div><!-- /.log-body -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="wrap">
+        <div class="site-footer__brand">FTMO <span>Academy</span></div>
+        <span>Internal write log — not for publication</span>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forex Trading Hours and Sessions | FTMO Academy</title>
+  <meta name="description" content="Learn about forex market hours and trading sessions — Asian, European, and North American. Discover when volume peaks and which pairs are most active.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+        --azure:      #0781fe;
+        --torea-bay:  #123a83;
+        --silver:     #c6c6c6;
+        --black:      #000000;
+        --white:      #ffffff;
+        --light-gray: #f5f5f7;
+        --body-text:  #1a1a2e;
+        --muted:      #555;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--body-text);
+      background: var(--white);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--black);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-header .logo {
+      color: var(--white);
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .site-header nav { display: flex; align-items: center; gap: 28px; }
+    .site-header nav a {
+      color: var(--silver);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .site-header nav a:hover { color: var(--white); }
+    .site-header .cta {
+      background: var(--azure);
+      color: var(--white);
+      padding: 9px 22px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrapper {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    /* ── LESSON HEADER ── */
+    .lesson-header { margin-bottom: 32px; }
+    .lesson-header__module {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--azure);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+    }
+    .lesson-header h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--torea-bay);
+        line-height: 1.2;
+        margin-bottom: 16px;
+    }
+    .lesson-header__meta {
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--torea-bay);
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--torea-bay);
+      line-height: 1.3;
+      margin: 44px 0 16px;
+    }
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--torea-bay);
+      line-height: 1.4;
+      margin: 32px 0 12px;
+    }
+    p { margin-bottom: 16px; }
+    a { color: var(--azure); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    ul, ol { padding-left: 24px; margin-bottom: 16px; }
+    li { margin-bottom: 6px; }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e5e5;
+      margin: 48px 0;
+    }
+
+    /* ── TABLE OF CONTENTS ── */
+    .toc {
+      background: var(--light-gray);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 32px 0 40px;
+    }
+    .toc-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--torea-bay);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+    .toc ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+    .toc li { margin-bottom: 6px; }
+    .toc a {
+      color: var(--torea-bay);
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .toc a:hover { color: var(--azure); text-decoration: underline; }
+    .toc ol ol {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+    .toc ol ol li { margin-bottom: 4px; }
+    .toc ol ol a { font-weight: 400; font-size: 0.87rem; }
+
+    /* ── TABLE ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.94rem;
+    }
+    thead tr { background: var(--torea-bay); }
+    thead th {
+      color: var(--white);
+      font-weight: 600;
+      padding: 12px 18px;
+      text-align: left;
+    }
+    thead th:not(:first-child) { text-align: center; }
+    tbody tr:nth-child(even) { background: var(--light-gray); }
+    tbody tr:hover { background: #eef2fb; }
+    tbody td {
+      padding: 11px 18px;
+      border-bottom: 1px solid #e5e5e5;
+      vertical-align: middle;
+    }
+    tbody td:not(:first-child) { text-align: center; }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin: 24px 0;
+    }
+    .callout__label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .callout--tip {
+      background: #e8f4ff;
+      border-left: 4px solid var(--azure);
+    }
+    .callout--tip .callout__label { color: var(--azure); }
+    .callout--warning {
+      background: #fff8e1;
+      border-left: 4px solid #f59e0b;
+    }
+    .callout--warning .callout__label { color: #b45309; }
+    .callout--note {
+      background: var(--light-gray);
+      border-left: 4px solid var(--silver);
+    }
+    .callout--note .callout__label { color: var(--muted); }
+
+    /* ── ARTICLE IMAGE ── */
+    figure.article-image {
+      margin: 28px 0;
+    }
+    figure.article-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+    figure.article-image figcaption {
+      font-size: 0.82rem;
+      color: #777;
+      text-align: center;
+      padding: 8px 0 0;
+    }
+
+    /* ── KEY TAKEAWAYS ── */
+    .key-takeaways {
+      background: var(--light-gray);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 40px 0;
+    }
+    .key-takeaways h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--torea-bay);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0 0 14px;
+    }
+    .key-takeaways ul { margin: 0; }
+    .key-takeaways li { margin-bottom: 8px; }
+
+    /* ── AUTHOR BOX ── */
+    .author-box {
+      background: var(--light-gray);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin: 40px 0 24px;
+    }
+    .author-box h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--torea-bay);
+      margin: 0 0 4px;
+    }
+    .author-box .author-role {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+    .author-box .author-dates {
+      font-size: 0.8rem;
+      color: #888;
+      margin: 0;
+    }
+    .author-box .author-dates span { margin-right: 16px; }
+
+    /* ── DISCLAIMERS ── */
+    .disclaimer {
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    .disclaimer strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .disclaimer-educational {
+      background: var(--light-gray);
+      border-left: 4px solid var(--silver);
+    }
+    .disclaimer-educational strong { color: var(--muted); }
+    .disclaimer-risk {
+      background: #fff8e1;
+      border-left: 4px solid #f59e0b;
+    }
+    .disclaimer-risk strong { color: #b45309; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--black);
+      color: var(--silver);
+      padding: 40px 32px;
+    }
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--silver); font-size: 13px; text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 12px; margin: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.25rem; }
+      h3 { font-size: 1.1rem; }
+      .page-wrapper { padding: 28px 16px 60px; }
+      .site-header { padding: 0 16px; }
+      table { font-size: 0.85rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ HEADER ════════════ -->
+<header class="site-header">
+  <a href="https://academy.ftmo.com" class="logo">FTMO Academy</a>
+  <nav>
+    <a href="https://academy.ftmo.com/lessons/">All Lessons</a>
+    <a href="https://ftmo.com" class="cta">Start Challenge</a>
+  </nav>
+</header>
+
+<!-- ════════════ CONTENT ════════════ -->
+<main class="page-wrapper">
+
+  <!-- LESSON HEADER -->
+  <header class="lesson-header">
+    <span class="lesson-header__module">Forex &mdash; Lesson 4</span>
+    <h1>Forex Trading Hours and Sessions</h1>
+    <div class="lesson-header__meta">Last updated: March 2026 &nbsp;&bull;&nbsp; FTMO Academy Content Team</div>
+  </header>
+
+  <!-- TABLE OF CONTENTS -->
+  <nav class="toc" aria-label="Table of Contents">
+    <p class="toc-title">In This Lesson</p>
+    <ol>
+      <li><a href="#forex-market-hours">Forex Market Hours</a></li>
+      <li><a href="#asian-session">Asian Session Forex Time</a></li>
+      <li><a href="#london-session">London Session Forex Time</a></li>
+      <li><a href="#new-york-session">New York Session Forex Time</a></li>
+      <li><a href="#days-of-the-week">Days of the Week</a></li>
+      <li><a href="#cfd-hours">Trading Hours of CFDs</a>
+        <ol>
+          <li><a href="#equity-indices">Equity Indices</a></li>
+          <li><a href="#commodities">Commodities</a></li>
+        </ol>
+      </li>
+      <li><a href="#key-takeaways">Key Takeaways</a></li>
+    </ol>
+  </nav>
+
+  <!-- INTRO -->
+  <p>Forex is a unique market due to its high liquidity and size — and because it trades <strong>24 hours a day, 5 days a week</strong>. Traders can access the market at any time of day, regardless of their schedule. Whether you prefer early mornings or late nights, the forex market is always open. Except on weekends.</p>
+
+  <p>However, there is one important nuance.</p>
+
+  <p>While the market is accessible at all times, different forex trading times have distinct characteristics and behavior. As trading activity shifts from Asia to Europe, understanding session timing is essential. To avoid confusion, all the forex session times in this lesson are based on London time (GMT+0).</p>
+
+  <!-- ── SECTION 1 ── -->
+  <h2 id="forex-market-hours">Forex Market Hours</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Session</th>
+        <th>Open (GMT)</th>
+        <th>Close (GMT)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Asian session</strong> (Sydney + Tokyo)</td>
+        <td>9 PM (Sun)</td>
+        <td>8 AM</td>
+      </tr>
+      <tr>
+        <td><strong>European session</strong> (Frankfurt + London)</td>
+        <td>7 AM</td>
+        <td>4 PM</td>
+      </tr>
+      <tr>
+        <td><strong>North American session</strong> (New York)</td>
+        <td>12 PM</td>
+        <td>9 PM</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Every week on Sunday, the forex market opens at <strong>9 PM</strong> GMT, marking the start of the Sydney session. Two hours later, the Tokyo session begins at <strong>11 PM</strong>. For simplicity, these are combined and referred to as the <strong>Asian session (sometimes called the Tokyo session)</strong>. The Asian session ends at <strong>8 AM</strong>.</p>
+
+  <p>In Europe, Frankfurt and London sessions follow — <strong>Frankfurt</strong> opens at <strong>7 AM</strong> and <strong>London</strong> at <strong>8 AM</strong>. For simplicity, this is referred to as the <strong>European session (sometimes called the London session)</strong>.</p>
+
+  <p>At <strong>12 PM</strong>, the <strong>North American session (sometimes called the New York session)</strong> begins and runs alongside the <strong>European</strong> session <strong>until 4 PM</strong>. This overlap is called the <strong>European/North American overlap</strong>, and it typically brings the most trading opportunities, as volume peaks during this period. After London closes at 4 PM, the New York session continues until 9 PM. Once it closes, the Asian session begins again and the cycle repeats. As clocks change throughout the year, session times shift slightly — traders should monitor any adjustments.</p>
+
+  <div class="callout callout--tip">
+    <span class="callout__label">Tip</span>
+    The European/North American overlap (12 PM–4 PM GMT) is when daily trading volume peaks. This four-hour window typically offers the most trading opportunities of the day — particularly relevant for day traders and scalpers.
+  </div>
+
+  <figure class="article-image">
+    <img
+      src="https://academy.ftmo.com/wp-content/uploads/2021/01/Group-2340.png"
+      alt="Forex Trading Sessions Chart showing Asian, European, and North American session times on a 24-hour timeline">
+    <figcaption>Forex Trading Sessions — 24-hour overview (GMT)</figcaption>
+  </figure>
+
+  <!-- ── SECTION 2 ── -->
+  <h2 id="asian-session">Asian Session Forex Time</h2>
+
+  <p>The Asian session has <strong>the lowest volume</strong> of the three trading sessions. However, this does not mean trading opportunities are absent. Besides traders based in Asia, this session also attracts European traders active during the night and North American traders during their afternoon hours. The Asian session is largely driven by the Japanese economy — the third largest globally. The <strong>Japanese yen is the third most traded currency</strong>, accounting for around 20% of all transactions.</p>
+
+  <p>During the Asian session, approximately 20% of daily forex volume is traded. Other participating economies include Singapore, New Zealand, and Australia. As a result, currency pairs such as <strong>AUDJPY</strong>, <strong>AUDNZD</strong>, and <strong>NZDJPY</strong> are among the most active during this session. Macroeconomic releases from New Zealand, Australia, and Japan can generate significant price movements that traders should monitor closely.</p>
+
+  <!-- ── SECTION 3 ── -->
+  <h2 id="london-session">London Session Forex Time</h2>
+
+  <p>London has long been one of the most important business centres globally, due to its strategic position between Europe and America. Today, London is one of the leading financial hubs in the world. This is why the European session is commonly called the London session — the city accounts for the majority of total forex volume. The European session represents over 30% of total forex market volume.</p>
+
+  <p>One of the key reasons to trade during the European session is that both European and American <a href="/lesson/fundamental-indicator/">macroeconomic releases</a> are accessible, bringing significant volatility to the markets. Thanks to high liquidity, traders benefit from very low spreads — favorable conditions for scalpers and day traders. As the first high-liquidity session of the day, <strong>many new trends form during the London open</strong>. Markets typically move sharply at the open, then slow during the London lunch hours as large participants pause before the New York session opens.</p>
+
+  <p>During the European session, <strong>major currency pairs</strong> move actively, and minor pairs also see elevated volatility. <strong>EURGBP</strong> and <strong>GBPJPY</strong> are among the most active crosses, offering consistent trading opportunities.</p>
+
+  <!-- ── SECTION 4 ── -->
+  <h2 id="new-york-session">New York Session Forex Time</h2>
+
+  <p>The North American session is the last trading session of the day. The North American session is sometimes called New York because of the city's importance as a global financial hub. Because <strong>over 80% of traded volume involves the US dollar</strong>, it is no surprise that the North American session brings significant volatility every day. Most key fundamental events also occur during the North American session. Key examples include:</p>
+
+  <ul>
+    <li><strong>Non-farm payrolls (NFP)</strong></li>
+    <li><strong>Federal Open Market Committee (FOMC)</strong></li>
+    <li><strong>Unemployment rates</strong></li>
+    <li><strong>Consumer Price Index (CPI)</strong></li>
+  </ul>
+
+  <p>Track all upcoming releases using the <a href="/lesson/economic-calendar/">economic calendar</a>. The North American session slows around <strong>London close at 4 PM</strong>, but trading opportunities remain even after that point. At that stage, capital often flows toward US equity indices such as the S&P 500, Dow Jones, and Nasdaq. Like the European session, the North American session offers tight spreads and favorable conditions for intraday trading.</p>
+
+  <!-- ── SECTION 5 ── -->
+  <h2 id="days-of-the-week">Days of the Week</h2>
+
+  <p>Now that we have covered the main trading sessions, let's look at the days of the week. Markets open on Sunday evening London time, but volume is typically minimal. Monday mornings also tend to be slow until the North American session starts and activity increases significantly. <strong>Tuesday</strong> usually delivers double the volatility of Monday, making it one of the <strong>best days to trade</strong>, along with <strong>Wednesday and Thursday</strong>.</p>
+
+  <p>Fridays are characterized by lower volume overall, though significant macroeconomic events still occur. For example, NFP — released on the first Friday of each month — can generate significant volatility, but some traders prefer to avoid trading around those releases, as markets tend to be less predictable. After London closes on Friday, volumes decline sharply.</p>
+
+  <div class="callout callout--warning">
+    <span class="callout__label">Warning</span>
+    Friday sessions are characterized by lower volume and less predictable price action. High-impact releases such as NFP can generate sharp moves that are difficult to navigate. Many traders reduce their activity or avoid trading entirely after the London close.
+  </div>
+
+  <!-- ── SECTION 6 ── -->
+  <h2 id="cfd-hours">Trading Hours of CFDs</h2>
+
+  <p>Besides currency pairs, many brokers offer <a href="/lesson/cfd/">CFDs</a> on indices and commodities. Trading hours for equity indices vary by country.</p>
+
+  <h3 id="equity-indices">Equity Indices</h3>
+
+  <p><strong>European indices</strong> such as the DAX or Stoxx <strong>open at 1 AM and trade until 10 PM London time</strong>. <strong>US indices</strong> such as the S&P 500, Nasdaq, or Dow Jones <strong>trade 23 hours a day</strong>, with a break between 10 PM and 11 PM. However, US indices have what is known as a <strong>pit session</strong> — a term that originates from trading pits — representing the period from <strong>2:30 PM until market close</strong>. These are the <strong>forex trading hours</strong> when US traders are active, driving significant volume.</p>
+
+  <h3 id="commodities">Commodities</h3>
+
+  <p>Commodities such as <strong>crude oil and gold</strong> trade <strong>23 hours a day</strong>, with the highest volume during the North American session, driven by activity in the futures market.</p>
+
+  <!-- ── KEY TAKEAWAYS ── -->
+  <div class="key-takeaways" id="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>The forex market operates <strong>24 hours a day, 5 days a week</strong> — opening Sunday 9 PM GMT, closing Friday 9 PM GMT</li>
+      <li>Three major sessions: <strong>Asian</strong> (9 PM–8 AM), <strong>European</strong> (8 AM–4 PM), <strong>North American</strong> (12 PM–9 PM), all GMT</li>
+      <li>The <strong>European/North American overlap</strong> (12 PM–4 PM GMT) delivers the highest trading volume of the day</li>
+      <li><strong>Tuesday, Wednesday, and Thursday</strong> are the most active trading days; Friday volumes decline sharply after the London close</li>
+      <li><strong>US indices and commodities</strong> trade approximately 23 hours a day; equity index hours vary by region</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <!-- ── AUTHOR BOX ── -->
+  <div class="author-box">
+    <h3>FTMO Academy Content Team</h3>
+    <p class="author-role">Educational content reviewed and maintained by the FTMO Academy team.</p>
+    <p class="author-dates">
+      <span>Published: January 2021</span>
+      <span>Last Updated: March 2026</span>
+    </p>
+  </div>
+
+  <!-- ── DISCLAIMERS ── -->
+  <div class="disclaimer disclaimer-educational">
+    <strong>Educational Content Notice</strong>
+    This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.
+  </div>
+
+  <div class="disclaimer disclaimer-risk">
+    <strong>Risk Warning</strong>
+    Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.
+  </div>
+
+</main>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="https://academy.ftmo.com" class="footer-logo">FTMO Academy</a>
+    <nav class="footer-links">
+      <a href="https://ftmo.com/en/terms-and-conditions/">Terms</a>
+      <a href="https://ftmo.com/en/privacy-policy/">Privacy</a>
+      <a href="https://ftmo.com/en/contact/">Contact</a>
+    </nav>
+    <p class="footer-copy">&copy; 2026 FTMO. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

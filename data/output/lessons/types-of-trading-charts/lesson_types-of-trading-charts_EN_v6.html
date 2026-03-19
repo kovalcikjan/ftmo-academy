@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Chart Types: Line, Bar &amp; Candlestick | FTMO Academy</title>
+  <meta name="description" content="The three main trading chart types — line, bar, and candlestick — explained. Learn what each shows and how to choose the right format for your trading.">
+  <link rel="canonical" href="/lesson/types-of-trading-charts/">
+  <meta property="og:title" content="Trading Chart Types: Line, Bar &amp; Candlestick | FTMO Academy">
+  <meta property="og:description" content="The three main trading chart types — line, bar, and candlestick — explained. Learn what each shows and how to choose the right format for your trading.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; font-size: 1rem; line-height: 1.7; color: #1a1a2e; background: #fff; }
+    .lesson-wrapper { max-width: 1160px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    h1 { font-size: 2.25rem; font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; color: #0a0a23; }
+    h2 { font-size: 1.5rem; font-weight: 600; line-height: 1.3; margin-top: 2.5rem; margin-bottom: 1rem; color: #0a0a23; }
+    h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; margin-top: 1.75rem; margin-bottom: 0.75rem; color: #0a0a23; }
+    p { margin-bottom: 1rem; }
+    ul, ol { margin: 0.75rem 0 1rem 1.5rem; }
+    li { margin-bottom: 0.4rem; }
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+    a { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    hr { border: none; border-top: 1px solid #e5e7eb; margin: 2.5rem 0; }
+
+    /* Table of Contents */
+    .toc { background: #f8fafc; border-left: 4px solid #2563eb; padding: 1.25rem 1.5rem; margin-bottom: 2rem; border-radius: 0 6px 6px 0; }
+    .toc h2 { margin-top: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; }
+    .toc ul { margin: 0.5rem 0 0 1.25rem; }
+    .toc li { margin-bottom: 0.3rem; }
+    .toc a { color: #2563eb; font-size: 0.95rem; }
+
+    /* Image placeholder */
+    .img-placeholder { background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 8px; padding: 2.5rem 1.5rem; text-align: center; margin: 1.5rem 0; color: #64748b; font-size: 0.9rem; }
+    .img-placeholder span { display: block; font-weight: 600; color: #475569; margin-bottom: 0.4rem; }
+
+    /* CTA placeholder */
+    .cta-placeholder { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1.5rem 0; text-align: center; }
+    .cta-placeholder span { display: block; font-size: 0.85rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+    .cta-placeholder p { margin: 0; font-weight: 600; color: #1d4ed8; }
+
+    /* Callout boxes */
+    blockquote { margin: 1.25rem 0; padding: 1rem 1.25rem; border-radius: 6px; border-left: 4px solid; }
+    blockquote p { margin: 0; }
+    blockquote ul { margin: 0.5rem 0 0 1.25rem; }
+    blockquote li { margin-bottom: 0.25rem; }
+
+    blockquote.keep-in-mind { background: #f0fdf4; border-color: #4ade80; }
+    blockquote.keep-in-mind strong { color: #15803d; }
+    blockquote.note { background: #eff6ff; border-color: #60a5fa; }
+    blockquote.note strong { color: #1d4ed8; }
+    blockquote.tip { background: #f0fdf4; border-color: #34d399; }
+    blockquote.tip strong { color: #065f46; }
+    blockquote.warning { background: #fffbeb; border-color: #fbbf24; }
+    blockquote.warning strong { color: #92400e; }
+    blockquote.risk-warning { background: #fef2f2; border-color: #f87171; font-size: 0.9rem; }
+    blockquote.risk-warning strong { color: #991b1b; }
+    blockquote.edu-notice { background: #f8fafc; border-color: #94a3b8; font-size: 0.9rem; }
+    blockquote.edu-notice strong { color: #475569; }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.95rem; }
+    thead { background: #1a1a2e; color: #fff; }
+    thead th { padding: 0.75rem 1rem; text-align: left; font-weight: 600; }
+    tbody tr { border-bottom: 1px solid #e5e7eb; }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody td { padding: 0.65rem 1rem; }
+
+    /* Author block */
+    .author-block { background: #f8fafc; border-radius: 8px; padding: 1rem 1.25rem; margin-top: 2.5rem; font-size: 0.9rem; color: #6b7280; }
+    .author-block strong { color: #1a1a2e; }
+
+    /* Footer disclaimers */
+    .disclaimers { margin-top: 2rem; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.75rem; }
+      h2 { font-size: 1.25rem; }
+      table { font-size: 0.85rem; }
+      thead th, tbody td { padding: 0.5rem 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="lesson-wrapper">
+
+  <h1 id="top">Types of Trading Charts: Line, Bar, and Candlestick Explained</h1>
+
+  <figure class="img-placeholder">
+    <span>[IMAGE — Hero]</span>
+    Side-by-side comparison of the same price period displayed as a line chart, bar chart, and candlestick chart — showing how identical data looks across formats
+  </figure>
+
+  <nav class="toc" aria-label="Table of contents">
+    <h2>In This Lesson</h2>
+    <ul>
+      <li><a href="#what-does-a-trading-chart-actually-show">What Does a Trading Chart Actually Show?</a></li>
+      <li><a href="#line-charts">Line Charts</a></li>
+      <li><a href="#bar-charts-ohlc">Bar Charts (OHLC)</a></li>
+      <li><a href="#candlestick-charts">Candlestick Charts</a></li>
+      <li><a href="#beyond-the-basics">Beyond the Basics: Specialty Chart Types</a></li>
+      <li><a href="#which-chart-type">Which Chart Type Should You Use?</a></li>
+      <li><a href="#key-takeaways">Key Takeaways</a></li>
+    </ul>
+  </nav>
+
+  <h2 id="what-does-a-trading-chart-actually-show">What Does a Trading Chart Actually Show?</h2>
+
+  <p>Every price movement you'll ever analyze starts with a chart. Before you can spot trends, read support and resistance, or recognize patterns, you need to understand what the chart is actually telling you. That starts with knowing how different formats present the same price data.</p>
+
+  <p>A trading chart is a visual record of price over time. At its most basic, it answers one question: where was this instrument trading, and when? The more detail a chart type provides, the more information you have to work with.</p>
+
+  <p>Most price data consists of four values per time period: the <strong>Open</strong> (price at the start of the period), the <strong>High</strong> (highest price reached), the <strong>Low</strong> (lowest price reached), and the <strong>Close</strong> (price at the end of the period). Together, these four points are called <strong>OHLC data</strong>. Different chart types use some or all of these values — and that choice directly affects what you can see and what stays hidden.</p>
+
+  <p>The chart type you choose isn't just a visual preference. It determines the signals you can read, the patterns you can identify, and the noise you're filtering out.</p>
+
+  <h2 id="line-charts">Line Charts</h2>
+
+  <p>The line chart is the simplest format available. It plots only the <strong>closing price</strong> of each period and connects those points with a single continuous line.</p>
+
+  <h3>What It Shows</h3>
+
+  <p>Each point on the line represents where price closed during that time period. A daily line chart shows one data point per day — the close. The line connecting these points gives you a clean picture of the overall price direction without any intraperiod detail.</p>
+
+  <h3>Strengths</h3>
+
+  <p>Line charts excel at showing the <strong>broader trend</strong> without visual clutter. Because they strip away the open, high, and low, the trend direction becomes immediately obvious. They're also useful when you need to compare multiple instruments on the same chart, or when reviewing long-term price history where individual session details matter less.</p>
+
+  <h3>Limitations</h3>
+
+  <p>The simplicity comes at a cost. Line charts hide intraperiod price activity — you won't see how volatile the session was, or whether price moved sharply in both directions before closing flat. For short-term trading, this missing information matters. A session that closed unchanged might have tested key levels above and below, and a line chart won't show that.</p>
+
+  <p>Line charts are rarely the primary tool for active traders. They're most useful for gaining a high-level view before switching to a more detailed chart format.</p>
+
+  <figure class="img-placeholder">
+    <span>[IMAGE — Line Chart]</span>
+    Line chart example on a forex pair (e.g. EUR/USD, daily timeframe) — clean trend line with closing prices marked
+  </figure>
+
+  <h2 id="bar-charts-ohlc">Bar Charts (OHLC)</h2>
+
+  <p>The <strong>bar chart</strong> — also called an OHLC chart — presents all four price values for each time period in a single vertical bar.</p>
+
+  <h3>How to Read a Bar</h3>
+
+  <p>Each bar has three components:</p>
+  <ul>
+    <li>The <strong>vertical line</strong> runs from the period's low (bottom) to the period's high (top)</li>
+    <li>A <strong>left tick</strong> marks the opening price</li>
+    <li>A <strong>right tick</strong> marks the closing price</li>
+  </ul>
+
+  <p>When the right tick sits above the left tick, the period closed higher than it opened — a bullish bar. When the right tick is below the left tick, price closed lower — a bearish bar. The length of the vertical bar tells you how wide the price range was. A long bar indicates high volatility. A short bar indicates a narrow, low-activity session.</p>
+
+  <h3>Strengths</h3>
+
+  <p>Bar charts deliver the complete picture: range, volatility, and directional bias — all in one element. Traders analyzing longer timeframes often favor bar charts for their information density without the visual weight of candlesticks.</p>
+
+  <h3>Limitations</h3>
+
+  <p>Bar charts are functional, but they're harder to read at a glance than candlestick charts. The body of each bar is thin, making it difficult to spot sentiment shifts or emerging patterns quickly — especially in busy markets. For pattern-based analysis, candlesticks have largely replaced bars as the default format.</p>
+
+  <figure class="img-placeholder">
+    <span>[IMAGE — OHLC Bar Diagram]</span>
+    Annotated OHLC bar — open (left tick), high (top), low (bottom), close (right tick) labeled; bullish and bearish example side by side
+  </figure>
+
+  <h2 id="candlestick-charts">Candlestick Charts</h2>
+
+  <p>The candlestick chart is the most widely used format in active trading. It displays the same OHLC data as a bar chart but uses a different visual encoding — one that makes the relationship between open and close immediately visible.</p>
+
+  <h3>Anatomy of a Candlestick</h3>
+
+  <p>Each candlestick has two main components:</p>
+  <ul>
+    <li><strong>The body</strong> — the rectangle connecting the open and close prices. A tall body means a large difference between open and close.</li>
+    <li><strong>The wicks (or shadows)</strong> — thin lines extending above and below the body. The upper wick reaches to the period's high; the lower wick reaches to the period's low.</li>
+  </ul>
+
+  <p>The color of the body communicates direction instantly:</p>
+  <ul>
+    <li><strong>Bullish candle</strong> (typically green or white): Close is higher than Open — buyers were in control for the period</li>
+    <li><strong>Bearish candle</strong> (typically red or black): Close is lower than Open — sellers were in control</li>
+  </ul>
+
+  <h3>What Candlesticks Reveal</h3>
+
+  <p>The relationship between body size and wick length carries information about market sentiment. A long body with short wicks suggests strong directional conviction — price moved decisively and closed near its extreme. A small body with long wicks on both sides suggests indecision — price tested both directions before settling near where it opened.</p>
+
+  <p>This visual encoding is why candlestick charts dominate professional trading. Pattern recognition becomes faster and more intuitive when bullish and bearish sessions are color-coded and shaped differently.</p>
+
+  <h3>Candlestick Patterns</h3>
+
+  <p>Individual candle shapes form recognizable patterns — doji, hammer, engulfing, shooting star — that signal potential reversals or continuations. These are covered in depth in the <a href="/lesson/japanese-candlesticks/">Japanese Candlesticks</a> lesson and <a href="/lesson/chart-patterns-trading/">Chart Patterns</a> lesson. Understanding chart types comes first; patterns build on that foundation.</p>
+
+  <blockquote class="keep-in-mind">
+    <p><strong>Keep in Mind:</strong> Some of our human tendencies can be dangerous for investors.</p>
+    <ul>
+      <li>See patterns where there aren't any</li>
+      <li>Believe "market lore," technical and fundamental, without evidence</li>
+      <li>Look backwards rather than forward</li>
+      <li>Stick with original price targets of patterns after conditions have changed</li>
+    </ul>
+  </blockquote>
+
+  <figure class="img-placeholder">
+    <span>[IMAGE — Candlestick Anatomy]</span>
+    Candlestick anatomy diagram — body, upper wick, lower wick labeled; bullish (green) and bearish (red) candle side by side with open/high/low/close annotated
+  </figure>
+
+  <hr>
+
+  <h2 id="beyond-the-basics">Beyond the Basics: Specialty Chart Types</h2>
+
+  <p>The three chart types above cover the vast majority of what you'll encounter in trading platforms. Beyond them, several specialty formats solve specific problems — primarily filtering noise or changing how time is represented.</p>
+
+  <h3>Heikin Ashi</h3>
+
+  <p><strong>Heikin Ashi</strong> charts look similar to candlesticks but use averaged price values calculated from the current and previous period. The result is a smoother chart that makes trends easier to read, with fewer false reversal signals during trending markets.</p>
+
+  <p>The trade-off: because values are averaged, Heikin Ashi charts don't show the precise OHLC data for the current period. They're tools for trend clarity, not precision entry timing.</p>
+
+  <p>Heikin Ashi is covered in detail in its <a href="/lesson/heikin-ashi/">dedicated lesson</a>.</p>
+
+  <h3>Renko Charts</h3>
+
+  <p><strong>Renko</strong> charts abandon the time axis entirely. Instead of creating a new bar at each time interval, a new "brick" appears only when price moves by a fixed amount. This filters out minor price fluctuations and makes trend direction very visible — but it also means Renko charts won't help you analyze time-based patterns or news reactions.</p>
+
+  <p>Renko is covered in its <a href="/lesson/renko/">dedicated lesson</a>.</p>
+
+  <h3>Point &amp; Figure Charts</h3>
+
+  <p><strong>Point &amp; Figure</strong> charts are one of the oldest chart formats in technical analysis. Like Renko, they ignore time and only record significant price movements — using columns of X's for rising prices and O's for falling prices. They're particularly useful for identifying long-term support and resistance levels without time-period noise.</p>
+
+  <blockquote class="note">
+    <p><strong>Note:</strong> Heikin Ashi and Renko are tools for experienced traders who understand their limitations. If you're building your chart-reading skills, master the core three formats first.</p>
+  </blockquote>
+
+  <div class="cta-placeholder">
+    <span>Explore Further</span>
+    <p>Ready to go deeper? Explore <a href="/lesson/heikin-ashi/">Heikin Ashi</a> and <a href="/lesson/renko/">Renko</a> in their dedicated lessons — including when to use each and their key limitations.</p>
+  </div>
+
+  <hr>
+
+  <h2 id="which-chart-type">Which Chart Type Should You Use?</h2>
+
+  <p>The right chart depends on what you're trying to see and how you trade.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Chart Type</th>
+        <th>Best For</th>
+        <th>Typical Timeframes</th>
+        <th>Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Line</td>
+        <td>Macro trend, multi-asset comparison</td>
+        <td>Daily / Weekly</td>
+        <td>Low</td>
+      </tr>
+      <tr>
+        <td>Bar (OHLC)</td>
+        <td>Full price data, volatility context</td>
+        <td>Any</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>Candlestick</td>
+        <td>Pattern recognition, sentiment reading</td>
+        <td>Any</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>Heikin Ashi</td>
+        <td>Trend clarity, noise reduction</td>
+        <td>H1 and above</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td>Renko</td>
+        <td>Trend direction, filtering sideways chop</td>
+        <td>Price-based</td>
+        <td>Medium–High</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>For most traders starting out, the answer is straightforward: <strong>use candlestick charts as your default</strong>. They show the full OHLC data, they support pattern analysis, and they're the format most educational resources use in examples.</p>
+
+  <p>When to switch:</p>
+  <ul>
+    <li>Switch to a <strong>line chart</strong> when you want a clean macro view across a long period, or when comparing multiple instruments simultaneously</li>
+    <li>Switch to <strong>Heikin Ashi</strong> when you're trend-following and standard candlesticks feel too noisy</li>
+    <li>Switch to <strong>Renko</strong> when you want to filter time entirely and focus on price movement structure</li>
+  </ul>
+
+  <p>A common mistake is spending too much time testing different chart formats looking for an edge. The chart type is the frame — what you see inside the frame (price action, <a href="/lesson/support-and-resistance/">support and resistance</a> levels, patterns) is where the analytical work happens.</p>
+
+  <blockquote class="tip">
+    <p><strong>Tip:</strong> Most professional platforms — including MetaTrader and cTrader — let you switch chart types with one click. Experiment with a single currency pair on different chart formats to see how the same price data looks across each.</p>
+  </blockquote>
+
+  <figure class="img-placeholder">
+    <span>[IMAGE — Decision Flowchart]</span>
+    Chart type decision flowchart — trading goal on the left, arrow to recommended chart type on the right (e.g. "Trend following → Heikin Ashi or Candlestick", "Macro overview → Line chart")
+  </figure>
+
+  <h2 id="key-takeaways">Key Takeaways</h2>
+
+  <ul>
+    <li><strong>Line charts</strong> show only closing prices — clean for trend direction, limited for active analysis</li>
+    <li><strong>Bar charts (OHLC)</strong> show all four price values — full data, but harder to read at a glance</li>
+    <li><strong>Candlestick charts</strong> encode the same OHLC data visually — body color reveals direction instantly, making pattern recognition faster</li>
+    <li><strong>Specialty charts</strong> (Heikin Ashi, Renko, Point &amp; Figure) solve specific problems but aren't beginner defaults</li>
+    <li><strong>Start with candlesticks</strong> — they're the standard format and the one you'll encounter most in educational content</li>
+  </ul>
+
+  <h2 id="what-comes-next">What Comes Next</h2>
+
+  <p>Chart type is the foundation. The next step is understanding what the market is doing within those charts — whether it's trending or ranging, and how to read that context.</p>
+
+  <p>That's the focus of the next lesson: <a href="/lesson/market-environment-range-vs-trend/">Market Environment: Range vs. Trend</a>.</p>
+
+  <p>For deeper study of the candlestick format you'll use daily, the <a href="/lesson/japanese-candlesticks/">Japanese Candlesticks</a> lesson covers individual candle anatomy and the key patterns every trader needs to recognize. And when you're ready to build on your chart-reading foundation, <a href="/lesson/support-and-resistance/">Support and Resistance</a> shows you the key price levels that appear on every chart type.</p>
+
+  <div class="cta-placeholder">
+    <span>Next Lesson</span>
+    <p><a href="/lesson/market-environment-range-vs-trend/">Continue → Market Environment: Range vs. Trend</a></p>
+  </div>
+
+  <hr>
+
+  <div class="author-block">
+    <strong>About the Author</strong><br>
+    <strong>FTMO Academy Content Team</strong><br>
+    <em>Last Updated: 2026-03-06</em>
+  </div>
+
+  <div class="disclaimers">
+    <blockquote class="risk-warning">
+      <p><strong>Risk Warning:</strong> Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.</p>
+    </blockquote>
+    <blockquote class="edu-notice">
+      <p><strong>Educational Content Notice:</strong> This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.</p>
+    </blockquote>
+  </div>
+
+</div>
+</body>
+</html>
