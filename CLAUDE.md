@@ -1,7 +1,5 @@
 # FTMO Academy - Project CLAUDE.md
 
-@~/.claude/CLAUDE.md
-
 ## PROJECT: FTMO Academy Content
 
 ### TWO WORKFLOWS
@@ -12,7 +10,7 @@ Use when a lesson already exists on the live site.
 
 ```
 /academy https://academy.ftmo.com/lesson/[slug]/
-Keywords: /Users/admin/Projects/ftmo-academy/data/output/keywords/[slug]_keywords.xlsx
+Keywords: data/output/keywords/[slug]_keywords.xlsx
 ```
 
 5-step workflow: Keywords → ToV → Structure → HTML → QA
