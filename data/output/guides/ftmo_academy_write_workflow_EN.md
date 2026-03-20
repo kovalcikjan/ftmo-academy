@@ -1,8 +1,8 @@
 # FTMO Academy: New Lesson Writing Workflow
 
-**Version:** 2.0
+**Version:** 3.0
 **Created:** 2026-03-05
-**Updated:** 2026-03-06
+**Updated:** 2026-03-20
 **Purpose:** Step-by-step process for writing FTMO Academy lessons from scratch
 
 ---
@@ -13,8 +13,8 @@
 INPUT                        PROCESS                                    OUTPUT
 ─────                        ───────                                    ──────
 Topic / Slug           →     INIT: Load refs, create log file      →   Init Summary + log file
-                       →     Step 1: Competitor Research            →   URL list (max 10) + keyword set
-                       →     Step 2: Brief & Outline                →   Approved Outline
+                       →     Step 1: Competitor Research            →   [slug]_step1.xlsx (URLs + Keywords)
+                       →     Step 2: Brief & Outline                →   [slug]_EN_outline.md
                        →     Step 3: Draft Writing                  →   Full Draft + source citation log
                        →     Step 4: ToV Check                      →   Corrected Draft
                        →     Step 5: Structure & Formatting         →   Formatted Markdown
@@ -175,74 +175,108 @@ If slug is not in the inventory, flag it and ask for confirmation before proceed
 
 Understand the competitive landscape before writing. Scope the topic. Build the keyword set. Output: URL list + keywords — both used in Step 2.
 
-### Phase A — URL Discovery & Fetch
+### Krok 1: Seed Keyword Validation
 
-**Discovery — choose one search tool (priority order):**
+1. **Translate** the user's topic (often in Czech) to English
+2. **Verify** the seed is correct for trading education context:
+   - Run 1 quick WebSearch: `"[translated topic] trading education"`
+   - Check how trading academies (Babypips, Investopedia, broker education) name this topic
+   - Confirm or adjust the seed based on actual usage
+3. **Output:** 1 confirmed main seed keyword (e.g. `trading timeframes`)
 
-**Option 1: WebSearch (built-in, always available — DEFAULT)**
-1. Run 3–4 WebSearch queries for the topic with varied formulations:
-   - `"[topic] explained trading"` — broad
-   - `"[topic] guide for traders"` — educational angle
-   - `"how to use [topic] trading"` — practical angle
-   - `"[topic] candlestick bar line chart"` — specific angle if relevant
-2. Collect all returned URLs — target 15–20 candidates
+### Krok 2: WebSearch — 4 queries, 6 URLs each
 
-**Option 2: EXA MCP (semantic search — if configured)**
-1. Run 3–4 EXA semantic searches with the same query formulations as above
-2. EXA returns semantically relevant pages — not just keyword matches. A lesser-known broker academy with excellent coverage will surface; a well-known domain with irrelevant content will not.
-3. Collect all returned URLs — target 15–20 candidates
+1. Run exactly **4 WebSearch queries** with varied formulations of the confirmed seed:
+   - `"[seed] explained trading"` — broad
+   - `"[seed] guide for traders"` — educational angle
+   - `"how to choose [seed]"` — practical angle
+   - topic-specific angle query (adapt to subject)
+2. From each query, select **top 6 URLs**
+3. **Deduplicate + filter:** exclude forums (Reddit, Quora), paywalled content, non-EN pages, PDF files
+4. Result: **up to 24 URLs** in the candidate table (duplicates across queries marked in Source column)
 
-**Option 3: DataForSEO MCP (SERP data — if configured)**
-1. Use `serp_google_organic_live` for top 2–3 keyword queries
-2. Returns actual SERP rankings, featured snippets, SERP features
-3. Combine with WebSearch for broader discovery
+### Krok 3: Enrich every URL with Ahrefs metrics
 
-**Cross-reference (always):**
-3. Cross-reference with Ahrefs MCP `serp-overview` for the top 2–3 keywords to add SERP-ranked pages
-4. Deduplicate, exclude: forums (Reddit, Quora), paywalled content, non-EN pages, PDF files
-5. Select top 8–10 most relevant URLs for fetching
+5. For all URLs in the table, call Ahrefs MCP:
+   - `site-explorer-metrics` (mode=exact) → **Organic traffic** + org_keywords for the specific URL
+   - `site-explorer-domain-rating` → **Domain Rating (DR)** for the domain
+6. Add DR + organic traffic columns to the URL table
 
-**Fetch — extract content:**
+> **Note:** DR is a domain-level metric (one call per unique domain, not per URL).
+> Organic traffic is URL-level (one call per URL via `site-explorer-metrics` with `mode=exact`).
 
-6. WebFetch each selected URL — extract: H1, H2/H3 structure, topics covered, depth, unique angles, gaps
-7. If WebFetch fails (timeout / blocked): note in log as "fetch failed, skipped" — proceed with remaining pages
-8. Minimum 3 successfully fetched pages to continue
+### Krok 4: Select top 10 for fetching + extract content
 
-**Append to log file after each fetch:**
+7. From the enriched URLs, select **top 10** by: relevance > DR > organic traffic
+8. WebFetch each selected URL — extract:
 
-| URL | Source | DR | SERP pos. | Fetch status |
-|-----|--------|----|-----------|-------------|
-| https://... | WebSearch | 81 | 9 | fetched |
-| https://... | Ahrefs SERP | 77 | 8 | fetched |
-| https://... | WebSearch | — | — | failed — timeout |
+   | Extract | Purpose |
+   |---------|---------|
+   | **H1** | How competitor framed the title |
+   | **H2/H3 structure** | Section coverage — basis for our outline |
+   | **Topics covered** | What is standard in SERP — must cover |
+   | **Topics missing** | Content gaps — our differentiation |
+   | **Depth** | Surface overview vs. detailed guide |
+   | **Tables/comparisons** | What formats competitors use |
+   | **Unique angle** | What makes each one different |
+   | **Word count estimate** | Benchmark for our target |
 
-### Phase B — Keyword Discovery
+9. If WebFetch fails (timeout / blocked): note in log as "fetch failed, skipped" — proceed with remaining pages
+10. Minimum 3 successfully fetched pages to continue
 
-1. Call Ahrefs MCP `keywords-explorer-matching-terms` with seed = topic name in EN
-2. Call Ahrefs MCP `keywords-explorer-related-terms` with same seed
-3. Merge results from Phase A (topics found in competitor pages) + Ahrefs MCP output
-4. Deduplicate, sort by volume descending
-5. Filter: remove branded terms, volume < 10, clearly out-of-scope terms
-6. Output: top 20 keywords
+### Krok 5: Keyword Discovery
 
-### Output
+**Seed selection for Ahrefs:**
+- Main seed from Krok 1 (e.g. `trading timeframes`)
+- 2–3 additional seeds derived from H2 headings of fetched competitor pages (e.g. `best timeframe for swing trading`)
+- Combine all seeds comma-separated into a single string
 
-**URL List (max 10 — selected from fetched pages):**
+**Ahrefs queries — exactly 2 calls:**
+1. `keywords-explorer-matching-terms` — all seeds in one call
+2. `keywords-explorer-related-terms` — all seeds in one call
 
-| # | URL | DR | SERP pos. | Key Topics | Notable Gap |
-|---|-----|----|-----------|------------|-------------|
+### Krok 6: Merge + Deduplicate + Filter + Cluster
 
-**Keyword Set (top 20):**
+1. **Merge** all keywords from Ahrefs (matching + related) + topics from competitor H2/H3 headings
+2. **Exact dedup** — remove identical phrases
+3. **Filter:**
+   - Remove branded terms (specific broker/platform names)
+   - Remove non-EN keywords
+   - Remove clearly out-of-scope keywords
+   - Volume threshold (dynamic, based on main keyword volume):
+     - Main KW > 500 vol → cutoff 20
+     - Main KW 100–500 vol → cutoff 10
+     - Main KW < 100 vol → cutoff 0 (keep all)
+4. **Intent clustering** — keywords with the same search intent get the same cluster number
+5. Sort by volume descending
 
-| # | Keyword | Volume | KD |
-|---|---------|--------|----|
+Output: **up to 30 keywords** (exact count depends on topic — niche topics may yield 5–10, broad topics up to 30)
 
-**Content Gap Summary:** 3–5 bullets on what Academy can do better
+> **Keyword count is topic-dependent.** Do not force a fixed number. Include all relevant keywords up to 30 maximum. The user reviews and adjusts the final set before Step 2.
+
+### Krok 7: Generate xlsx
+
+Save as `data/output/lessons/[slug]/[slug]_step1.xlsx` with two sheets:
+
+**Sheet "URLs" (up to 24 rows):**
+
+| # | URL | Source | Query # | DR | Organic Traffic | Fetch Status | H1 | Key Topics | Notable Gap | Word Count |
+|---|-----|--------|---------|----|-----------------|--------------|-----|------------|-------------|------------|
+
+**Sheet "Keywords" (up to 30 rows):**
+
+| # | Keyword | Volume | KD | Cluster | Status | Notes |
+|---|---------|--------|----|---------|--------|-------|
+
+- Status and Notes columns are **empty** — user fills these during review
+- Content Gap Summary (3–5 bullets) appended to the log file, not the xlsx
 
 ### Stop Condition
 
-> **Step 1 complete.** Fetched [N] pages ([N] successful). Keyword set: [N] terms. Key gap: [sentence].
-> Add or remove URLs and keywords if needed → confirm to proceed to Step 2.
+> **Step 1 complete.** [N] URLs collected, [N] fetched successfully. [N] keywords proposed ([N] clusters).
+> Key gap: [sentence].
+> **xlsx saved at:** `[path]`
+> Review URLs + keywords in the xlsx → add, remove, or annotate → confirm to proceed to Step 2.
 
 **Wait for user confirmation.**
 
@@ -259,11 +293,12 @@ Define the architecture of the lesson before any prose is written. The approved 
 ### Actions (in order)
 
 1. Classify lesson: BEGINNER or ADVANCED
-2. Set word count target
-3. State differentiation from competitors
+2. Set word count target (based on competitor avg + topic complexity)
+3. State differentiation from competitors (what Academy does that others don't)
 4. Map top 3–5 keywords to H1/H2 headings
-5. Write full heading skeleton with key points per section
-6. Plan internal links (3–5 minimum)
+5. Write full heading skeleton with key points, callouts, and tables per section
+6. Plan internal links (3–5 minimum from Content Inventory)
+7. Content validation (trading expert review)
 
 ### BEGINNER vs. ADVANCED Classification
 
@@ -276,7 +311,7 @@ Define the architecture of the lesson before any prose is written. The approved 
 
 ### Keyword Placement in Step 2 — Headings Only
 
-Use the keyword set from Step 1. Step 2 assigns keywords to headings only.
+Use the keyword set from Step 1 xlsx. Step 2 assigns keywords to headings only.
 
 - Top 3–5 keywords by volume → assign to H1 or H2 where topic naturally fits
 - Never force a keyword into a heading if it breaks natural language
@@ -287,48 +322,6 @@ Use the keyword set from Step 1. Step 2 assigns keywords to headings only.
 | 1 | [kw] | [vol] | H1 |
 | 2 | [kw] | [vol] | H2 |
 | — | remaining [N] kw | — | Step 3 (body) |
-
-### Output Format
-
-```
-## Lesson Brief: [Title]
-
-Topic:          [Name]
-Slug:           [slug]
-Part:           [Part N — Name]
-Module:         [Module Name]
-Position:       Lesson N of M
-Classification: BEGINNER | ADVANCED — [one-sentence reason]
-Word Count:     [N–N words] — [basis: competitor avg / complexity]
-
-Differentiation:
-- [What this lesson does that competitors don't]
-- [FTMO-specific context to include]
-- [Topics deliberately excluded]
-
-Keywords — headings:
-| # | Keyword | Volume | Heading |
-|---|---------|--------|---------|
-
-Outline:
-# [H1 — Lesson Title] ← contains primary keyword
-  Key point: [what the reader learns overall]
-
-## [H2 — Section]
-  Target keyword: [keyword]
-  Key points:
-  - [Specific fact or principle to cover]
-  - [...]
-  Callout: [Type — description]
-  Table: [What to compare]
-
-  ### [H3 — Subsection]
-    Key points:
-    - [...]
-
-Internal Links:
-1. [Link text] → [Lesson] — [slug] — [placement]
-```
 
 ### Content Validation: Outline Review
 
@@ -342,11 +335,82 @@ Before presenting the outline for approval, review it as a trading expert and ed
 
 Output: validation note (pass / flagged issues) appended below the outline.
 
+### Output — Two Files
+
+**1. Outline file** — saved immediately (user can edit before approving):
+
+Save as `data/output/lessons/[slug]/lesson_[slug]_EN_outline.md`
+
+```markdown
+# Lesson Brief & Outline: [Title]
+
+## Brief
+
+| Item | Value |
+|------|-------|
+| Topic | [Name] |
+| Slug | [slug] |
+| Part | [Part N — Name] |
+| Module | [Module Name] |
+| Position | [Lesson N of M / new] |
+| Classification | BEGINNER | ADVANCED — [one-sentence reason] |
+| Word Count | [N–N words] — [basis] |
+
+## Differentiation
+
+- [What this lesson does that competitors don't]
+- [FTMO-specific context to include]
+- [Topics deliberately excluded]
+
+## Keywords — Headings
+
+| # | Keyword | Volume | Heading |
+|---|---------|--------|---------|
+
+## Outline
+
+# [H1 — Lesson Title] (H1)
+
+Key point: [what the reader learns overall]
+
+---
+
+## [Section Name] (H2)
+
+Target keyword: [keyword] (if assigned)
+
+Key points:
+- [Specific fact or principle to cover]
+- [...]
+
+Callout: [Type — description]
+Table: [What to compare]
+
+### [Subsection Name] (H3)
+
+- [...]
+
+---
+
+## Internal Links Plan
+
+| # | Link Text | Target Lesson | Slug | Placement |
+|---|-----------|---------------|------|-----------|
+
+## Content Validation
+
+- [validation notes]
+- **Validation: PASS | ISSUES**
+```
+
+**2. Log file** — append Step 2 section to existing `lesson_[slug]_EN_log.md`
+
 ### Stop Condition
 
 > **Step 2 complete.** Outline for "[Title]" — [BEGINNER/ADVANCED], ~[N] words.
 > [N] H2s, [N] H3s, [N] keywords mapped to headings. Content validation: [pass / issues].
-> Approve or edit outline → proceed to Step 3.
+> **Outline saved at:** `[path]`
+> Edit outline if needed → approve → proceed to Step 3.
 
 **Wait for user approval. Do not begin writing until the outline is approved.**
 
@@ -819,10 +883,12 @@ TODO → PUBLISHED (if approved and live)
 ## 14. Naming Convention
 
 ```
-lesson_[slug]_EN.md           # Final markdown
-lesson_[slug]_EN_log.md       # Write log (all steps)
-lesson_[slug]_EN.html         # Final HTML
-lesson_[slug]_EN_log.html     # Log HTML
+[slug]_step1.xlsx                    # Step 1 output: URLs + Keywords (user reviews)
+lesson_[slug]_EN_outline.md          # Step 2 output: Brief + Outline (user reviews/edits)
+lesson_[slug]_EN.md                  # Final markdown
+lesson_[slug]_EN_log.md              # Write log (all steps)
+lesson_[slug]_EN.html                # Final HTML
+lesson_[slug]_EN_log.html            # Log HTML
 ```
 
 Slugs use hyphens (matching URL slugs):
@@ -875,6 +941,7 @@ Slugs use hyphens (matching URL slugs):
 |---------|------|---------|
 | 1.0 | 2026-03-05 | Initial creation |
 | 2.0 | 2026-03-06 | Restructured Step 1 (competitor research + keyword discovery combined); INIT simplified (no keywords); Log file created at INIT; Source citation log added to Step 3; Content validation (trading expert review) added to Step 2 and Step 7; Callout type decision rules added to Step 5; Both HTML files generated in Step 6; 4-file checklist in Step 7; Keyword integration core principle added |
+| 3.0 | 2026-03-20 | **Step 1 rewrite:** 7-step process (seed validation → 4 WebSearch queries × 6 URLs → Ahrefs DR + organic traffic per URL → top 10 fetch with extraction checklist → keyword discovery 2 Ahrefs calls → merge/dedup/filter/cluster → xlsx output). Removed EXA/DataForSEO options, removed Ahrefs SERP cross-reference. Added: DR via `domain-rating` + traffic via `site-explorer-metrics` (mode=exact). Keywords max 30 with intent clustering. Output = xlsx with 2 sheets. **Step 2 rewrite:** outline saved as separate editable file `lesson_[slug]_EN_outline.md`. Updated naming convention with Step 1 xlsx + Step 2 outline files. |
 
 ---
 
