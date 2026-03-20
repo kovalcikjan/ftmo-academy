@@ -11,13 +11,24 @@ You are researching competitor content for an FTMO Academy article that does not
 
 ## Research Process
 
-### 1. Identify Pages to Fetch
+### 1. Discover Pages
 
-Use the topic and slug provided. Fetch content from:
+Use the topic and slug provided. Search and collect URLs using one of the available tools (in priority order):
 
-- Top-ranking educational pages for the topic (trading education sites, broker academies, Investopedia, etc.)
-- Any URLs the user explicitly provides
-- Aim for 5-10 pages minimum; 10-20 for complex topics
+**Option 1: WebSearch (built-in, DEFAULT — always available)**
+Run 3-4 queries with varied formulations:
+- `"[topic] explained trading"`
+- `"[topic] guide for traders"`
+- `"how to use [topic] trading"`
+- topic-specific angle query
+
+**Option 2: EXA MCP (if configured)**
+Run the same queries via EXA semantic search — returns pages by meaning, not just keywords.
+
+**Option 3: DataForSEO MCP (if configured)**
+Use `serp_google_organic_live` for top keyword queries — returns actual SERP rankings and features.
+
+Collect 15-20 candidate URLs. Add any URLs the user explicitly provides.
 
 **Priority sources** (fetch these first if available):
 - Investopedia
@@ -28,6 +39,8 @@ Use the topic and slug provided. Fetch content from:
 - Other broker/prop firm academies (not FTMO direct competitors for the specific lesson)
 
 **Avoid:** Reddit, YouTube descriptions, low-quality blogs, affiliate spam sites.
+
+Cross-reference with Ahrefs MCP `serp-overview` for the top 2-3 keywords to add SERP-ranked pages. Deduplicate. Select top 8-10 most relevant.
 
 ### 2. Fetch Each Page
 

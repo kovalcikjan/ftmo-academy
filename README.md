@@ -25,11 +25,27 @@ pip install -e .
 
 This project includes two slash commands as project-level Claude Code skills in `.claude/commands/`. They are automatically available when you open Claude Code inside this repo directory.
 
-**Required MCP servers** (configure in Claude Code or `.mcp.json`):
-- **EXA** — semantic web search (used in Step 1 for competitor research)
-- **Ahrefs** — SEO data, keyword research, SERP analysis
+**Required MCP server:**
+- **Ahrefs** — keyword research, SERP analysis, backlinks
 
-Without these MCP servers, Step 1 (Competitor Research + Keyword Discovery) will not work.
+**Optional MCP servers (enhance Step 1 research):**
+- **EXA** — semantic web search (better relevance than keyword search)
+- **DataForSEO** — real-time SERP data, keyword ideas, on-page analysis
+
+Without any optional MCP, Step 1 uses built-in `WebSearch` + `WebFetch` (always works).
+
+#### MCP Setup
+
+```bash
+# Ahrefs (required) — configured via Claude.ai account or .mcp.json
+# See: https://docs.anthropic.com/en/docs/claude-code/mcp
+
+# EXA (optional)
+claude mcp add --transport http exa "https://mcp.exa.ai/mcp?exaApiKey=YOUR_EXA_KEY"
+
+# DataForSEO (optional) — base64 encode "login:password"
+claude mcp add --header "Authorization: Basic BASE64_LOGIN_PASSWORD" --transport http dfs-mcp https://mcp.dataforseo.com/http
+```
 
 ## Workflows
 
@@ -40,7 +56,7 @@ Without these MCP servers, Step 1 (Competitor Research + Keyword Discovery) will
 | Step | Action | Output |
 |------|--------|--------|
 | INIT | Load references, create log | Init summary |
-| 1 | Competitor research + keywords (EXA + Ahrefs MCP) | URL list + keyword set |
+| 1 | Competitor research + keywords (WebSearch + Ahrefs MCP) | URL list + keyword set |
 | 2 | Brief & outline | Approved outline |
 | 3 | Draft writing (Academy ToV) | Full article + source citations |
 | 4 | ToV verification pass | Correction log |

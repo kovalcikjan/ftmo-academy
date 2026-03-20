@@ -177,14 +177,27 @@ Understand the competitive landscape before writing. Scope the topic. Build the 
 
 ### Phase A — URL Discovery & Fetch
 
-**Discovery — use EXA MCP (primary tool):**
+**Discovery — choose one search tool (priority order):**
 
-1. Run 3–4 EXA semantic searches for the topic with varied query formulations:
+**Option 1: WebSearch (built-in, always available — DEFAULT)**
+1. Run 3–4 WebSearch queries for the topic with varied formulations:
    - `"[topic] explained trading"` — broad
    - `"[topic] guide for traders"` — educational angle
    - `"how to use [topic] trading"` — practical angle
    - `"[topic] candlestick bar line chart"` — specific angle if relevant
 2. Collect all returned URLs — target 15–20 candidates
+
+**Option 2: EXA MCP (semantic search — if configured)**
+1. Run 3–4 EXA semantic searches with the same query formulations as above
+2. EXA returns semantically relevant pages — not just keyword matches. A lesser-known broker academy with excellent coverage will surface; a well-known domain with irrelevant content will not.
+3. Collect all returned URLs — target 15–20 candidates
+
+**Option 3: DataForSEO MCP (SERP data — if configured)**
+1. Use `serp_google_organic_live` for top 2–3 keyword queries
+2. Returns actual SERP rankings, featured snippets, SERP features
+3. Combine with WebSearch for broader discovery
+
+**Cross-reference (always):**
 3. Cross-reference with Ahrefs MCP `serp-overview` for the top 2–3 keywords to add SERP-ranked pages
 4. Deduplicate, exclude: forums (Reddit, Quora), paywalled content, non-EN pages, PDF files
 5. Select top 8–10 most relevant URLs for fetching
@@ -195,16 +208,13 @@ Understand the competitive landscape before writing. Scope the topic. Build the 
 7. If WebFetch fails (timeout / blocked): note in log as "fetch failed, skipped" — proceed with remaining pages
 8. Minimum 3 successfully fetched pages to continue
 
-**Why EXA over manual domain guessing:**
-EXA returns semantically relevant pages for the exact topic — not just known domains. A lesser-known broker academy with excellent coverage will surface; a well-known domain with irrelevant content will not.
-
 **Append to log file after each fetch:**
 
 | URL | Source | DR | SERP pos. | Fetch status |
 |-----|--------|----|-----------|-------------|
-| https://... | EXA | 81 | 9 | fetched |
+| https://... | WebSearch | 81 | 9 | fetched |
 | https://... | Ahrefs SERP | 77 | 8 | fetched |
-| https://... | EXA | — | — | failed — timeout |
+| https://... | WebSearch | — | — | failed — timeout |
 
 ### Phase B — Keyword Discovery
 

@@ -40,16 +40,20 @@ Full detail for every step is defined in the Workflow document above. This file 
 **Step 1 — Competitor Research + Keyword Discovery → STOP**
 
 Phase A — URL Discovery & Fetch:
-- **EXA MCP (primary):** run 3-4 semantic searches with varied query formulations:
+- **Search tool (pick one available, in priority order):**
+  1. **WebSearch (built-in, DEFAULT)** — always available, no setup needed
+  2. **EXA MCP** — semantic search, if configured
+  3. **DataForSEO MCP** — SERP data + keyword ideas, if configured
+- Run 3-4 searches with varied query formulations:
   - "[topic] explained trading"
   - "[topic] guide for traders"
   - "how to use [topic] trading"
   - topic-specific angle query
-- Collect 15-20 candidate URLs from EXA results
+- Collect 15-20 candidate URLs
 - Cross-reference with Ahrefs MCP \`serp-overview\` (top 2-3 keywords) for SERP-ranked pages
 - Deduplicate, exclude forums / paywalled / non-EN / PDFs
 - Select top 8-10 most relevant → WebFetch each
-- Log each URL: URL | source (EXA/Ahrefs) | DR | SERP pos. | fetch status
+- Log each URL: URL | source (WebSearch/EXA/DataForSEO/Ahrefs) | DR | SERP pos. | fetch status
 - If fetch fails: note in log, skip — minimum 3 successful fetches to continue
 
 Phase B — Keyword Discovery:
