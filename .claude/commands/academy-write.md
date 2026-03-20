@@ -4,21 +4,21 @@ Today is {{ date }}. Arguments: $ARGUMENTS
 
 ## Reference Documents
 
-**Workflow:** `data/output/guides/ftmo_academy_write_workflow_EN.md`
-**ToV Guide:** `data/output/guides/ftmo_academy_tov_guide_EN.md`
-**Structure Guide:** `data/output/guides/ftmo_academy_structure_guide_EN.md`
-**Content Inventory:** `data/output/guides/ftmo_academy_content_inventory.md`
+**Workflow:** \`data/output/guides/ftmo_academy_write_workflow_EN.md\`
+**ToV Guide:** \`data/output/guides/ftmo_academy_tov_guide_EN.md\`
+**Structure Guide:** \`data/output/guides/ftmo_academy_structure_guide_EN.md\`
+**Content Inventory:** \`data/output/guides/ftmo_academy_content_inventory.md\`
 
 ## Prompts
 
 | Step | Prompt file |
 |------|-------------|
-| Step 1 — Competitor Research + Keywords | `prompts/write_step1_research.md` |
-| Step 2 — Brief & Outline | `prompts/write_step2_brief.md` |
-| Step 3 — Draft Writing | `prompts/write_step3_draft.md` |
-| Step 4 — ToV Check | `prompts/write_step4_tov_check.md` |
-| Step 5 — Structure & Formatting | `prompts/step3_structure.md` |
-| Step 6 — HTML | `prompts/step4_html.md` |
+| Step 1 — Competitor Research + Keywords | \`prompts/write_step1_research.md\` |
+| Step 2 — Brief & Outline | \`prompts/write_step2_brief.md\` |
+| Step 3 — Draft Writing | \`prompts/write_step3_draft.md\` |
+| Step 4 — ToV Check | \`prompts/write_step4_tov_check.md\` |
+| Step 5 — Structure & Formatting | \`prompts/step3_structure.md\` |
+| Step 6 — HTML | \`prompts/step4_html.md\` |
 
 ## Workflow
 
@@ -31,8 +31,8 @@ Full detail for every step is defined in the Workflow document above. This file 
 **INIT (no confirmation needed):**
 1. Read all reference documents (Workflow + ToV Guide + Structure Guide + Content Inventory)
 2. Locate the topic/slug in the inventory — extract: Part, Module, lesson position, links to
-3. Check for existing versions in `data/output/lessons/[slug]/` — if found, determine next version number (v2, v3...) and use as suffix for ALL output files this run. Never overwrite or rename existing files.
-4. Create log file immediately with correct suffix: `data/output/lessons/[slug]/lesson_[slug]_EN[_vN]_log.md`
+3. Check for existing versions in \`data/output/lessons/[slug]/\` — if found, determine next version number (v2, v3...) and use as suffix for ALL output files this run. Never overwrite or rename existing files.
+4. Create log file immediately with correct suffix: \`data/output/lessons/[slug]/lesson_[slug]_EN[_vN]_log.md\`
 5. Output Init Summary — no keywords yet (keywords come from Step 1)
 
 ---
@@ -46,14 +46,14 @@ Phase A — URL Discovery & Fetch:
   - "how to use [topic] trading"
   - topic-specific angle query
 - Collect 15-20 candidate URLs from EXA results
-- Cross-reference with Ahrefs MCP `serp-overview` (top 2-3 keywords) for SERP-ranked pages
+- Cross-reference with Ahrefs MCP \`serp-overview\` (top 2-3 keywords) for SERP-ranked pages
 - Deduplicate, exclude forums / paywalled / non-EN / PDFs
 - Select top 8-10 most relevant → WebFetch each
 - Log each URL: URL | source (EXA/Ahrefs) | DR | SERP pos. | fetch status
 - If fetch fails: note in log, skip — minimum 3 successful fetches to continue
 
 Phase B — Keyword Discovery:
-- Ahrefs MCP `keywords-explorer-matching-terms` + `keywords-explorer-related-terms` for topic seed
+- Ahrefs MCP \`keywords-explorer-matching-terms\` + \`keywords-explorer-related-terms\` for topic seed
 - Merge with topics found in Phase A — deduplicate, sort by volume, filter branded/irrelevant
 - Output: top 20 keywords
 
@@ -121,9 +121,9 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 - Convert markdown to semantic HTML (FTMO Academy v2_balanced template)
 - Meta title: 50-60 chars | Meta description: 150-160 chars | Canonical: /lesson/[slug]/
 - Generate BOTH files simultaneously:
-  - `lesson_[slug]_EN.html` — final lesson HTML
-  - `lesson_[slug]_EN_log.html` — styled HTML version of log (sidebar nav, outline block, clickable URLs)
-- Append conversion log to `lesson_[slug]_EN_log.md`
+  - \`lesson_[slug]_EN.html\` — final lesson HTML
+  - \`lesson_[slug]_EN_log.html\` — styled HTML version of log (sidebar nav, outline block, clickable URLs)
+- Append conversion log to \`lesson_[slug]_EN_log.md\`
 
 > "Step 6 complete. Both HTML files saved. Approve → proceed to Step 7."
 
@@ -142,10 +142,10 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 3. Full QA checklist: E-E-A-T, structure, ToV, readability, keywords, formatting
 
 4. Save all 4 files:
-   - [ ] `lesson_[slug]_EN.md`
-   - [ ] `lesson_[slug]_EN_log.md`
-   - [ ] `lesson_[slug]_EN.html`
-   - [ ] `lesson_[slug]_EN_log.html`
+   - [ ] \`lesson_[slug]_EN.md\`
+   - [ ] \`lesson_[slug]_EN_log.md\`
+   - [ ] \`lesson_[slug]_EN.html\`
+   - [ ] \`lesson_[slug]_EN_log.html\`
 
 5. Update Content Inventory:
    - Status: TODO → DRAFT / PUBLISHED
@@ -157,27 +157,27 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 ## Usage Modes
 
 **Full workflow (default):**
-```
+\`\`\`
 /academy-write [topic/slug]
-```
+\`\`\`
 Runs INIT + Steps 1-7. Stops after each step.
 
 **Brief only:**
-```
+\`\`\`
 /academy-write brief [topic/slug]
-```
+\`\`\`
 Runs INIT + Steps 1-2. Output: approved outline only.
 
 **Draft from existing brief:**
-```
+\`\`\`
 /academy-write draft [topic/slug]
-```
+\`\`\`
 Starts from Step 3. Assumes approved outline exists in conversation context.
 
 **Show TODO lessons:**
-```
+\`\`\`
 /academy-write inventory
-```
+\`\`\`
 Read Content Inventory — list all TODO lessons grouped by Part/Module.
 Output table: Part | Module | Lesson | Slug
 

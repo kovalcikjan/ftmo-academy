@@ -90,7 +90,7 @@ Volume determines **relative priority within the file**, not absolute thresholds
 
 ```
 Článek: https://academy.ftmo.com/lesson/types-of-trading-charts/
-Keywords: /Users/admin/Projects/ftmo-academy/data/output/types_of_trading_charts_keywords.xlsx
+Keywords: data/output/keywords/types-of-trading-charts_keywords.xlsx
 ```
 
 ### Invocation

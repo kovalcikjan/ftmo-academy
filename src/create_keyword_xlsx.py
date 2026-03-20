@@ -184,5 +184,7 @@ def create_keywords_xlsx(output_path: str) -> None:
 
 
 if __name__ == "__main__":
-    output = "/Users/admin/Projects/ftmo-academy/data/output/types_of_trading_charts_keywords.xlsx"
+    from pathlib import Path
+    project_root = Path(__file__).parent.parent.resolve()
+    output = str(project_root / "data" / "output" / "types_of_trading_charts_keywords.xlsx")
     create_keywords_xlsx(output)

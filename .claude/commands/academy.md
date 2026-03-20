@@ -4,10 +4,10 @@ Today is {{ date }}. Arguments: $ARGUMENTS
 
 ## Reference Documents
 
-**Tone of Voice Guide:** `data/output/guides/ftmo_academy_tov_guide_EN.md`
-**Structure Guide:** `data/output/guides/ftmo_academy_structure_guide_EN.md`
-**Content Inventory:** `data/output/guides/ftmo_academy_content_inventory.md`
-**Workflow:** `data/output/guides/ftmo_academy_workflow_EN.md`
+**Tone of Voice Guide:** \`data/output/guides/ftmo_academy_tov_guide_EN.md\`
+**Structure Guide:** \`data/output/guides/ftmo_academy_structure_guide_EN.md\`
+**Content Inventory:** \`data/output/guides/ftmo_academy_content_inventory.md\`
+**Workflow:** \`data/output/guides/ftmo_academy_workflow_EN.md\`
 
 ## Workflow
 
@@ -19,17 +19,17 @@ Today is {{ date }}. Arguments: $ARGUMENTS
 3. Fetch and display the original article
 
 **Step 1 → STOP**
-- Run keyword integration per `prompts/step1_keywords.md`
+- Run keyword integration per \`prompts/step1_keywords.md\`
 - Output: edited article + Step 1 log (full original sentence → full new sentence)
 - Wait for confirmation: "Step 1 complete. Proceed to Step 2 (ToV rewrite)?"
 
 **Step 2 → STOP**
-- Run ToV rewrite per `prompts/step2_tov.md`
+- Run ToV rewrite per \`prompts/step2_tov.md\`
 - Output: edited article + Step 2 log (full original sentence → full new sentence)
 - Wait for confirmation: "Step 2 complete. Proceed to Step 3 (Structure)?"
 
 **Step 3 → STOP**
-- Run structure & formatting per `prompts/step3_structure.md`
+- Run structure & formatting per \`prompts/step3_structure.md\`
 - Output: final article
 - Wait for confirmation: "Step 3 complete. Save files and proceed to Step 4 (HTML)?"
 
@@ -77,7 +77,7 @@ Today is {{ date }}. Arguments: $ARGUMENTS
 
 ## Output Format
 
-```markdown
+\`\`\`markdown
 # Content Audit: [Article Title]
 
 ## Summary
@@ -115,41 +115,41 @@ Today is {{ date }}. Arguments: $ARGUMENTS
 > ...
 
 **Why:** [Reason per guide]
-```
+\`\`\`
 
 ## Usage Modes
 
 **Analyze only (default):**
-`/academy [URL or path]`
+\`/academy [URL or path]\`
 - Audit and recommendations only
 - Does not create edited file
 
 **Rewrite mode:**
-`/academy rewrite [URL or path]`
+\`/academy rewrite [URL or path]\`
 - Runs full audit
-- Creates new file: `lesson_[slug]_EN.md`
+- Creates new file: \`lesson_[slug]_EN.md\`
 
 **Quick check:**
-`/academy quick [URL or path]`
+\`/academy quick [URL or path]\`
 - Top 5 issues only
 - Brief output
 
 **Section focus:**
-`/academy tov [URL or path]` — ToV issues only
-`/academy structure [URL or path]` — structure issues only
-`/academy eeat [URL or path]` — E-E-A-T issues only
+\`/academy tov [URL or path]\` — ToV issues only
+\`/academy structure [URL or path]\` — structure issues only
+\`/academy eeat [URL or path]\` — E-E-A-T issues only
 
 **Translation check:**
-`/academy check` — translate sentence change log from English to Czech
+\`/academy check\` — translate sentence change log from English to Czech
 - Input format (one or more entries):
-  ```
+  \`\`\`
   #: [number]
     Original sentence (full): "..."
     New sentence (full): "..."
     Reason: ...
-  ```
+  \`\`\`
 - For each entry, output both English and Czech versions:
-  ```
+  \`\`\`
   **#: [number]**
 
   **Original sentence (full):**
@@ -163,15 +163,15 @@ Today is {{ date }}. Arguments: $ARGUMENTS
   **Reason:**
   [EN reason]
   *[CZ reason]*
-  ```
+  \`\`\`
 - Translate naturally, not word-for-word. Keep Czech fluent.
 - Preserve formatting (quotes, dashes, punctuation style).
 
 **Content inventory operations:**
-`/academy inventory` — show Content Inventory summary
-`/academy links [lesson-url]` — suggest internal links for a lesson
-`/academy gaps` — show content gaps and suggestions
-`/academy prereqs [lesson-url]` — verify/suggest prerequisites
+\`/academy inventory\` — show Content Inventory summary
+\`/academy links [lesson-url]\` — suggest internal links for a lesson
+\`/academy gaps\` — show content gaps and suggestions
+\`/academy prereqs [lesson-url]\` — verify/suggest prerequisites
 
 ## Important Rules
 

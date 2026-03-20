@@ -153,3 +153,124 @@
 | Reader addressing | Shifted from "we/our" to "you/your" where appropriate (2nd person per ToV Guide) |
 | Facts/information changed | None |
 | Keywords from Step 1 preserved | All |
+
+---
+
+## Step 3 Log: Structure & Formatting
+
+**Guide:** `ftmo_academy_structure_guide_EN.md`
+**Source file:** `lesson_types-of-trading-charts_EN_v8_step2.md`
+**Article length:** ~650 words (Short) → Limits: 1-2 callouts, 1 table, 1-2 lists
+
+### Phase 0: Paragraph Audit
+
+| # | Location | Words | Action | Result |
+|---|----------|-------|--------|--------|
+| 1 | Candlestick section, time-based paragraph (line 21) | ~200 | SPLIT into 4 paragraphs + 1 list | Time-Based Charts H3, Non-Time-Based Charts H3, tick/range explanations separated |
+| 2 | EURUSD/range paragraph (line 23) | ~110 | SPLIT into 3 paragraphs | Tick detail, range detail, comparison paragraph |
+| 3 | All other paragraphs | <100 | No action needed | — |
+
+### Heading Restructure
+
+| # | Change Type | Original | New | Reason |
+|---|-------------|----------|-----|--------|
+| 1 | H2 removed | "## Types of trading charts – candlestick charts, Renko charts, and Heikin Ashi candles" | Removed — content merged into intro | Redundant with H1; violated "H2s create scannable outline" |
+| 2 | H3 → H2 | "### Candlestick charts" | "## Candlestick Charts" | Promoted for scannable outline |
+| 3 | H3 added | — | "### Time-Based Charts" | New subsection under Candlestick Charts (content was in wall-of-text paragraph) |
+| 4 | H3 added | — | "### Non-Time-Based Charts" | New subsection (tick/range chart content separated) |
+| 5 | H3 → H2 | "### Bar charts" | "## Bar Charts" | Promoted for scannable outline |
+| 6 | H3 → H2 | "### Renko Charts" | "## Renko Charts" | Already H2-level in Step 1 |
+| 7 | H3 → H2 | "### Heikin Ashi Candles" | "## Heikin Ashi Candles" | Promoted for scannable outline |
+| 8 | H3 → H2 | "### Conclusion" | "## Conclusion" | Standard closing section |
+| 9 | H2 added | — | "## Key Takeaways" | Structure Guide: actionable summary required |
+| 10 | H2 added | — | "## Next Steps" | Structure Guide: always required at end |
+
+**Final heading structure:** 1x H1, 7x H2, 2x H3
+
+### Formatting Elements Added
+
+| # | Change Type | Description | Reason |
+|---|-------------|-------------|--------|
+| 1 | Prerequisites | Added prerequisite block linking to Japanese Candlesticks | Structure Guide: always state prerequisites |
+| 2 | List (bullet) | Timeframes split into bullet list (1m–60M, 4h–monthly) | Structure Guide: convert inline lists to bullet points |
+| 3 | Callout — Tip | "If your candlestick charts feel visually noisy, try a higher timeframe first..." | Structure Guide: 1 actionable tip per short article |
+| 4 | Callout — Warning | "A common mistake is switching chart formats looking for an edge..." | Structure Guide: 1 risk/mistake warning |
+| 5 | Table | Chart type comparison (6 rows: Candlestick, Bar, Renko, HA, Tick, Range) | Structure Guide: comparison table where data exists |
+| 6 | Key Takeaways | 6 bullet points summarizing chart types | Structure Guide: required section |
+| 7 | Next Steps | 3 internal links (Market Environment, Support/Resistance, Chart Patterns) | Structure Guide: always at end |
+| 8 | Author box | FTMO Academy Content Team + date | E-E-A-T: author attribution |
+| 9 | Risk Warning | Standard risk disclaimer | YMYL: required |
+| 10 | Educational Notice | Standard educational disclaimer | YMYL: required |
+
+### Bold Added (Key Terms)
+
+| Term | Location |
+|------|----------|
+| Candlestick charts | First mention in Candlestick section |
+| body, wick | Anatomy description |
+| bullish candlestick, bearish candlestick | Direction definitions |
+| Chart periodicity | First mention |
+| Time-based periodicity | First mention |
+| tick charts, range charts | First mention in Non-Time-Based section |
+| tick chart, range bar | Individual explanations |
+| Bar charts, OHLC charts | First mention in Bar Charts section |
+| Renko charts | First mention in Renko section |
+| Heikin Ashi candles | First mention in HA section |
+| Heikin Ashi candle formula | Formula reference |
+
+### Internal Links (5 total)
+
+| # | Anchor Text | Target | Location |
+|---|-------------|--------|----------|
+| 1 | Japanese Candlesticks | /lesson/japanese-candlesticks/ | Prerequisites + Candlestick section + Bar Charts section |
+| 2 | candlestick patterns | /lesson/chart-patterns-trading/ | Time-Based Charts H3 |
+| 3 | support and resistance | /lesson/support-and-resistance/ | Bar Charts + Renko + Key Takeaways |
+| 4 | Market Environment: Range vs. Trend | /lesson/market-environment-range-vs-trend/ | Next Steps |
+| 5 | Chart Patterns | /lesson/chart-patterns-trading/ | Next Steps |
+
+### Checklist
+
+**Phase 0: Paragraph Audit:**
+- [x] Every paragraph checked for length
+- [x] No paragraph exceeds 100 words
+- [x] Max 3 consecutive paragraphs without a visual break
+- [x] All splits logged
+
+**Heading Structure:**
+- [x] Single H1 (lesson title)
+- [x] 7 H2 major sections (Candlestick, Bar, Renko, HA, Conclusion, Takeaways, Next Steps)
+- [x] 2 H3 subsections (Time-Based, Non-Time-Based)
+- [x] No skipped levels
+
+**E-E-A-T Elements:**
+- [x] Author attribution
+- [x] Updated date
+- [x] Risk Warning callout
+- [x] Educational Content Notice
+
+**Navigation:**
+- [x] Prerequisites stated (Japanese Candlesticks)
+- [x] 5 internal links (exceeds 3-5 minimum)
+- [x] Next steps with 3 related lessons
+- [ ] ToC not added (article <1500 words — optional)
+
+**Callouts:**
+- [x] 1 Tip callout (timeframe advice)
+- [x] 1 Warning callout (chart switching mistake)
+- [x] Within 1-2 per short article limit
+
+**Tables:**
+- [x] 1 comparison table (6 chart types)
+- [x] Max 4 columns, header row present
+
+**Lists:**
+- [x] 1 bullet list (timeframes)
+- [x] 1 bullet list (Key Takeaways)
+- [x] 1 bullet list (Next Steps)
+
+**Readability:**
+- [x] Paragraphs 40-100 words
+- [x] Max 3 paragraphs without visual break
+- [x] Bold for key terms (not full sentences)
+
+**File saved:** `lesson_types-of-trading-charts_EN_v8_final.md`

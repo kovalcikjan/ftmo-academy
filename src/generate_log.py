@@ -11,7 +11,21 @@ import sys
 from pathlib import Path
 from typing import Any
 
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+import platform
+import shutil
+
+def _find_chrome() -> str:
+    """Find Chrome executable across platforms."""
+    if platform.system() == "Darwin":
+        mac_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        if Path(mac_path).exists():
+            return mac_path
+    found = shutil.which("google-chrome") or shutil.which("chromium")
+    if found:
+        return found
+    return "google-chrome"
+
+CHROME = _find_chrome()
 
 BADGE_CLASS: dict[str, str] = {
     "DONE": "badge-done",
