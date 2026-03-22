@@ -66,6 +66,33 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 
 ---
 
+**Before Step 2 — Model Selection → STOP**
+
+Ask the user which model should generate content (Steps 2-4):
+
+\`\`\`
+Choose model for content generation (Steps 2-4):
+1. Claude Code (default) — I do it myself
+2. GPT-4o (OpenAI)
+3. GPT-4o-mini (OpenAI)
+4. Gemini 2.0 Flash (Google)
+5. Claude Sonnet (Anthropic API)
+\`\`\`
+
+To check available models + API key status: \`.venv/bin/python src/generate_text.py --list\`
+
+- **Option 1 (default):** Claude Code handles Steps 2-4 directly (current behavior)
+- **Options 2-5:** For each text generation step, save input to temp file, then call:
+  \`\`\`
+  .venv/bin/python src/generate_text.py --model [model-key] --system [prompt-file] --input [input.md] --output [output.md]
+  \`\`\`
+  Then read the output, review it, and continue with logging.
+
+**Selected model is used for:** Step 2 (Brief & Outline), Step 3 (Draft), Step 4 (ToV Check).
+**Claude Code always handles:** Step 1 (Research — needs MCP tools), Step 5 (Structure), Step 6 (HTML).
+
+---
+
 **Step 2 — Brief & Outline → STOP**
 
 - Classification: BEGINNER or ADVANCED
@@ -75,6 +102,7 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 - Full heading skeleton with key points per section
 - Internal links plan (3-5 minimum from inventory)
 - Content validation: review outline as trading expert + educator before presenting
+- **If external model:** call \`generate_text.py --model [key] --system prompts/write_step2_brief.md\`
 
 > "Step 2 complete. Outline for '[Title]' — [BEGINNER/ADVANCED], ~[N] words. Content validation: [pass/issues]. Outline saved at: [full absolute path]. Approve or edit → proceed to Step 3."
 
@@ -92,6 +120,7 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
   - Outline deviations
   - Full article with inline source citations: each factual claim → source URL from Step 1 research
     (FTMO-specific = mark as [FTMO platform knowledge]; missing source = [SOURCE NEEDED])
+- **If external model:** call \`generate_text.py --model [key] --system prompts/write_step3_draft.md\`
 
 > "Step 3 complete. [N] words. Keywords: [N]. Deviations: [N]. Source citations: [N] (flagged: [N]). Review draft → proceed to Step 4."
 
@@ -102,6 +131,7 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 - Light verification pass only — draft is already in Academy ToV
 - 0-5 flagged items = success; >10 items = return to Step 3
 - Append to log: sentences reviewed, issues found, correction table
+- **If external model:** call \`generate_text.py --model [key] --system prompts/write_step4_tov_check.md\`
 
 > "Step 4 complete. [N] issues found and corrected. Approve → proceed to Step 5."
 

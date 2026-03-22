@@ -384,6 +384,56 @@ Process keywords sorted by Volume (descending):
 
 ---
 
+## 4.5. Model Selection (Before Step 2)
+
+### Purpose
+Allow the user to choose which LLM generates text content.
+
+### When to Ask
+- **`/academy`:** Before Step 2 (ToV rewrite) — selected model handles Step 2 only
+- **`/academy-write`:** Before Step 2 (Brief) — selected model handles Steps 2, 3, and 4
+
+### Available Models
+
+| Option | Model Key | Provider | Notes |
+|--------|-----------|----------|-------|
+| 1 (default) | — | Claude Code | No API call, Claude Code does it directly |
+| 2 | `gpt-4o` | OpenAI | High quality, slower |
+| 3 | `gpt-4o-mini` | OpenAI | Fast, good quality |
+| 4 | `gemini-2.0-flash` | Google | Fast, large context |
+| 5 | `claude-3-5-sonnet` | Anthropic | Via API (separate from Claude Code) |
+
+### How It Works
+
+```
+# Check available models + API key status
+.venv/bin/python src/generate_text.py --list
+
+# Call external model
+.venv/bin/python src/generate_text.py \
+  --model gpt-4o \
+  --system prompts/step2_tov.md \
+  --input data/output/lessons/[slug]/step1_output.md \
+  --output data/output/lessons/[slug]/step2_output.md
+```
+
+### What Each Actor Handles
+
+| Step | Claude Code | External Model |
+|------|-------------|----------------|
+| Step 1 (Keywords) | Always | Never (mechanical) |
+| Step 2 (ToV / Brief) | Default | If selected |
+| Step 3 (Draft — write only) | Default | If selected |
+| Step 4 (ToV Check — write only) | Default | If selected |
+| Step 3 (Structure — edit) | Always | Never (formatting) |
+| Step 4 (HTML — edit) | Always | Never (conversion) |
+| Step 5 (QA) | Always | Never |
+
+### Default Behavior
+If the user says "default" or "you do it" → Claude Code handles everything (no API calls).
+
+---
+
 ## 5. Step 2: ToV Rewrite
 
 ### Purpose

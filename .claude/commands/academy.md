@@ -49,8 +49,30 @@ Choose mode:
 - Output: edited article + Step 1 log (full original sentence → full new sentence)
 - Wait for confirmation: "Step 1 complete. Proceed to Step 2 (ToV rewrite)?"
 
+**Before Step 2 — Model Selection → STOP**
+
+Ask the user which model should generate the ToV rewrite:
+
+\`\`\`
+Choose model for ToV rewrite:
+1. Claude Code (default) — I do it myself
+2. GPT-4o (OpenAI)
+3. GPT-4o-mini (OpenAI)
+4. Gemini 2.0 Flash (Google)
+5. Claude Sonnet (Anthropic API)
+\`\`\`
+
+To check available models + API key status: \`.venv/bin/python src/generate_text.py --list\`
+
+- **Option 1 (default):** Claude Code handles Step 2 directly (current behavior)
+- **Options 2-5:** Save Step 1 output to temp file, then call:
+  \`\`\`
+  .venv/bin/python src/generate_text.py --model [model-key] --system prompts/step2_tov.md --input [step1_output.md] --output [step2_output.md]
+  \`\`\`
+  Then read the output, review it, and continue with logging.
+
 **Step 2 → STOP**
-- Run ToV rewrite per \`prompts/step2_tov.md\`
+- Run ToV rewrite (via selected model or Claude Code)
 - Output: edited article + Step 2 log (full original sentence → full new sentence)
 - Wait for confirmation: "Step 2 complete. Proceed to Step 3 (Structure)?"
 
