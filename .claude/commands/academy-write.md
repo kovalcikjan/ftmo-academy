@@ -30,10 +30,9 @@ Full detail for every step is defined in the Workflow document above. This file 
 
 **INIT (no confirmation needed):**
 1. Read all reference documents (Workflow + ToV Guide + Structure Guide + Content Inventory)
-2. Locate the topic/slug in the inventory — extract: Part, Module, lesson position, links to
-3. Check for existing versions in \`data/output/lessons/[slug]/\` — if found, determine next version number (v2, v3...) and use as suffix for ALL output files this run. Never overwrite or rename existing files.
-4. Create log file immediately with correct suffix: \`data/output/lessons/[slug]/lesson_[slug]_EN[_vN]_log.md\`
-5. Output Init Summary — no keywords yet (keywords come from Step 1)
+2. Check for existing versions in \`data/output/lessons/[slug]/\` — if found, determine next version number (v2, v3...) and use as suffix for ALL output files this run. Never overwrite or rename existing files.
+3. Create log file immediately with correct suffix: \`data/output/lessons/[slug]/lesson_[slug]_EN[_vN]_log.md\`
+4. Output Init Summary — no keywords yet (keywords come from Step 1)
 
 ---
 
@@ -63,7 +62,7 @@ Phase B — Keyword Discovery:
 
 Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bullets)
 
-> "Step 1 complete. [N] pages fetched. [N] keywords. Add or remove URLs/keywords → confirm to proceed to Step 2."
+> "Step 1 complete. [N] pages fetched. [N] keywords. xlsx saved at: [full absolute path]. Add or remove URLs/keywords → confirm to proceed to Step 2."
 
 ---
 
@@ -77,7 +76,7 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
 - Internal links plan (3-5 minimum from inventory)
 - Content validation: review outline as trading expert + educator before presenting
 
-> "Step 2 complete. Outline for '[Title]' — [BEGINNER/ADVANCED], ~[N] words. Content validation: [pass/issues]. Approve or edit → proceed to Step 3."
+> "Step 2 complete. Outline for '[Title]' — [BEGINNER/ADVANCED], ~[N] words. Content validation: [pass/issues]. Outline saved at: [full absolute path]. Approve or edit → proceed to Step 3."
 
 ---
 
@@ -151,39 +150,36 @@ Output: URL list (max 10) + keyword set (top 20) + content gap summary (3-5 bull
    - [ ] \`lesson_[slug]_EN.html\`
    - [ ] \`lesson_[slug]_EN_log.html\`
 
-5. Update Content Inventory:
-   - Status: TODO → DRAFT / PUBLISHED
-   - Links To column updated
-   - Last updated date updated
-
 ---
 
-## Usage Modes
+## Entry — Choose Mode
 
-**Full workflow (default):**
-\`\`\`
-/academy-write [topic/slug]
-\`\`\`
-Runs INIT + Steps 1-7. Stops after each step.
+When `/academy-write` is invoked, ask the user to choose:
 
-**Brief only:**
 \`\`\`
-/academy-write brief [topic/slug]
+Choose mode:
+1. New article — enter topic (e.g. "trading timeframes")
+2. Continue — paste full path to approved brief (.md or .docx)
+3. Edit workflow — modify skills, scripts, or workflow documents
 \`\`\`
-Runs INIT + Steps 1-2. Output: approved outline only.
 
-**Draft from existing brief:**
-\`\`\`
-/academy-write draft [topic/slug]
-\`\`\`
-Starts from Step 3. Assumes approved outline exists in conversation context.
+### Mode 1: New article
+- User provides topic name
+- Check \`data/output/lessons/[slug]/\` for existing files:
+  - No folder → create folder → INIT → Step 1
+  - Folder exists with finished article (.md + .html) → new version (v2, v3...) → INIT → Step 1
+- Runs full workflow: INIT → Step 1 → Step 2 → ... → Step 7
 
-**Show TODO lessons:**
-\`\`\`
-/academy-write inventory
-\`\`\`
-Read Content Inventory — list all TODO lessons grouped by Part/Module.
-Output table: Part | Module | Lesson | Slug
+### Mode 2: Continue from approved brief
+- User provides full absolute path to the approved brief file
+  (e.g. \`/Users/joe/Projects/ftmo-academy/data/output/lessons/trading-timeframes/lesson_trading-timeframes_EN_outline.md\`)
+- Read the brief file + corresponding xlsx from the same folder
+- Skip Step 1 and Step 2 — continue from Step 3
+- Version detection: check folder for existing versions → use next suffix
+
+### Mode 3: Edit workflow
+- Only mode where editing skills, scripts, prompts, or workflow documents is allowed
+- In all other modes, NEVER modify skills, scripts, or workflow files
 
 ## Important Rules
 
