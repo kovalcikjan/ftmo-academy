@@ -57,9 +57,31 @@ Keywords: /path/to/[lesson-slug]_keywords.xlsx
 | Element | How | Used In |
 |---------|-----|---------|
 | **Article text** | WebFetch → markdown | All steps |
-| **Image URLs** | Extract from HTML | Step 4 (exact positioning) |
-| **Image positions** | Note after which paragraph | Step 4 |
+| **Image URLs** | Extract from HTML source | Initialization, Step 3, Step 4 |
+| **Image positions** | Note after which paragraph/H2/H3 | Initialization, Step 3, Step 4 |
+| **Image alt text** | Extract from `alt` attributes | Step 4 |
 | **Video embed** | Extract YouTube URL | Step 4 |
+
+### Image Extraction — MANDATORY at Initialization
+
+During Initialization, create an **Image Map** before any editing begins:
+
+```
+## Image Map
+
+| # | Original position (after which heading/paragraph) | Image URL | Alt text | Topic/context |
+|---|---------------------------------------------------|-----------|----------|---------------|
+| 1 | After H2 "Candlestick Charts", paragraph 2 | https://...candlestick.png | Candlestick chart | Candlestick explanation |
+| 2 | After H2 "Bar Charts", paragraph 1 | https://...bar-chart.png | Bar chart OHLC | Bar chart structure |
+| ... | ... | ... | ... | ... |
+```
+
+**Rules:**
+- Extract ALL images from the original article (WebFetch HTML source)
+- Record exact position: after which heading + which paragraph number
+- Record topic context (what the image illustrates)
+- This map carries through all steps — images stay with their topic, not with a fixed paragraph number
+- If content is restructured in Step 3, images move with their topic
 
 ### What Gets Extracted from Keywords File
 
@@ -820,6 +842,8 @@ Apply heading hierarchy, E-E-A-T elements, and visual formatting based on Struct
 | **Paragraphs** | Break long paragraphs (max 100 words) |
 | **Internal links** | Add 3-5 links to related lessons |
 | **Bold** | Highlight key terms for scanning |
+| **Image notes** | Update Image Map positions if sections were restructured |
+| **Placeholders** | Mark H2 sections with visual topics but no image as `[IMAGE NEEDED]` |
 
 ### What STAYS THE SAME
 
@@ -885,11 +909,48 @@ Apply heading hierarchy, E-E-A-T elements, and visual formatting based on Struct
 ### Purpose
 Convert markdown to styled HTML with FTMO branding.
 
-> **RULE:** Images from original article must be placed EXACTLY where they were.
-> 1. Fetch all image URLs from original article
-> 2. Note their position in the text (after which paragraph/section)
-> 3. Place them in the same position in HTML
-> 4. Add appropriate alt text and captions
+> **RULE:** Images follow their TOPIC, not a fixed paragraph number.
+> Use the Image Map from Initialization to place each image next to the content it illustrates.
+
+### Image Placement Rules
+
+1. **Original images:** Place each image from the Image Map next to its topic (same H2/H3 section)
+2. **Sizing:** All images use `max-width: 500px` and `width: 100%` — smaller by default, readable without dominating layout
+3. **Alt text:** Descriptive, keyword-rich where natural (from Image Map)
+4. **Captions:** Add `<figcaption>` with brief description
+5. **Missing images:** If an H2 section has NO image and the topic would benefit from one, add a placeholder
+
+### Image HTML Format
+
+```html
+<figure class="lesson-figure">
+    <img src="[URL]" alt="[descriptive alt text]" style="max-width:500px;width:100%;" loading="lazy">
+    <figcaption>[Brief caption describing what the image shows]</figcaption>
+</figure>
+```
+
+### Placeholder for Missing Images
+
+When a section discusses a visual concept (chart type, pattern, indicator) but the original article has no image for it:
+
+```html
+<figure class="lesson-figure lesson-figure--placeholder">
+    <div class="placeholder-img" style="max-width:500px;width:100%;height:250px;background:var(--light-gray);border:2px dashed var(--silver);display:flex;align-items:center;justify-content:center;border-radius:8px;">
+        <span style="color:var(--muted);font-size:14px;">[IMAGE NEEDED: description of what should go here]</span>
+    </div>
+    <figcaption>[Caption for future image]</figcaption>
+</figure>
+```
+
+### Image Checklist (Step 4)
+
+- [ ] All images from Image Map placed in correct topic sections
+- [ ] All images use `max-width: 500px; width: 100%`
+- [ ] All images have descriptive alt text
+- [ ] All images have `<figcaption>`
+- [ ] All images use `loading="lazy"`
+- [ ] Visual H2 sections without images have placeholders
+- [ ] Image Map logged in Step 4 log with final positions
 
 ### Template: v3_standard
 
@@ -1079,8 +1140,16 @@ Structure:   Nested (H2 = 1., H3 = 1.1., 1.2., etc.)
 - [ ] Label class: `callout__label` (never `callout-title` or `callout-label`)
 - [ ] Max 1–2 per H2 section
 
+**Images:**
+- [ ] All images from Image Map placed in correct topic sections
+- [ ] All images: `max-width: 500px; width: 100%`
+- [ ] All images have descriptive `alt` text
+- [ ] All images wrapped in `<figure class="lesson-figure">` with `<figcaption>`
+- [ ] All images use `loading="lazy"`
+- [ ] Visual H2 sections without images have `lesson-figure--placeholder`
+- [ ] Image Map positions logged in Step 4 log
+
 **Content:**
-- [ ] Images in EXACT original positions, with alt text
 - [ ] Video embedded if applicable (after lesson-header, before ToC)
 - [ ] Tables styled (dark blue header via `--torea-bay`)
 - [ ] Internal links: 3–5 minimum, descriptive anchor text
