@@ -9,6 +9,32 @@ Today is {{ date }}. Arguments: $ARGUMENTS
 **Content Inventory:** \`data/output/guides/ftmo_academy_content_inventory.md\`
 **Workflow:** \`data/output/guides/ftmo_academy_workflow_EN.md\`
 
+## Entry — Choose Mode
+
+When `/academy` is invoked without arguments, ask the user to choose:
+
+\`\`\`
+Choose mode:
+1. New article — start optimizing a new lesson (URL + keywords)
+2. Continue — resume an in-progress lesson (pick up where we left off)
+3. Edit workflow — modify guides, templates, or workflow rules
+\`\`\`
+
+### Mode 1: New article
+- User provides URL + keywords file path
+- Runs full workflow: Initialization → Step 1 → ... → Step 5
+
+### Mode 2: Continue
+- Scan \`data/output/lessons/\` for in-progress articles (has \_log.md but no .html)
+- Show list, user picks one
+- Read the log to determine last completed step → resume from next step
+
+### Mode 3: Edit workflow
+- Only mode where editing guides, templates, prompts, or workflow documents is allowed
+- In all other modes, NEVER modify workflow files
+
+---
+
 ## Workflow
 
 > **CRITICAL: After each step, STOP and wait for user confirmation ("ok", "continue", "approved" etc.) before starting the next step. NEVER transition automatically.**

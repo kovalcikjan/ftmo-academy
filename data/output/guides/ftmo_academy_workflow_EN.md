@@ -95,23 +95,6 @@ Keywords: data/output/keywords/types-of-trading-charts_keywords.xlsx
 
 ### Invocation
 
-Running `/academy` without arguments shows an interactive menu:
-
-```
-FTMO Academy Content Editor
-
-1. New article     — start optimizing a new lesson (Step 1: Keywords)
-2. Continue        — resume an in-progress lesson (pick up where we left off)
-3. Edit workflow   — modify guides, templates, or workflow rules
-
-Which one?
-```
-
-**Option 1 (New article):** Asks for URL + keywords file, then starts Step 1.
-**Option 2 (Continue):** Scans `data/output/lessons/` for in-progress articles (has _log.md but no .html), shows list, resumes from last completed step.
-**Option 3 (Edit workflow):** Opens guide/template editing mode.
-
-With arguments, skips the menu:
 ```
 /academy https://academy.ftmo.com/lesson/[slug]/
 Keywords: /path/to/keywords.xlsx
