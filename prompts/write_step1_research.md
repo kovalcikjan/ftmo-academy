@@ -44,6 +44,8 @@ Cross-reference with Ahrefs MCP `serp-overview` for the top 2-3 keywords to add 
 
 ### 2. Fetch Each Page
 
+**Timeout rule:** Each WebFetch must complete within 60 seconds. If a page takes longer or fails, skip it immediately and move to the next URL. Log as "timeout" or "failed" in the URL table. Do not retry failed URLs. Minimum 3 successful fetches required to continue.
+
 Use WebFetch on each URL. For each page extract:
 
 - Main H1 and H2/H3 headings (structure skeleton)

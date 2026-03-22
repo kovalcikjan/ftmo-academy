@@ -51,9 +51,9 @@ Phase A — URL Discovery & Fetch:
 - Collect 15-20 candidate URLs
 - Cross-reference with Ahrefs MCP \`serp-overview\` (top 2-3 keywords) for SERP-ranked pages
 - Deduplicate, exclude forums / paywalled / non-EN / PDFs
-- Select top 8-10 most relevant → WebFetch each
+- Select top 8-10 most relevant → WebFetch each (60s timeout per URL - skip and move on if slower)
 - Log each URL: URL | source (WebSearch/EXA/DataForSEO/Ahrefs) | DR | SERP pos. | fetch status
-- If fetch fails: note in log, skip — minimum 3 successful fetches to continue
+- If fetch fails or times out: log as "timeout"/"failed", skip, no retry - minimum 3 successful fetches to continue
 
 Phase B — Keyword Discovery:
 - Ahrefs MCP \`keywords-explorer-matching-terms\` + \`keywords-explorer-related-terms\` for topic seed
