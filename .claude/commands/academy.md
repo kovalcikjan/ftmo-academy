@@ -228,7 +228,8 @@ To check available models + API key status: \`.venv/bin/python src/generate_text
 - On rewrite, preserve original structure where it works
 - Use examples from guides to illustrate changes
 - All output in English
-- Log format: full original sentence vs full new sentence — never excerpts
+- Log format: full original sentence vs full new sentence - never excerpts
+- **Dashes rule:** NEVER use long dashes (em dash "\u2014" or en dash "\u2013") in article text. Use dashes very sparingly - almost never. When absolutely necessary, use a simple hyphen with spaces " - ". Prefer rewriting the sentence to avoid dashes entirely (use a period, semicolon, or split into two sentences).
 
 ## Content Inventory Workflow
 

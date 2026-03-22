@@ -214,9 +214,10 @@ Choose mode:
 ## Important Rules
 
 - Read all reference documents before starting
-- No keywords needed upfront — keywords come from Step 1 (Ahrefs MCP)
-- Draft in Academy ToV from sentence one — no neutral draft first
-- Outline is a hard stop — do not begin writing without user approval
+- No keywords needed upfront - keywords come from Step 1 (Ahrefs MCP)
+- Draft in Academy ToV from sentence one - no neutral draft first
+- Outline is a hard stop - do not begin writing without user approval
 - Every factual claim in Step 3 must have a source URL from Step 1 research
-- Both HTML files generated in Step 6 — never just one
+- Both HTML files generated in Step 6 - never just one
 - Log file created at INIT and appended after every step
+- **Dashes rule:** NEVER use long dashes (em dash "\u2014" or en dash "\u2013") in article text. Use dashes very sparingly - almost never. When absolutely necessary, use a simple hyphen with spaces " - ". Prefer rewriting the sentence to avoid dashes entirely (use a period, semicolon, or split into two sentences).
