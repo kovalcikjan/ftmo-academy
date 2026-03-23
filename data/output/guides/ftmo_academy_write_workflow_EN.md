@@ -349,6 +349,7 @@ Save as `data/output/lessons/[slug]/lesson_[slug]_EN_outline.md`
 | Item | Value |
 |------|-------|
 | Topic | [Name] |
+| Czech Title | [Český název lekce z inventáře] |
 | Slug | [slug] |
 | Part | [Part N — Name] |
 | Module | [Module Name] |
