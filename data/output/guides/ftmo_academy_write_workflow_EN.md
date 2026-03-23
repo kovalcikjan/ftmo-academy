@@ -1,8 +1,8 @@
 # FTMO Academy: New Lesson Writing Workflow
 
-**Version:** 3.0
+**Version:** 3.1
 **Created:** 2026-03-05
-**Updated:** 2026-03-20
+**Updated:** 2026-03-23
 **Purpose:** Step-by-step process for writing FTMO Academy lessons from scratch
 
 ---
@@ -75,13 +75,22 @@ Topic / Slug           →     INIT: Load refs, create log file      →   Init 
 
 ## 4. Usage Modes
 
-### Full workflow (default)
+### New article (default)
 
 ```
 /academy-write [topic/slug]
 ```
 
 Runs Init + Steps 1–7. Stops for user confirmation after each step.
+
+### Continue existing article
+
+```
+/academy-write continue [slug]
+/academy-write continue [folder-path]
+```
+
+Runs Init with auto-detection of last completed step → resumes from the next incomplete step. See Section 5 for detection logic.
 
 ### Brief only
 
@@ -91,21 +100,17 @@ Runs Init + Steps 1–7. Stops for user confirmation after each step.
 
 Runs Init + Steps 1–2. Output: approved outline only. Use when you need a content plan without writing.
 
-### Draft from existing brief
+### No arguments — interactive menu
 
 ```
-/academy-write draft [topic/slug]
+/academy-write
 ```
 
-Starts from Step 3. Assumes approved outline exists in conversation context or pasted by user.
+Shows a menu with two options:
+1. **New article** — user provides topic or slug
+2. **Continue article** — user provides slug, folder path, or topic
 
-### Show TODO inventory
-
-```
-/academy-write inventory
-```
-
-Reads Content Inventory and lists all TODO lessons grouped by Part/Module.
+Waits for user input. Does NOT display inventory or TODO list.
 
 ---
 
@@ -115,14 +120,31 @@ Runs automatically. No user confirmation needed.
 
 ### Actions
 
-1. Read all three reference documents (ToV Guide, Structure Guide, Content Inventory)
-2. Locate the topic in the inventory — extract: Part, Module, lesson number, lessons it links to
-3. Check for existing versions: if files exist in `data/output/lessons/[slug]/`, determine the next version number (v2, v3, etc.) and use it as suffix for ALL output files of this run. Previous files are never renamed or deleted.
-   > "Existing version found: lesson_[slug]_EN.md. Output files for this run will use suffix _v[N]."
-4. Create the log file immediately: `data/output/lessons/[slug]/lesson_[slug]_EN_v[N]_log.md` (or without suffix if first version)
-5. Output Init Summary
+1. Read reference documents: ToV Guide, Structure Guide, Workflow
+2. Read Content Inventory ONLY for internal linking context (Part, Module, related lessons) — NOT for task management or TODO tracking
+3. Determine mode:
+   - **NEW mode:** Check for existing files in `data/output/lessons/[slug]/`. If found, determine next version number (v2, v3...) and use as suffix for ALL output files. Never overwrite. Create log file. Proceed to Step 1.
+   - **CONTINUE mode:** Auto-detect last completed step (see detection logic below). Report status. Proceed from next step.
+4. Output Init Summary
 
-### Log File — Initialize at INIT
+### CONTINUE — Auto-detection Logic
+
+Scan `data/output/lessons/[slug]/` for files and determine last completed step:
+
+| Files found | Last completed step | Resume from |
+|-------------|-------------------|-------------|
+| Only `_log.md` | INIT | Step 1 |
+| `_step1.xlsx` | Step 1 | Step 2 |
+| `_outline.md` | Step 2 | Step 3 |
+| `_EN.md` (draft, no HTML) | Step 3-5 (read log to determine) | Next incomplete step |
+| `_EN.html` + `_log.html` | Step 6 | Step 7 |
+| All 4 final files + QA in log | Step 7 | Done — ask if user wants a new version |
+
+For Steps 3-5 ambiguity: read the log file and check which step sections exist (`## Step 3`, `## Step 4`, `## Step 5`).
+
+When resuming, read all existing output files (xlsx, outline, draft) to restore context before proceeding.
+
+### Log File — Initialize at INIT (NEW mode only)
 
 Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 
@@ -131,7 +153,7 @@ Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 
 **Slug:** [slug]
 **Date:** [today]
-**Workflow version:** 2.0
+**Workflow version:** 3.1
 
 ---
 
@@ -140,13 +162,12 @@ Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 | Item | Value |
 |------|-------|
 | Inventory position | Part N: [Name] > [Module], Lesson N of M |
-| Status in inventory | TODO / UPDATED / etc. |
-| Links to | [lessons] |
+| Internal linking targets | [related lessons from inventory] |
 | Keywords source | Ahrefs MCP (Step 1) |
 | Existing versions found | None / v3 at [path] — ignored per user instruction |
 ```
 
-### Init Summary Format
+### Init Summary — NEW mode
 
 ```
 Topic:         [Lesson name]
@@ -154,8 +175,7 @@ Slug:          [lesson-slug]
 Part:          [Part N — Name]
 Module:        [Module name]
 Position:      Lesson N of M in module
-Links to:      [lesson titles]
-Status in inv: TODO | ANALYZED | UPDATED | APPROVED
+Links to:      [lesson titles from inventory]
 Existing ver.: None | [filename] — will create vN+1
 
 Keywords: loaded in Step 1 (Ahrefs MCP)
@@ -163,7 +183,20 @@ Keywords: loaded in Step 1 (Ahrefs MCP)
 Confirm to start Step 1 (Competitor Research + Keyword Discovery).
 ```
 
-If slug is not in the inventory, flag it and ask for confirmation before proceeding.
+### Init Summary — CONTINUE mode
+
+```
+Continuing:    [Lesson name]
+Slug:          [lesson-slug]
+Folder:        [full absolute path]
+Files found:   [list of existing files]
+Last step:     Step [N] — [name]
+Resume from:   Step [N+1] — [name]
+
+Confirm to start Step [N+1].
+```
+
+If slug is not in the inventory, proceed anyway — inventory is for linking context only, not a prerequisite.
 
 ---
 
@@ -275,8 +308,10 @@ Save as `data/output/lessons/[slug]/[slug]_step1.xlsx` with two sheets:
 
 > **Step 1 complete.** [N] URLs collected, [N] fetched successfully. [N] keywords proposed ([N] clusters).
 > Key gap: [sentence].
-> **xlsx saved at:** `[path]`
+> **xlsx saved at:** `[full absolute path]`
 > Review URLs + keywords in the xlsx → add, remove, or annotate → confirm to proceed to Step 2.
+
+**IMPORTANT:** Always output the FULL ABSOLUTE path (e.g. `/Users/admin/Projects/ftmo-academy/data/output/lessons/[slug]/[filename]`), not a relative path.
 
 **Wait for user confirmation.**
 
@@ -410,8 +445,10 @@ Table: [What to compare]
 
 > **Step 2 complete.** Outline for "[Title]" — [BEGINNER/ADVANCED], ~[N] words.
 > [N] H2s, [N] H3s, [N] keywords mapped to headings. Content validation: [pass / issues].
-> **Outline saved at:** `[path]`
+> **Outline saved at:** `[full absolute path]`
 > Edit outline if needed → approve → proceed to Step 3.
+
+**IMPORTANT:** Always output the FULL ABSOLUTE path (e.g. `/Users/admin/Projects/ftmo-academy/data/output/lessons/[slug]/[filename]`), not a relative path.
 
 **Wait for user approval. Do not begin writing until the outline is approved.**
 
@@ -839,18 +876,9 @@ Version suffix `_vN` applied if previous version exists (determined at INIT). Ne
 - [ ] `data/output/lessons/[slug]/lesson_[slug]_EN[_vN].html`
 - [ ] `data/output/lessons/[slug]/lesson_[slug]_EN[_vN]_log.html`
 
-### Inventory Update
+### Inventory Update (optional — linking context only)
 
-In `ftmo_academy_content_inventory.md`:
-
-- [ ] Status updated: TODO → DRAFT (not yet reviewed by human) or PUBLISHED (approved and live)
-- [ ] Links To column updated (all internal links used in lesson)
-- [ ] Last updated date updated
-
-```
-TODO → DRAFT (if not yet reviewed by a human)
-TODO → PUBLISHED (if approved and live)
-```
+If internal links were used in the lesson, update the "Links To" column in `ftmo_academy_content_inventory.md` for cross-reference. Do NOT update status columns — inventory is not used for task management.
 
 ### Stop Condition
 
@@ -858,7 +886,6 @@ TODO → PUBLISHED (if approved and live)
 > Content validation: [PASS / issues found].
 > Source citations: [N] verified, [N] flagged.
 > Files saved: 4/4.
-> Inventory updated: [Lesson] → [new status].
 >
 > [If FAIL]: [N] issues found — list with severity.
 
@@ -943,6 +970,7 @@ Slugs use hyphens (matching URL slugs):
 | 1.0 | 2026-03-05 | Initial creation |
 | 2.0 | 2026-03-06 | Restructured Step 1 (competitor research + keyword discovery combined); INIT simplified (no keywords); Log file created at INIT; Source citation log added to Step 3; Content validation (trading expert review) added to Step 2 and Step 7; Callout type decision rules added to Step 5; Both HTML files generated in Step 6; 4-file checklist in Step 7; Keyword integration core principle added |
 | 3.0 | 2026-03-20 | **Step 1 rewrite:** 7-step process (seed validation → 4 WebSearch queries × 6 URLs → Ahrefs DR + organic traffic per URL → top 10 fetch with extraction checklist → keyword discovery 2 Ahrefs calls → merge/dedup/filter/cluster → xlsx output). Removed EXA/DataForSEO options, removed Ahrefs SERP cross-reference. Added: DR via `domain-rating` + traffic via `site-explorer-metrics` (mode=exact). Keywords max 30 with intent clustering. Output = xlsx with 2 sheets. **Step 2 rewrite:** outline saved as separate editable file `lesson_[slug]_EN_outline.md`. Updated naming convention with Step 1 xlsx + Step 2 outline files. |
+| 3.1 | 2026-03-23 | **Entry point rewrite:** Removed inventory mode — inventory used only for internal linking context, not task management. Added interactive menu (New / Continue) when no arguments. Added CONTINUE mode with auto-detection of last completed step from existing files. Step 7 inventory update now optional (linking context only). Steps 1-2 stop messages require full absolute file paths. |
 
 ---
 
