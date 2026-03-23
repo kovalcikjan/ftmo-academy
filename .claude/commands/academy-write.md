@@ -51,7 +51,8 @@ Phase A — URL Discovery & Fetch:
 - Collect 15-20 candidate URLs
 - Cross-reference with Ahrefs MCP \`serp-overview\` (top 2-3 keywords) for SERP-ranked pages
 - Deduplicate, exclude forums / paywalled / non-EN / PDFs
-- Select top 8-10 most relevant → WebFetch each (60s timeout per URL - skip and move on if slower)
+- Select top 8-10 most relevant → WebFetch each (**30s timeout** per URL - skip and move on if slower)
+- **Blocklist:** Skip `ninjatrader.com` (hangs indefinitely) — only extract keywords via Ahrefs if URL appeared in results
 - Log each URL: URL | source (WebSearch/EXA/DataForSEO/Ahrefs) | DR | SERP pos. | fetch status
 - If fetch fails or times out: log as "timeout"/"failed", skip, no retry - minimum 3 successful fetches to continue
 
@@ -104,7 +105,7 @@ To check available models + API key status: \`.venv/bin/python src/generate_text
 - Content validation: review outline as trading expert + educator before presenting
 - **If external model:** call \`generate_text.py --model [key] --system prompts/write_step2_brief.md\`
 
-> "Step 2 complete. Outline for '[Title]' — [BEGINNER/ADVANCED], ~[N] words. Content validation: [pass/issues]. Outline saved at: [full absolute path]. Approve or edit → proceed to Step 3."
+> "Step 2 complete. Outline for '[Title]' — [BEGINNER/ADVANCED], ~[N] words. Content validation: [pass/issues]. Outline (.docx) saved at: [full absolute path]. Send to trading expert → approve → proceed to Step 3."
 
 ---
 
@@ -201,9 +202,10 @@ Choose mode:
 - Runs full workflow: INIT → Step 1 → Step 2 → ... → Step 7
 
 ### Mode 2: Continue from approved brief
-- User provides full absolute path to the approved brief file
-  (e.g. \`/Users/joe/Projects/ftmo-academy/data/output/lessons/trading-timeframes/lesson_trading-timeframes_EN_outline.md\`)
-- Read the brief file + corresponding xlsx from the same folder
+- User provides full absolute path to the approved brief file (.docx)
+  (e.g. \`/Users/admin/Projects/ftmo-academy/data/output/lessons/trading-timeframes/lesson_trading-timeframes_EN_outline.docx\`)
+- Read the .docx using: \`.venv/bin/python src/read_outline_docx.py [path]\`
+- Read corresponding xlsx from the same folder
 - Skip Step 1 and Step 2 — continue from Step 3
 - Version detection: check folder for existing versions → use next suffix
 

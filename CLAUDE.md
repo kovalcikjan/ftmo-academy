@@ -82,15 +82,16 @@ Split any paragraph over 100 words. This is the most commonly missed check.
 ### NAMING CONVENTION
 
 ```
-data/output/lessons/[slug]/lesson_[slug]_EN.md        # Final markdown (first version)
-data/output/lessons/[slug]/lesson_[slug]_EN_log.md    # Write/edit log (first version)
-data/output/lessons/[slug]/lesson_[slug]_EN.html      # Final HTML (first version)
-data/output/lessons/[slug]/lesson_[slug]_EN_log.html  # Log HTML (first version)
-data/output/lessons/[slug]/lesson_[slug]_EN_v2.md     # Second version
+data/output/lessons/[slug]/lesson_[slug]_EN_outline.docx  # Step 2: Brief + Outline (expert edits this)
+data/output/lessons/[slug]/lesson_[slug]_EN.md            # Final markdown (first version)
+data/output/lessons/[slug]/lesson_[slug]_EN_log.md        # Write/edit log (first version)
+data/output/lessons/[slug]/lesson_[slug]_EN.html          # Final HTML (first version)
+data/output/lessons/[slug]/lesson_[slug]_EN_log.html      # Log HTML (first version)
+data/output/lessons/[slug]/lesson_[slug]_EN_v2.md         # Second version
 data/output/lessons/[slug]/lesson_[slug]_EN_v2_log.md
 data/output/lessons/[slug]/lesson_[slug]_EN_v2.html
 data/output/lessons/[slug]/lesson_[slug]_EN_v2_log.html
-data/output/keywords/[slug]_keywords.xlsx             # Keywords file (edit workflow)
+data/output/keywords/[slug]_keywords.xlsx                 # Keywords file (edit workflow)
 ```
 
 Slugs use hyphens (matching URL slugs): `types-of-trading-charts`, not `types_of_trading_charts`.

@@ -1,6 +1,6 @@
 # FTMO Academy: New Lesson Writing Workflow
 
-**Version:** 3.1
+**Version:** 3.2
 **Created:** 2026-03-05
 **Updated:** 2026-03-23
 **Purpose:** Step-by-step process for writing FTMO Academy lessons from scratch
@@ -14,7 +14,7 @@ INPUT                        PROCESS                                    OUTPUT
 ─────                        ───────                                    ──────
 Topic / Slug           →     INIT: Load refs, create log file      →   Init Summary + log file
                        →     Step 1: Competitor Research            →   [slug]_step1.xlsx (URLs + Keywords)
-                       →     Step 2: Brief & Outline                →   [slug]_EN_outline.md
+                       →     Step 2: Brief & Outline                →   [slug]_EN_outline.docx
                        →     Step 3: Draft Writing                  →   Full Draft + source citation log
                        →     Step 4: ToV Check                      →   Corrected Draft
                        →     Step 5: Structure & Formatting         →   Formatted Markdown
@@ -135,7 +135,7 @@ Scan `data/output/lessons/[slug]/` for files and determine last completed step:
 |-------------|-------------------|-------------|
 | Only `_log.md` | INIT | Step 1 |
 | `_step1.xlsx` | Step 1 | Step 2 |
-| `_outline.md` | Step 2 | Step 3 |
+| `_outline.docx` | Step 2 | Step 3 |
 | `_EN.md` (draft, no HTML) | Step 3-5 (read log to determine) | Next incomplete step |
 | `_EN.html` + `_log.html` | Step 6 | Step 7 |
 | All 4 final files + QA in log | Step 7 | Done — ask if user wants a new version |
@@ -254,8 +254,10 @@ Understand the competitive landscape before writing. Scope the topic. Build the 
    | **Unique angle** | What makes each one different |
    | **Word count estimate** | Benchmark for our target |
 
-9. If WebFetch fails (timeout / blocked): note in log as "fetch failed, skipped" — proceed with remaining pages
-10. Minimum 3 successfully fetched pages to continue
+9. **Timeout:** Each WebFetch must complete within **30 seconds**. If a page takes longer, abort immediately — log as "timeout, skipped" and move to the next URL. Do not retry.
+10. **Blocklist:** Skip `ninjatrader.com` entirely — never fetch (pages hang for minutes without blocking). Instead, extract keywords only via Ahrefs `site-explorer-organic-keywords` if a NinjaTrader URL ranked in search results.
+11. If WebFetch fails (timeout / blocked / error): note in log — proceed with remaining pages
+12. Minimum 3 successfully fetched pages to continue
 
 ### Krok 5: Keyword Discovery
 
@@ -370,11 +372,19 @@ Before presenting the outline for approval, review it as a trading expert and ed
 
 Output: validation note (pass / flagged issues) appended below the outline.
 
-### Output — Two Files
+### Output — Two Artifacts
 
-**1. Outline file** — saved immediately (user can edit before approving):
+**1. Outline file (.docx)** — saved immediately, editable by trading expert:
 
-Save as `data/output/lessons/[slug]/lesson_[slug]_EN_outline.md`
+Generate the outline content as markdown internally, then convert to `.docx` using the export script:
+
+```bash
+.venv/bin/python src/export_outline_docx.py data/output/lessons/[slug]/lesson_[slug]_EN_outline.md
+```
+
+This produces `lesson_[slug]_EN_outline.docx` in the same folder. Delete the intermediate `.md` file after successful conversion — the `.docx` is the single source of truth.
+
+The outline content structure (used internally before conversion):
 
 ```markdown
 # Lesson Brief & Outline: [Title]
@@ -441,14 +451,24 @@ Table: [What to compare]
 
 **2. Log file** — append Step 2 section to existing `lesson_[slug]_EN_log.md`
 
+### Reading the Outline Back (Step 3 / Continue Mode)
+
+When resuming from an edited `.docx` outline, extract its text content before proceeding:
+
+```bash
+.venv/bin/python src/read_outline_docx.py data/output/lessons/[slug]/lesson_[slug]_EN_outline.docx
+```
+
+This outputs the `.docx` content as plain text to stdout. Use it to restore outline context for Step 3.
+
 ### Stop Condition
 
 > **Step 2 complete.** Outline for "[Title]" — [BEGINNER/ADVANCED], ~[N] words.
 > [N] H2s, [N] H3s, [N] keywords mapped to headings. Content validation: [pass / issues].
-> **Outline saved at:** `[full absolute path]`
-> Edit outline if needed → approve → proceed to Step 3.
+> **Outline saved at:** `[full absolute path to .docx]`
+> Send .docx to trading expert for review → approve (with or without edits) → proceed to Step 3.
 
-**IMPORTANT:** Always output the FULL ABSOLUTE path (e.g. `/Users/admin/Projects/ftmo-academy/data/output/lessons/[slug]/[filename]`), not a relative path.
+**IMPORTANT:** Always output the FULL ABSOLUTE path (e.g. `/Users/admin/Projects/ftmo-academy/data/output/lessons/[slug]/lesson_[slug]_EN_outline.docx`), not a relative path.
 
 **Wait for user approval. Do not begin writing until the outline is approved.**
 
@@ -461,6 +481,16 @@ Table: [What to compare]
 ### Purpose
 
 Write the full lesson in Academy Tone of Voice, following the approved outline exactly.
+
+### Reading the Approved Outline
+
+The approved outline is stored as `.docx`. Before writing, extract its content:
+
+```bash
+.venv/bin/python src/read_outline_docx.py data/output/lessons/[slug]/lesson_[slug]_EN_outline.docx
+```
+
+If the trading expert edited the `.docx`, those edits are the current source of truth — follow the extracted content, not the original Step 2 output from memory.
 
 ### Core Constraints
 
@@ -912,7 +942,7 @@ If internal links were used in the lesson, update the "Links To" column in `ftmo
 
 ```
 [slug]_step1.xlsx                    # Step 1 output: URLs + Keywords (user reviews)
-lesson_[slug]_EN_outline.md          # Step 2 output: Brief + Outline (user reviews/edits)
+lesson_[slug]_EN_outline.docx        # Step 2 output: Brief + Outline (trading expert reviews/edits)
 lesson_[slug]_EN.md                  # Final markdown
 lesson_[slug]_EN_log.md              # Write log (all steps)
 lesson_[slug]_EN.html                # Final HTML
@@ -971,6 +1001,7 @@ Slugs use hyphens (matching URL slugs):
 | 2.0 | 2026-03-06 | Restructured Step 1 (competitor research + keyword discovery combined); INIT simplified (no keywords); Log file created at INIT; Source citation log added to Step 3; Content validation (trading expert review) added to Step 2 and Step 7; Callout type decision rules added to Step 5; Both HTML files generated in Step 6; 4-file checklist in Step 7; Keyword integration core principle added |
 | 3.0 | 2026-03-20 | **Step 1 rewrite:** 7-step process (seed validation → 4 WebSearch queries × 6 URLs → Ahrefs DR + organic traffic per URL → top 10 fetch with extraction checklist → keyword discovery 2 Ahrefs calls → merge/dedup/filter/cluster → xlsx output). Removed EXA/DataForSEO options, removed Ahrefs SERP cross-reference. Added: DR via `domain-rating` + traffic via `site-explorer-metrics` (mode=exact). Keywords max 30 with intent clustering. Output = xlsx with 2 sheets. **Step 2 rewrite:** outline saved as separate editable file `lesson_[slug]_EN_outline.md`. Updated naming convention with Step 1 xlsx + Step 2 outline files. |
 | 3.1 | 2026-03-23 | **Entry point rewrite:** Removed inventory mode — inventory used only for internal linking context, not task management. Added interactive menu (New / Continue) when no arguments. Added CONTINUE mode with auto-detection of last completed step from existing files. Step 7 inventory update now optional (linking context only). Steps 1-2 stop messages require full absolute file paths. |
+| 3.2 | 2026-03-23 | **Step 2 output format:** Changed outline output from `.md` to `.docx` (generated via `src/export_outline_docx.py`). Trading expert edits the `.docx` directly — single source of truth, no duplicate files. Added `src/read_outline_docx.py` for reading edited `.docx` back when resuming from Step 3. Updated naming convention and auto-detection logic. |
 
 ---
 

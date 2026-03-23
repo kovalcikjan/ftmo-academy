@@ -131,6 +131,18 @@ Before presenting the brief, verify:
 
 ---
 
+## Output Format
+
+Generate the outline content as markdown, save as temporary `.md`, then convert to `.docx`:
+
+```bash
+.venv/bin/python src/export_outline_docx.py data/output/lessons/[slug]/lesson_[slug]_EN_outline.md
+```
+
+Delete the intermediate `.md` after successful conversion. The `.docx` is the single deliverable — trading expert edits it directly. Step 3 reads from the (potentially edited) `.docx`.
+
+---
+
 ## Stop Condition
 
 After outputting the brief:
@@ -140,10 +152,12 @@ After outputting the brief:
 > Outline for "[Lesson Title]" — [BEGINNER/ADVANCED], ~[N] words.
 > [N] H2 sections, [N] H3 subsections, [N] keywords mapped.
 >
-> Review the outline above. You can:
-> - Approve and proceed to Step 3 (Draft Writing)
-> - Request changes to headings, scope, or depth
-> - Add or remove specific topics before writing begins
+> **Outline saved at:** `[full absolute path to .docx]`
+>
+> Send .docx to trading expert for review. You can:
+> - Approve as-is and proceed to Step 3 (Draft Writing)
+> - Have the expert edit headings, scope, or depth in the .docx
+> - Return the edited .docx → Step 3 reads from it
 
 **Wait for user approval before writing any article content.**
 
