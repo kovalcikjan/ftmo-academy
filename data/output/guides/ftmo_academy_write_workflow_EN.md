@@ -1,8 +1,8 @@
 # FTMO Academy: New Lesson Writing Workflow
 
-**Version:** 3.2
+**Version:** 3.3
 **Created:** 2026-03-05
-**Updated:** 2026-03-23
+**Updated:** 2026-03-27
 **Purpose:** Step-by-step process for writing FTMO Academy lessons from scratch
 
 ---
@@ -118,14 +118,29 @@ Waits for user input. Does NOT display inventory or TODO list.
 
 Runs automatically. No user confirmation needed.
 
+### Input Identification — Lokace
+
+Every lesson has a unique **Lokace** identifier (e.g., `2.1.1.1.`) from the Content Inventory. This prevents confusion between similarly named lessons.
+
+**Accepted input formats:**
+- Lokace only: `/academy-write 2.1.1.1.` — resolves to lesson via inventory lookup
+- Topic + Lokace: `/academy-write types-of-trading-charts 2.1.1.1.` — explicit match
+- Topic only: `/academy-write types-of-trading-charts` — inventory lookup by name (warn if ambiguous)
+
+**Resolution logic:**
+1. If Lokace is provided → look up in Content Inventory, use as primary identifier
+2. If only topic/slug → search inventory by name, check for ambiguity (multiple matches = ask user for Lokace)
+3. If lesson not found in inventory → proceed anyway (new lesson), but ask user to assign a Lokace number
+
 ### Actions
 
 1. Read reference documents: ToV Guide, Structure Guide, Workflow
-2. Read Content Inventory ONLY for internal linking context (Part, Module, related lessons) — NOT for task management or TODO tracking
-3. Determine mode:
+2. Read Content Inventory — extract Lokace, internal linking targets (Part, Module, related lessons). NOT for task management or TODO tracking
+3. **Resolve lesson identity** via Lokace (see above). If ambiguous, stop and ask for Lokace number
+4. Determine mode:
    - **NEW mode:** Check for existing files in `data/output/lessons/[slug]/`. If found, determine next version number (v2, v3...) and use as suffix for ALL output files. Never overwrite. Create log file. Proceed to Step 1.
    - **CONTINUE mode:** Auto-detect last completed step (see detection logic below). Report status. Proceed from next step.
-4. Output Init Summary
+5. Output Init Summary (including Lokace)
 
 ### CONTINUE — Auto-detection Logic
 
@@ -152,8 +167,9 @@ Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 # Write Log: [Lesson Title]
 
 **Slug:** [slug]
+**Lokace:** [X.Y.Z.N.]
 **Date:** [today]
-**Workflow version:** 3.1
+**Workflow version:** 3.3
 
 ---
 
@@ -161,6 +177,7 @@ Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 
 | Item | Value |
 |------|-------|
+| Lokace | [X.Y.Z.N.] |
 | Inventory position | Part N: [Name] > [Module], Lesson N of M |
 | Internal linking targets | [related lessons from inventory] |
 | Keywords source | Ahrefs MCP (Step 1) |
@@ -171,6 +188,7 @@ Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 
 ```
 Topic:         [Lesson name]
+Lokace:        [X.Y.Z.N.]
 Slug:          [lesson-slug]
 Part:          [Part N — Name]
 Module:        [Module name]
@@ -187,6 +205,7 @@ Confirm to start Step 1 (Competitor Research + Keyword Discovery).
 
 ```
 Continuing:    [Lesson name]
+Lokace:        [X.Y.Z.N.]
 Slug:          [lesson-slug]
 Folder:        [full absolute path]
 Files found:   [list of existing files]
