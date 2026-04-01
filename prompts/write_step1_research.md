@@ -95,7 +95,7 @@ List all topics found across pages. Mark coverage:
 3-5 bullet points identifying what the Academy article can do better or differently:
 
 - Example: "No competitor explains the practical application step-by-step — all stop at theory"
-- Example: "FTMO-specific context (challenge rules, max drawdown) not covered anywhere"
+- Example: "No competitor covers practical application with real position-sizing examples"
 - Example: "Risk management integration missing — most treat it as pure theory"
 
 ### Recommended Competitor URLs (for user review)

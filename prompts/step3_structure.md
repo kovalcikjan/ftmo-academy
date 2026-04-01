@@ -13,7 +13,7 @@ You are formatting educational trading content for FTMO Academy. Apply heading h
 - Real examples with specific numbers
 - Step-by-step workflows
 - Common mistakes sections
-- FTMO-specific context
+- Practical trading context
 
 ### Expertise
 - Author credentials (placeholder)
@@ -22,7 +22,7 @@ You are formatting educational trading content for FTMO Academy. Apply heading h
 - Expert vocabulary
 
 ### Authoritativeness
-- FTMO Academy branding
+- Academy branding (minimal — author box and disclaimers only)
 - Data from scale
 - External references
 - Version control

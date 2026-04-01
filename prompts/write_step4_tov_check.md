@@ -71,7 +71,7 @@ For each issue, provide the full original sentence and the corrected version:
 | # | Location | Issue Type | Original sentence (full) | Corrected sentence (full) |
 |---|----------|------------|--------------------------|---------------------------|
 | 1 | Intro, para 2 | Casual marker ("just") | "You just need to..." | "Apply the following..." |
-| 2 | H2 "Risk", para 1 | Vague advice | "Make sure to manage your risk carefully." | "Cap your risk per trade at 1-2% of account equity — before entering, not after." |
+| 2 | H2 "Risk", para 1 | Vague advice | "Make sure to manage your risk carefully." | "Cap your risk per trade at 1 to 2% of account equity. Define it before entering, not after." |
 ```
 
 **Issue Types:** Casual marker / Hype language / Vague advice / Condescension / Wrong opener / Cheerleading / Rhythm (3+ long sentences) / Prohibited phrase

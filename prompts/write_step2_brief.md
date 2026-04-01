@@ -108,7 +108,7 @@ Source from Content Inventory. Prefer lessons in same Module, then same Part.
 ```
 What this article does better/differently than competitors:
 - [Specific angle or depth decision, grounded in Step 1 gap analysis]
-- [FTMO-specific context to include]
+- [Practical trading context competitors miss]
 - [Topics deliberately excluded and why]
 ```
 

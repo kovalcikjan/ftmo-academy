@@ -40,7 +40,7 @@ RIGHT: "Renko charts strip out time and noise, showing only price movements that
 Follow this rhythm: **principle first → mechanics → practical application.**
 
 WRONG: "Heikin Ashi is a Japanese charting method. It means 'average bar.' The candles are calculated differently."
-RIGHT: "Heikin Ashi candles smooth raw price data by averaging values across consecutive bars. The result: cleaner trend visualization with less noise. The trade-off is delayed signals — entries and exits lag behind real-time price."
+RIGHT: "Heikin Ashi candles smooth raw price data by averaging values across consecutive bars. The result: cleaner trend visualisation with less noise. The trade-off is delayed signals. Entries and exits lag behind real-time price."
 
 ### Sentence rhythm
 
@@ -48,7 +48,7 @@ Alternate short punchy sentences with medium explanatory ones. Never three long 
 
 Pattern: **Short statement. Medium explanation with specifics. Short conclusion or transition.**
 
-Example: "Risk management protects your capital. Without a defined risk per trade — typically 0.5% to 2% of your account — even profitable strategies eventually blow up. Define your risk before you enter."
+Example: "Risk management protects your capital. Without a defined risk per trade (typically 0.5% to 2% of your account), even profitable strategies eventually blow up. Define your risk before you enter."
 
 ### Difficulty and risk
 
@@ -90,6 +90,13 @@ RIGHT: "Start with candlestick charts. Once you're comfortable reading price act
 | Experiment with | Play with |
 | Significant | A lot of |
 | However | But (sentence start) |
+
+### Banned punctuation
+
+| Pattern | Fix |
+|---------|-----|
+| Em dash `—` | Restructure: use comma, colon, semicolon, full stop, or parentheses |
+| En dash `–` | Use "to" for ranges (e.g. "0.5% to 2%") or a hyphen for compounds |
 
 ### Remove on sight
 
