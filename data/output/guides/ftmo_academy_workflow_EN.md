@@ -32,6 +32,30 @@ Original Article    →    Step 1: Keywords                →    _keywords.md
 
 ---
 
+## 1b. Entry Point
+
+When `/academy` is invoked, determine mode from arguments:
+
+### A) Arguments provided
+
+All usage modes (rewrite, quick, tov, structure, eeat, check, inventory, links, gaps, prereqs) work as defined in the skill file. For rewrite mode: user provides URL or file path, go to Initialization, run full workflow.
+
+### B) No arguments — show menu and STOP
+
+Output this and wait for user response:
+
+```
+FTMO Academy Content Editor
+
+Available modes:
+  1. New article (provide URL)
+  2. Continue editing (provide URL or path)
+```
+
+Do NOT read any reference documents. Do NOT start any workflow. Wait for user input.
+
+---
+
 ## 2. Reference Documents
 
 | Document | Handles | Used In Step |
@@ -207,6 +231,57 @@ Log must contain **full sentences** — never excerpts. Always the complete orig
 | 3 | Callout added | Tip about popular timeframes | Formatting: highlight actionable info |
 | 4 | Meta added | Prerequisites: Japanese Candlesticks | E-E-A-T: learning path |
 ```
+
+---
+
+## 3b. Initialization
+
+Runs automatically after user provides URL (no confirmation needed).
+
+### Steps
+
+1. Read all reference documents (ToV Guide + Structure Guide + Content Inventory)
+2. Identify the article in the inventory (Part, Module, position)
+3. Derive slug from URL (e.g. `types-of-trading-charts`)
+4. Create folder `data/output/lessons/[slug]/` if it does not exist
+5. Create log file: `data/output/lessons/[slug]/lesson_[slug]_EN_log.md`
+6. Create keywords template: `data/output/keywords/[slug]_keywords.xlsx` (if it does not exist)
+7. Fetch original article (WebFetch URL) + create Image Map
+8. Output Init Summary
+
+### Keywords Template
+
+Generated as `data/output/keywords/[slug]_keywords.xlsx` with these predefined columns:
+
+| Column | Type | Description | Required |
+|--------|------|-------------|----------|
+| **Keyword** | string | Target keyword phrase | YES |
+| **Volume** | int | Search volume | YES |
+| **KD** | int | Keyword difficulty (0-100) | NO |
+| **Position** | string | Where to place: H1, H2, H3, Intro, Body, Conclusion | NO |
+| **Status** | string | DONE / PENDING / SKIP / NEW / REJECTED (empty by default) | NO |
+| **Notes** | string | Manual guidance, special instructions | NO |
+
+The template is created empty (header row only). User fills it before Step 1, or provides their own xlsx with at least the Keyword and Volume columns.
+
+If the file already exists (e.g. from a previous run or user-prepared), do NOT overwrite it.
+
+### Init Summary Format
+
+```
+Initialized: [Article Title]
+Slug:        [slug]
+Inventory:   Part [X], Module [Y], Lesson [Z]
+Folder:      data/output/lessons/[slug]/
+Keywords:    data/output/keywords/[slug]_keywords.xlsx [CREATED / EXISTS]
+Article:     [N] words, [N] images
+Images:      [Image Map table]
+
+Fill keywords here: /Users/admin/Projects/ftmo-academy/data/output/keywords/[slug]_keywords.xlsx
+Confirm to start Step 1.
+```
+
+> **The stop message MUST include the full absolute path to the keywords xlsx.** User needs to open, fill, and save the file before proceeding.
 
 ---
 

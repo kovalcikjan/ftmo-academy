@@ -52,6 +52,7 @@ Split any paragraph over 100 words. This is the most commonly missed check.
 | `data/output/guides/ftmo_academy_tov_guide_EN.md` | Tone of Voice guide | Both |
 | `data/output/guides/ftmo_academy_structure_guide_EN.md` | Structure & E-E-A-T guide | Both |
 | `data/output/guides/ftmo_academy_content_inventory.md` | Content inventory (50 lessons) | Both |
+| `data/output/guides/ftmo_academy_product_context.md` | FTMO products, rules, terminology | Both |
 
 ---
 

@@ -14,6 +14,7 @@ A practical guide for **voice, language, and tone** in FTMO Academy content. It 
 
 > **Scope:** Voice, language, tone, emotional calibration.
 > **For structure and formatting, see:** [Content Structure & E-E-A-T Guide](ftmo_academy_structure_guide_EN.md)
+> **For FTMO products and terminology, see:** [Product Context Guide](ftmo_academy_product_context.md)
 
 ### Key Positioning
 

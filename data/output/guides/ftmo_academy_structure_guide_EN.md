@@ -14,6 +14,7 @@ A comprehensive guide for **structuring** FTMO Academy content - format, hierarc
 
 > **Scope:** Structure, formatting, templates, E-E-A-T signals, technical SEO.
 > **For voice and tone, see:** [Tone of Voice Guide](ftmo_academy_tov_guide_EN.md)
+> **For FTMO products and terminology, see:** [Product Context Guide](ftmo_academy_product_context.md)
 
 ### Relationship to ToV Guide
 
