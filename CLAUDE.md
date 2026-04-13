@@ -2,6 +2,21 @@
 
 ## PROJECT: FTMO Academy Content
 
+### CONTENT HIERARCHY
+
+| Level | Sheet column | Article? | Description |
+|-------|-------------|----------|-------------|
+| **Lekce** (Lesson) | B | Yes (summary article composed of chapters) | Top-level section |
+| **Kapitola** (Chapter) | C | Yes (standalone article on a specific topic) | Sub-section |
+| **Podtéma** (Subtopic) | D | No (content within a chapter) | Detail inside a chapter |
+
+- Articles are created for **Lekce (B)** and **Kapitola (C)** only.
+- Podtéma (D) is content within a chapter, not a separate article.
+- Exception: subtopic with high SV may get a standalone article **outside** the Academy course.
+- Source: [Google Sheet "nová struktura"](https://docs.google.com/spreadsheets/d/11iNdOL7YH8Dn5FwVXlz_RC9olhC2kFiNsOffbZMZPHs/edit?gid=1420632502)
+
+---
+
 ### TWO WORKFLOWS
 
 #### Větev A — Edit existing lesson (`/academy`)

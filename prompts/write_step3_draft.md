@@ -57,6 +57,17 @@ State plainly. No hedging, no sugar-coating.
 WRONG: "This might seem complex at first, but with practice you'll get the hang of it!"
 RIGHT: "This concept has multiple moving parts. Take it one layer at a time."
 
+### Multiple valid approaches (especially TA)
+
+Trading methods, indicators, and chart interpretations rarely have a single "correct" answer. Present techniques as one of several valid approaches, not as the only way. Acknowledge that different traders apply different methods successfully.
+
+WRONG: "The correct way to read this pattern is..."
+WRONG: "This is the only reliable method for..."
+RIGHT: "One widely used approach is... Other traders prefer..."
+RIGHT: "A common interpretation is... However, some traders read this differently, focusing on..."
+
+This does not mean being vague or noncommittal. You can recommend a method confidently while acknowledging alternatives exist: "Most professional traders favour X for this purpose, though Y offers a viable alternative when [condition]."
+
 ### Transitions
 
 Short, functional, forward-moving. Connect the previous idea to the next — never summarize.

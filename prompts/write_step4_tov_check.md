@@ -37,6 +37,7 @@ Work through the draft section by section. For each paragraph, ask:
 | No condescension | No "It's simple", "Obviously", "Even beginners can" |
 | No vague advice | "Manage your risk" only with specifics attached |
 | Emotional calibration correct | No cheerleading, no empathy phrases, no fear-mongering |
+| No false certainty (TA) | Methods presented as valid approaches, not "the only correct way" |
 | Closings are action-oriented | No generic summaries |
 
 ### Vocabulary Spot Check
@@ -74,7 +75,7 @@ For each issue, provide the full original sentence and the corrected version:
 | 2 | H2 "Risk", para 1 | Vague advice | "Make sure to manage your risk carefully." | "Cap your risk per trade at 1 to 2% of account equity. Define it before entering, not after." |
 ```
 
-**Issue Types:** Casual marker / Hype language / Vague advice / Condescension / Wrong opener / Cheerleading / Rhythm (3+ long sentences) / Prohibited phrase
+**Issue Types:** Casual marker / Hype language / Vague advice / Condescension / Wrong opener / Cheerleading / Rhythm (3+ long sentences) / Prohibited phrase / False certainty (TA method presented as only valid approach)
 
 ### Article (corrected)
 

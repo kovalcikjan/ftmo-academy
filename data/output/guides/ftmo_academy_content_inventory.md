@@ -1,10 +1,26 @@
 # FTMO Academy: Content Inventory
 
-**Version:** 1.0
+**Version:** 2.0
 **Created:** 2026-02-26
-**Total Lessons:** 50
-**Modules:** 11
-**Parts:** 4
+**Updated:** 2026-04-10
+**Source:** [Google Sheet "nová struktura"](https://docs.google.com/spreadsheets/d/11iNdOL7YH8Dn5FwVXlz_RC9olhC2kFiNsOffbZMZPHs/edit?gid=1420632502)
+
+---
+
+## Content Hierarchy
+
+The Academy uses a 3-level hierarchy:
+
+| Level | Sheet column | Article? | Description |
+|-------|-------------|----------|-------------|
+| **Lekce** (Lesson) | B | Yes (summary article composed of chapters) | Top-level section, e.g. "2.1. Graf a timeframe" |
+| **Kapitola** (Chapter) | C | Yes (standalone article on a specific topic) | Sub-section, e.g. "2.1.1. Typy grafů" |
+| **Podtéma** (Subtopic) | D | No (content within a chapter) | Detail inside a chapter, e.g. "Types of trading charts" |
+
+**Rules:**
+- Articles are created for Lekce (B) and Kapitola (C) only.
+- Podtéma (D) is content within a chapter, not a separate article.
+- Exception: a subtopic with high search volume may get a standalone article **outside** the Academy course structure.
 
 ---
 
@@ -16,11 +32,17 @@ PART 1: BASICS (13 lessons)
 ├── Financial Markets (4)
 └── Forex (6)
 
-PART 2: TRADING ANALYSIS (26 lessons)
-├── Technical Analysis (19)
-├── Fundamental Analysis (4)
-├── Statistical Analysis (2)
-└── Sentiment Analysis (1)
+PART 2: TRADING ANALYSIS (10 lekci, ~40 kapitol)
+├── 2.1. Graf a timeframe (4 kapitoly)
+├── 2.2. Základní price action (5 kapitol)
+├── 2.3. Svíčkové formace (1 kapitola + glossary entries)
+├── 2.4. Patterny na grafu (3 kapitoly + glossary entries)
+├── 2.5. Indikátory a oscilátory (5 kapitol)
+├── 2.6. Fibonacci a Elliottovy vlny (2 kapitoly)
+├── 2.7. Market profile a objemová analýza (5 kapitol)
+├── 2.8. Divergence (3 kapitoly) — NEW
+├── 2.9. Confluence a obchodní strategie (2 kapitoly) — NEW
+└── 2.10. Backtesting a validace (2 kapitoly) — NEW
 
 PART 3: ADVANCED (10 lessons)
 ├── Trading Platforms (3)
@@ -68,51 +90,154 @@ PART 4: FTMO EVALUATION (4 lessons)
 
 ### Part 2: Trading Analysis
 
-#### Technical Analysis (19 lessons)
+> **Hierarchy:** Lekce (B) = summary article from chapters | Kapitola (C) = standalone article | Podtéma (D) = content within chapter, not a separate article.
+> **Type column:** L = Lekce, K = Kapitola, P = Podtéma, G = Glossary entry.
+> **Source:** [Google Sheet "nová struktura"](https://docs.google.com/spreadsheets/d/11iNdOL7YH8Dn5FwVXlz_RC9olhC2kFiNsOffbZMZPHs/edit?gid=1420632502)
 
-| # | Lokace | Lesson | URL | Status | Prerequisites | Links To |
-|---|--------|--------|-----|--------|---------------|----------|
-| 1 | 2.1.1.2. | Japanese Candlesticks | /lesson/japanese-candlesticks/ | UPDATED | Part 1 | Types of Charts |
-| 2 | 2.1.1.1. | Types of Trading Charts | /lesson/types-of-trading-charts/ | DRAFT (v7) | Japanese Candlesticks | Japanese Candlesticks, Market Environment, Heikin Ashi, Renko, Support/Resistance, Chart Patterns |
-| 3 | 2.2.2.3. | Market Environment | /lesson/market-environment-range-vs-trend/ | TODO | Lessons 1-2 | |
-| 4 | 2.2.1.1. | Support and Resistance | /lesson/support-and-resistance/ | TODO | Lessons 1-3 | Supply/Demand |
-| 5 | 2.2.2.4. | Supply and Demand | /lesson/supply-and-demand-trading/ | TODO | Support/Resistance | |
-| 6 | 2.4.1.1. | Chart Patterns | /lesson/chart-patterns-trading/ | TODO | Lessons 1-5 | |
-| 7 | 2.6.1.1. | Fibonacci Trading | /lesson/fibonacci-trading/ | TODO | Lessons 1-6 | |
-| 8 | 2.5.1. | Technical Indicators | /lesson/technical-indicators/ | TODO | Lessons 1-3 | Indicator lessons |
-| 9 | — | Divergence Trading | /lesson/divergence-trading/ | TODO | Technical Indicators | RSI, MACD |
-| 10 | 2.2.3. | Breakouts and Fakeouts | /lesson/how-to-spot-breakouts-and-fakeouts/ | TODO | Support/Resistance | |
-| 11 | 2.1.2.3. | Multiple Timeframe Analysis | /lesson/multiple-timeframe-analysis/ | TODO | Lessons 1-10 | |
-| 12 | 2.5.3.1. | RSI Indicator | /lesson/rsi-technical-indicator/ | TODO | Technical Indicators | Divergence |
-| 13 | 2.5.2.2. | ATR Indicator | /lesson/atr-technical-indicator/ | TODO | Technical Indicators | Risk Management |
-| 14 | 2.5.2.1. | Moving Average | /lesson/moving-average-technical-indicator/ | TODO | Technical Indicators | |
-| 15 | 2.5.2.3. | Bollinger Bands | /lesson/bollinger-bands-technical-indicator/ | TODO | Moving Average | Keltner |
-| 16 | 2.5.3.5. | VWAP | /lesson/vwap-technical-indicator/ | TODO | Technical Indicators | |
-| 17 | 2.5.3.2. | MACD | /lesson/macd-technical-indicator/ | TODO | Moving Average | Divergence |
-| 18 | 2.5.3.3. | CCI | /lesson/cci-technical-indicator/ | TODO | Technical Indicators | |
-| 19 | 2.5.3.4. | Keltner Channels | /lesson/keltner-channels-technical-indicator/ | TODO | ATR, Moving Average | Bollinger |
+#### 2.1. Graf a timeframe (Lekce)
 
-#### Fundamental Analysis (4 lessons)
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.1. | L | Graf a timeframe | Charts and Timeframes | 4,450 | Brief ke zpracování |
+| 2.1.1. | K | Typy grafů: čárový, sloupcový, svíčkový | Chart Types: Line, Bar, Candlestick | 500 | Vygenerovaný text k jazykové korektuře |
+| 2.1.1.1. | P | Types of trading charts | Types of Trading Charts | — | existující článek |
+| — | P | Anatomie svíčky (OHLC) | Candlestick Anatomy (OHLC) | 42,100 | případný backlog |
+| 2.1.2. | K | Volba časových rámců pro různé styly | Choosing Timeframes by Trading Style | 1,740 | Brief k revizi eVisions |
+| 2.1.2.1. | P | Hierarchie timeframů | Timeframe Hierarchy | 120 | Brief k revizi eVisions |
+| 2.1.2.2. | P | Výběr timeframu podle stylu | Choosing Timeframe by Style | 730 | Brief k revizi eVisions |
+| 2.1.3. | K | Multiple time frame analýza | Multiple Timeframe Analysis | 1,360 | Brief ke kontrole FTMO |
+| 2.1.4. | K | Forex trading hours and sessions | Forex Trading Hours and Sessions | 25,700 | Vygenerovaný text k jazykové korektuře |
 
-| # | Lokace | Lesson | URL | Status | Prerequisites | Links To |
-|---|--------|--------|-----|--------|---------------|----------|
-| 1 | — | Fundamental Indicators | /lesson/fundamental-indicator/ | TODO | Types of Analysis | |
-| 2 | — | Economic Calendar | /lesson/economic-calendar/ | TODO | Lesson 1 | Trading Hours |
-| 3 | — | Risk-on vs Risk-off | /lesson/risk-on-vs-risk-off/ | TODO | Lessons 1-2 | Market Correlations |
-| 4 | — | Market Correlations | /lesson/market-correlations/ | TODO | Lessons 1-3 | Currencies/Correlations |
+#### 2.2. Základní price action (Lekce)
 
-#### Statistical Analysis (2 lessons)
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.2. | L | Základní price action | Price Action Basics | 7,430 | Brief ke zpracování |
+| 2.2.1. | K | Support a resistance | Support and Resistance | 9,730 | Vygenerovaný text k revizi FTMO |
+| — | P | Flip zóny (resistance → support) | Flip Zones | 30 | — |
+| — | P | Dynamic S/R (MA jako podpora/odpor) | Dynamic S/R | 60 | — |
+| — | P | Round numbers jako S/R | Round Numbers as S/R | 400 | — |
+| — | P | Horizontální úrovně (price levels) | Horizontal Levels | 40 | — |
+| 2.2.4. | K | Supply & Demand zóny | Supply and Demand Trading | 3,680 | Vygenerovaný text k jazykové korektuře |
+| 2.2.2. | K | Trendové linie a definice trendu | Trend Lines and Trend Definition | 9,890 | Brief ke kontrole FTMO |
+| — | P | Trendové linie | Trend Lines | 270 | — |
+| — | K | Gap (cenová mezera) | Gap Trading | 3,550 | případný backlog |
+| 2.2.3. | K | Market environment: ranges and trends | Market Environment: Ranges vs Trends | 1,780 | Vygenerovaný text k revizi FTMO |
+| 2.2.5. | K | Aktivita na levelech | Activity at Levels | 4,220 | Brief ke zpracování |
+| — | P | Pullback | Pullback | — | — |
+| — | P | Breakout | Breakout | — | — |
+| — | P | False breakout (fakeout) | False Breakout (Fakeout) | — | — |
 
-| # | Lokace | Lesson | URL | Status | Prerequisites | Links To |
-|---|--------|--------|-----|--------|---------------|----------|
-| 1 | — | Backtesting Strategy | /lesson/backtesting-your-strategy/ | TODO | Part 1 + TA basics | How to Backtest |
-| 2 | — | Statistical Application | /lesson/statistical-application/ | TODO | Lesson 1 | |
+#### 2.3. Svíčkové formace (Lekce)
 
-#### Sentiment Analysis (1 lesson)
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.3. | L | Svíčkové formace | Candlestick Formations | — | Brief ke zpracování |
+| 2.3.1. | K | Candlestick patterns/formations | Candlestick Patterns | 49,000 | — |
+| 2.3.1.1. | P | Marubozu | Marubozu | 2,330 | G |
+| 2.3.1.2. | P | Doji (Dragonfly, Gravestone) | Doji | 17,900 | Brief ke zpracování |
+| 2.3.1.3. | P | Hammer | Hammer | 17,700 | — |
+| 2.3.1.4. | P | Engulfing | Engulfing | 16,100 | — |
+| — | P | Shooting Star | Shooting Star | 7,200 | — |
+| 2.3.1.5. | P | Inside Bar | Inside Bar | 1,990 | G |
+| 2.3.1.6. | P | Three White Soldiers | Three White Soldiers | 2,150 | G |
+| 2.3.1.7. | P | Morning Star | Morning Star | 4,990 | G |
+| 2.3.1.8. | P | Evening Star | Evening Star | 6,140 | — |
+| 2.3.1.9. | P | Interpretace svíček v kontextu trendu | Reading Candlesticks in Context | 2,770 | G |
+| — | P | Hanging Man | Hanging Man | 5,740 | G |
+| — | P | Harami (bullish/bearish) | Harami | 3,520 | G |
+| — | P | Tweezer Top/Bottom | Tweezer Top/Bottom | 2,900 | G |
+| — | P | Spinning Top | Spinning Top | 2,260 | G |
 
-| # | Lokace | Lesson | URL | Status | Prerequisites | Links To |
-|---|--------|--------|-----|--------|---------------|----------|
-| 1 | — | How to Read COT | /lesson/how-to-read-cot/ | TODO | Types of Analysis | Market Correlations |
+#### 2.4. Patterny na grafu (Lekce)
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.4. | L | Patterny na grafu | Chart Patterns | — | — |
+| 2.4.1. | K | Cenové formace | Price Formations | 26,200 | — |
+| 2.4.1.1. | P | Chart patterns/formations | Chart Patterns Overview | — | — |
+| 2.4.1.2. | P | Double top a double bottom | Double Top and Bottom | 16,000 | — |
+| 2.4.1.3. | P | Head and shoulders | Head and Shoulders | 25,350 | — |
+| 2.4.1.4. | P | Triangles, wedges and flags | Triangles, Wedges and Flags | 46,450 | — |
+| 2.4.1.5. | P | Cup and handle | Cup and Handle | 29,800 | — |
+| 2.4.2. | K | Pivot points | Pivot Points | 2,520 | — |
+| 2.4.3. | K | Harmonic patterns | Harmonic Patterns | 1,310 | — |
+| — | P | ABCD pattern | ABCD Pattern | 1,510 | G |
+| — | P | Gartley | Gartley Pattern | 990 | G |
+| — | P | Bat | Bat Pattern | 680 | G |
+| — | P | Butterfly (+ další) | Butterfly Pattern | 550 | G |
+| 2.4.5. | K | Wyckoff metodologie | Wyckoff Method | 13,580 | — |
+| — | P | Accumulation → Uptrend | Accumulation | 2,120 | G |
+| — | P | Distribution → Downtrend | Distribution | 5,510 | G |
+| — | P | Schematika fází | Phase Schematics | — | G |
+
+#### 2.5. Indikátory a oscilátory (Lekce)
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.5. | L | Indikátory a oscilátory | Indicators and Oscillators | — | — |
+| 2.5.1. | K | Základní pojmy: Perioda, Source, typy výpočtů | Indicator Basics: Period, Source, Calculation Types | 2,120 | — |
+| 2.5.2. | K | Klíčové indikátory | Key Indicators | — | — |
+| 2.5.2.1. | P | Moving Averages (SMA, EMA, WMA) | Moving Averages | 55,950 | — |
+| 2.5.2.2. | P | ATR (Average True Range) | ATR | 11,300 | — |
+| 2.5.2.3. | P | Bollinger Bands | Bollinger Bands | 15,530 | — |
+| — | P | Ichimoku Kinko Hyo | Ichimoku Cloud | 4,650 | — |
+| — | P | ADX (Average Directional Index) | ADX | 3,530 | — |
+| — | P | Parabolic SAR | Parabolic SAR | 1,230 | G |
+| 2.5.3. | K | Oscilátory (RSI, Stochastics, MACD) | Oscillators | — | — |
+| 2.5.3.1. | P | RSI (Relative Strength Index) | RSI | 73,750 | — |
+| 2.5.3.2. | P | MACD | MACD | 22,050 | — |
+| 2.5.3.3. | P | CCI (Commodity Channel Index) | CCI | 1,830 | — |
+| 2.5.3.4. | P | Keltner Channels | Keltner Channels | 1,490 | — |
+| 2.5.3.5. | P | VWAP | VWAP | 22,700 | — |
+| — | P | Stochastic Oscillator | Stochastic Oscillator | 4,940 | — |
+| 2.5.4. | K | Správné použití indikátorů | Proper Use of Indicators | 3,370 | — |
+| 2.5.5. | K | Rizika indikátorů | Risks of Indicators | 0 | — |
+
+#### 2.6. Fibonacci a Elliottovy vlny (Lekce)
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.6. | L | Fibonacci a Elliottovy vlny | Fibonacci and Elliott Waves | — | — |
+| 2.6.1. | K | Fibonacci trading | Fibonacci Trading | 7,640 | — |
+| 2.6.1.1. | P | Fibonacci retracement a extension | Fibonacci Retracement and Extension | — | — |
+| 2.6.2. | K | Základní teorie Elliottových vln | Elliott Wave Theory Basics | 7,300 | — |
+
+#### 2.7. Market profile a objemová analýza (Lekce)
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.7. | L | Market profile a objemová analýza | Market Profile and Volume Analysis | — | — |
+| 2.7.1. | K | Market profile | Market Profile | 180 | — |
+| 2.7.2. | K | Volume Profile, Order Flow | Volume Profile and Order Flow | 2,550 | — |
+| 2.7.3. | K | Identifikace zón s vysokým/nízkým objemem | High/Low Volume Zones | 220 | — |
+| 2.7.4. | K | Úvod do profilace trhu | Introduction to Market Profiling | — | — |
+| 2.7.7. | K | Shrnutí a porovnání přístupů | Summary and Comparison of Approaches | — | — |
+
+#### 2.8. Divergence (Lekce) — NEW
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.8. | L | Divergence | Divergence | — | — |
+| 2.8.1. | K | Klasická divergence (bullish a bearish) | Classical Divergence | 7,880 | — |
+| 2.8.2. | K | Hidden divergence | Hidden Divergence | 1,970 | — |
+| 2.8.3. | K | Divergence v praxi | Divergence in Practice | 1,250 | — |
+
+#### 2.9. Confluence a obchodní strategie (Lekce) — NEW
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.9. | L | Confluence a obchodní strategie | Confluence and Trading Strategy | — | — |
+| 2.9.1. | K | Co je confluence | What is Confluence | 1,770 | — |
+| 2.9.2. | K | Sestavení obchodního plánu z TA | Building a Trading Plan from TA | 2,370 | — |
+
+#### 2.10. Backtesting a validace (Lekce) — NEW
+
+| Lokace | Type | Name (CZ) | Name (EN) | SV | Status |
+|--------|------|-----------|-----------|-----|--------|
+| 2.10. | L | Backtesting a validace | Backtesting and Validation | — | — |
+| 2.10.1. | K | Manuální backtesting | Manual Backtesting | 6,070 | — |
+| 2.10.2. | K | Vyhodnocení výsledků | Evaluating Results | 1,730 | — |
 
 ---
 
@@ -155,42 +280,21 @@ PART 4: FTMO EVALUATION (4 lessons)
 
 ## Content Analysis Summary
 
-### Topic Coverage
+### Part 2 Statistics (new structure)
 
-| Topic Cluster | Lessons | Coverage |
-|---------------|---------|----------|
-| Market Fundamentals | 13 | Comprehensive |
-| Technical Analysis | 19 | Comprehensive |
-| Indicators | 8 | Good (major indicators) |
-| Fundamental Analysis | 4 | Basic |
-| Sentiment/Statistical | 3 | Minimal |
-| Risk Management | 2 | Needs expansion |
-| Trading Psychology | 1 | Gap |
-| FTMO-Specific | 4 | Basic rules only |
-| Platform Guides | 3 | Reference only |
-
-### Identified Gaps
-
-| Gap | Priority | Suggested Content |
-|-----|----------|-------------------|
-| Trading Psychology | HIGH | Emotions, discipline, mindset |
-| Position Sizing | HIGH | Detailed lot calculation |
-| Journal/Review | MEDIUM | Trade journaling best practices |
-| Advanced Risk | MEDIUM | Portfolio risk, correlation risk |
-| Order Types | MEDIUM | Limit, stop, OCO, etc. |
-| News Trading | LOW | Trading around events |
-| Algorithmic Basics | LOW | Intro to algo/EA |
-
-### Internal Linking Opportunities
-
-| From Lesson | To Lesson | Link Type |
-|-------------|-----------|-----------|
-| Types of Charts | Japanese Candlesticks | Prerequisite |
-| Types of Charts | Technical Indicators | Related |
-| Divergence | RSI, MACD | Prerequisite |
-| Risk Management | Max Daily Loss | Application |
-| ATR Indicator | Risk Management | Application |
-| Moving Average | Bollinger, MACD, Keltner | Foundation |
+| Module | Lekce (L) | Kapitoly (K) | Podtémata (P) | Glossary (G) | Total SV |
+|--------|-----------|-------------|---------------|--------------|----------|
+| 2.1. Graf a timeframe | 1 | 4 | 3 | 0 | 33,870 |
+| 2.2. Price action | 1 | 5 | 7 | 0 | 35,780 |
+| 2.3. Svíčkové formace | 1 | 1 | 14 | 9 | 161,680 |
+| 2.4. Patterny na grafu | 1 | 3 | 10 | 7 | 172,370 |
+| 2.5. Indikátory | 1 | 5 | 10 | 1 | 228,850 |
+| 2.6. Fibonacci + Elliott | 1 | 2 | 1 | 0 | 14,940 |
+| 2.7. Market/Volume profile | 1 | 5 | 0 | 0 | 2,950 |
+| 2.8. Divergence | 1 | 3 | 0 | 0 | 11,100 |
+| 2.9. Confluence | 1 | 2 | 0 | 0 | 4,140 |
+| 2.10. Backtesting | 1 | 2 | 0 | 0 | 7,800 |
+| **TOTAL Part 2** | **10** | **32** | **45** | **17** | **673,480** |
 
 ---
 
@@ -198,6 +302,12 @@ PART 4: FTMO EVALUATION (4 lessons)
 
 | Status | Meaning |
 |--------|---------|
+| Brief ke zpracování | Brief not yet created |
+| Brief k revizi eVisions | Brief ready, awaiting eVisions review |
+| Brief ke kontrole FTMO | Brief ready, awaiting FTMO review |
+| Vygenerovaný text k jazykové korektuře | AI text generated, awaiting proofreading |
+| Vygenerovaný text k revizi FTMO | AI text generated, awaiting FTMO review |
+| případný backlog | Nice-to-have, low priority |
 | TODO | Not yet analyzed |
 | ANALYZED | Content reviewed, issues identified |
 | UPDATED | Edits applied |
