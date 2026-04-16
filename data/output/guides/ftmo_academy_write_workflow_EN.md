@@ -1,8 +1,8 @@
 # FTMO Academy: New Lesson Writing Workflow
 
-**Version:** 3.3
+**Version:** 3.4
 **Created:** 2026-03-05
-**Updated:** 2026-03-27
+**Updated:** 2026-04-16
 **Purpose:** Step-by-step process for writing FTMO Academy lessons from scratch
 
 ---
@@ -180,7 +180,7 @@ Create `data/output/lessons/[slug]/lesson_[slug]_EN_log.md` with:
 | Lokace | [X.Y.Z.N.] |
 | Inventory position | Part N: [Name] > [Module], Lesson N of M |
 | Internal linking targets | [related lessons from inventory] |
-| Keywords source | Ahrefs MCP (Step 1) |
+| Keywords source | Ahrefs MCP or DataForSEO MCP (Step 1) |
 | Existing versions found | None / v3 at [path] — ignored per user instruction |
 ```
 
@@ -196,7 +196,7 @@ Position:      Lesson N of M in module
 Links to:      [lesson titles from inventory]
 Existing ver.: None | [filename] — will create vN+1
 
-Keywords: loaded in Step 1 (Ahrefs MCP)
+Keywords: loaded in Step 1 (Ahrefs MCP or DataForSEO MCP fallback)
 
 Confirm to start Step 1 (Competitor Research + Keyword Discovery).
 ```
@@ -247,15 +247,23 @@ Understand the competitive landscape before writing. Scope the topic. Build the 
 3. **Deduplicate + filter:** exclude forums (Reddit, Quora), paywalled content, non-EN pages, PDF files
 4. Result: **up to 24 URLs** in the candidate table (duplicates across queries marked in Source column)
 
-### Krok 3: Enrich every URL with Ahrefs metrics
+### Krok 3: Enrich every URL with SEO metrics
 
-5. For all URLs in the table, call Ahrefs MCP:
+5. For all URLs in the table, call **Ahrefs MCP** (primary) or **DataForSEO MCP** (fallback if Ahrefs is unavailable):
+
+   **Option A: Ahrefs MCP (default)**
    - `site-explorer-metrics` (mode=exact) → **Organic traffic** + org_keywords for the specific URL
    - `site-explorer-domain-rating` → **Domain Rating (DR)** for the domain
-6. Add DR + organic traffic columns to the URL table
+
+   **Option B: DataForSEO MCP (fallback)**
+   - `mcp__dfs-mcp__backlinks_bulk_ranks` (targets=[list of domains], rank_scale="one_hundred") → **Rank** (0-100, equivalent to DR). One call for all unique domains.
+   - `mcp__dfs-mcp__dataforseo_labs_google_ranked_keywords` (target=URL, limit=1, order_by=["ranked_serp_element.serp_item.rank_group,asc"]) → **Organic keywords count** (use total_count from response as org_keywords). For **organic traffic**, sum estimated traffic from top ranked keywords or use `mcp__dfs-mcp__dataforseo_labs_google_domain_rank_overview` (target=domain) for domain-level organic traffic estimate.
+
+6. Add DR (or Rank) + organic traffic columns to the URL table
 
 > **Note:** DR is a domain-level metric (one call per unique domain, not per URL).
-> Organic traffic is URL-level (one call per URL via `site-explorer-metrics` with `mode=exact`).
+> Organic traffic is URL-level (one call per URL via Ahrefs `site-explorer-metrics` with `mode=exact`, or via DFS `ranked_keywords` with the full URL as target).
+> **Fallback detection:** If Ahrefs MCP authentication fails or returns errors on the first call, switch to DataForSEO MCP for all remaining calls in Step 1. Log which source was used.
 
 ### Krok 4: Select top 10 for fetching + extract content
 
@@ -274,20 +282,26 @@ Understand the competitive landscape before writing. Scope the topic. Build the 
    | **Word count estimate** | Benchmark for our target |
 
 9. **Timeout:** Each WebFetch must complete within **30 seconds**. If a page takes longer, abort immediately — log as "timeout, skipped" and move to the next URL. Do not retry.
-10. **Blocklist:** Skip `ninjatrader.com` entirely — never fetch (pages hang for minutes without blocking). Instead, extract keywords only via Ahrefs `site-explorer-organic-keywords` if a NinjaTrader URL ranked in search results.
+10. **Blocklist:** Skip `ninjatrader.com` entirely — never fetch (pages hang for minutes without blocking). Instead, extract keywords via Ahrefs `site-explorer-organic-keywords` (or DFS fallback: `mcp__dfs-mcp__dataforseo_labs_google_ranked_keywords` with target=URL) if a NinjaTrader URL ranked in search results.
 11. If WebFetch fails (timeout / blocked / error): note in log — proceed with remaining pages
 12. Minimum 3 successfully fetched pages to continue
 
 ### Krok 5: Keyword Discovery
 
-**Seed selection for Ahrefs:**
+**Seed selection:**
 - Main seed from Krok 1 (e.g. `trading timeframes`)
-- 2–3 additional seeds derived from H2 headings of fetched competitor pages (e.g. `best timeframe for swing trading`)
-- Combine all seeds comma-separated into a single string
+- 2-3 additional seeds derived from H2 headings of fetched competitor pages (e.g. `best timeframe for swing trading`)
 
-**Ahrefs queries — exactly 2 calls:**
+**Option A: Ahrefs MCP (default) — exactly 2 calls:**
+- Combine all seeds comma-separated into a single string
 1. `keywords-explorer-matching-terms` — all seeds in one call
 2. `keywords-explorer-related-terms` — all seeds in one call
+
+**Option B: DataForSEO MCP (fallback) — exactly 2 calls:**
+1. `mcp__dfs-mcp__dataforseo_labs_google_keyword_suggestions` (keyword=main seed, limit=100, language_code="en", location_name="United States") — returns long-tail keywords containing the seed. Note: accepts only a single keyword string, so use the main seed. Additional seeds can be run as separate calls if needed.
+2. `mcp__dfs-mcp__dataforseo_labs_google_related_keywords` (keyword=main seed, limit=100, depth=2, language_code="en", location_name="United States") — returns semantically related keywords from "searches related to" SERP element.
+
+> **DFS output fields mapping:** Both DFS endpoints return `keyword_info.search_volume` (= Volume) and `keyword_info.competition` (use as proxy for KD, scale 0-1, multiply by 100 for percentage). If `keyword_info.search_volume` is null, the keyword has no data and should be dropped.
 
 ### Krok 6: Merge + Deduplicate + Filter + Cluster
 
@@ -1021,6 +1035,7 @@ Slugs use hyphens (matching URL slugs):
 | 3.0 | 2026-03-20 | **Step 1 rewrite:** 7-step process (seed validation → 4 WebSearch queries × 6 URLs → Ahrefs DR + organic traffic per URL → top 10 fetch with extraction checklist → keyword discovery 2 Ahrefs calls → merge/dedup/filter/cluster → xlsx output). Removed EXA/DataForSEO options, removed Ahrefs SERP cross-reference. Added: DR via `domain-rating` + traffic via `site-explorer-metrics` (mode=exact). Keywords max 30 with intent clustering. Output = xlsx with 2 sheets. **Step 2 rewrite:** outline saved as separate editable file `lesson_[slug]_EN_outline.md`. Updated naming convention with Step 1 xlsx + Step 2 outline files. |
 | 3.1 | 2026-03-23 | **Entry point rewrite:** Removed inventory mode — inventory used only for internal linking context, not task management. Added interactive menu (New / Continue) when no arguments. Added CONTINUE mode with auto-detection of last completed step from existing files. Step 7 inventory update now optional (linking context only). Steps 1-2 stop messages require full absolute file paths. |
 | 3.2 | 2026-03-23 | **Step 2 output format:** Changed outline output from `.md` to `.docx` (generated via `src/export_outline_docx.py`). Trading expert edits the `.docx` directly — single source of truth, no duplicate files. Added `src/read_outline_docx.py` for reading edited `.docx` back when resuming from Step 3. Updated naming convention and auto-detection logic. |
+| 3.3 | 2026-04-16 | **DataForSEO MCP fallback:** Added DFS-MCP as fallback for all Ahrefs MCP calls in Step 1 (Krok 3: URL metrics via `backlinks_bulk_ranks` + `ranked_keywords`; Krok 5: keyword discovery via `keyword_suggestions` + `related_keywords`). Ahrefs remains default; DFS activates automatically when Ahrefs auth fails or returns errors. Updated INIT log/summary, blocklist workaround, and Step 1 prompt. |
 
 ---
 

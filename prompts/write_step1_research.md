@@ -40,14 +40,16 @@ Collect 15-20 candidate URLs. Add any URLs the user explicitly provides.
 
 **Avoid:** Reddit, YouTube descriptions, low-quality blogs, affiliate spam sites.
 
-Cross-reference with Ahrefs MCP `serp-overview` for the top 2-3 keywords to add SERP-ranked pages. Deduplicate. Select top 8-10 most relevant.
+Cross-reference with Ahrefs MCP `serp-overview` (or DFS fallback: `mcp__dfs-mcp__serp_organic_live_advanced`) for the top 2-3 keywords to add SERP-ranked pages. Deduplicate. Select top 8-10 most relevant.
+
+> **Ahrefs unavailable?** If Ahrefs MCP authentication fails or returns errors, switch to DataForSEO MCP for all SEO data calls in this step. See the full DFS-MCP mapping in the workflow document (Krok 3 and Krok 5).
 
 ### 2. Fetch Each Page
 
 **Timeout rule:** Each WebFetch must complete within **30 seconds**. If a page takes longer or fails, abort immediately and move to the next URL. Log as "timeout" or "failed" in the URL table. Do not retry failed URLs. Minimum 3 successful fetches required to continue.
 
 **Blocklist — never fetch these domains:**
-- `ninjatrader.com` — pages hang for minutes without returning. If a NinjaTrader URL appears in search results, skip the fetch but extract keywords via Ahrefs `site-explorer-organic-keywords` (mode=exact) for that URL.
+- `ninjatrader.com` — pages hang for minutes without returning. If a NinjaTrader URL appears in search results, skip the fetch but extract keywords via Ahrefs `site-explorer-organic-keywords` (mode=exact) for that URL, or via DFS fallback: `mcp__dfs-mcp__dataforseo_labs_google_ranked_keywords` (target=URL, limit=20).
 
 Use WebFetch on each URL. For each page extract:
 
