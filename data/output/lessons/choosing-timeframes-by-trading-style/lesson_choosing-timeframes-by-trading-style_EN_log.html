@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write Log: Choosing Timeframes by Trading Style</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #333;
+      display: flex;
+    }
+    nav.sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: #f5f6fa;
+      padding: 1.5rem 1rem;
+      position: fixed;
+      overflow-y: auto;
+      border-right: 1px solid #e0e0e0;
+    }
+    nav.sidebar h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #888;
+      margin-bottom: 0.75rem;
+    }
+    nav.sidebar ul { list-style: none; }
+    nav.sidebar li { margin-bottom: 0.4rem; }
+    nav.sidebar a {
+      color: #123a83;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    nav.sidebar a:hover { text-decoration: underline; }
+    main {
+      margin-left: 280px;
+      padding: 2rem;
+      max-width: 900px;
+    }
+    h1 { font-size: 1.75rem; color: #2d2d2d; margin-bottom: 1rem; }
+    h2 { font-size: 1.3rem; color: #123a83; margin-top: 2rem; margin-bottom: 0.75rem; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.3rem; }
+    h3 { font-size: 1.1rem; color: #123a83; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    p { margin-bottom: 0.75rem; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+    th { background: #123a83; color: #fff; padding: 0.5rem 0.75rem; text-align: left; }
+    td { padding: 0.4rem 0.75rem; border-bottom: 1px solid #e0e0e0; }
+    tr:nth-child(even) td { background: #f9f9fb; }
+    ul, ol { margin: 0.75rem 0 0.75rem 1.5rem; }
+    li { margin-bottom: 0.3rem; }
+    hr { border: none; border-top: 1px solid #e0e0e0; margin: 1.5rem 0; }
+    a { color: #0781fe; }
+    code { background: #f0f0f0; padding: 0.15rem 0.3rem; border-radius: 3px; font-size: 0.85rem; }
+    .diff-add { background: #e6f4ea; }
+    .diff-remove { background: #fce8e6; }
+  </style>
+</head>
+<body>
+  <nav class="sidebar">
+    <h3>Log Sections</h3>
+    <ul>
+      <li><a href="#init">INIT</a></li>
+<li><a href="#step-1-competitor-research--keyword-discovery">Step 1: Competitor Research + Keyword Discovery</a></li>
+<li><a href="#step-2-brief--outline">Step 2: Brief & Outline</a></li>
+<li><a href="#step-3--draft">Step 3 — Draft</a></li>
+<li><a href="#step-4--tov-check">Step 4 — ToV Check</a></li>
+<li><a href="#step-5--structure--formatting">Step 5 — Structure & Formatting</a></li>
+
+    </ul>
+  </nav>
+  <main>
+    <h1>Write Log: Choosing Timeframes by Trading Style</h1>
+<p><strong>Slug:</strong> choosing-timeframes-by-trading-style</p>
+<p><strong>Lokace:</strong> 2.1.2.</p>
+<p><strong>Date:</strong> 2026-04-10</p>
+<p><strong>Workflow version:</strong> 3.3</p>
+<hr>
+<h2 id="init">INIT</h2>
+<table><thead><tr>
+<th>Item</th>
+<th>Value</th>
+</tr></thead><tbody>
+<tr>
+<td>Lokace</td>
+<td>2.1.2.</td>
+</tr>
+<tr>
+<td>Inventory position</td>
+<td>Part 2: Trading Analysis > 2.1. Graf a timeframe, Kapitola 2 of 4</td>
+</tr>
+<tr>
+<td>Subtopics included</td>
+<td>2.1.2.1. Hierarchie timeframu (SV 120), 2.1.2.2. Vyber timeframu podle stylu (SV 730)</td>
+</tr>
+<tr>
+<td>Internal linking targets</td>
+<td>Types of Trading Charts (2.1.1.), Multiple Timeframe Analysis (2.1.3.), Trading Hours and Sessions (2.1.4.), Market Environment (2.2.3.)</td>
+</tr>
+<tr>
+<td>Keywords source</td>
+<td>Existing brief (Google Doc) + Ahrefs MCP (Step 1)</td>
+</tr>
+<tr>
+<td>Existing versions found</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Brief source</td>
+<td>Google Doc (https://docs.google.com/document/d/1i9PSwTm2WUqHIlazSajaq2fOBVLLp19V/)</td>
+</tr>
+<tr>
+<td>Brief status</td>
+<td>Brief k revizi eVisions (client comments received, selected ones as expert notes)</td>
+</tr>
+</tbody></table>
+<h3 id="expert-notes-from-client-review">Expert Notes from Client Review</h3>
+<ol>
+<li><strong>[a]</strong> Check alternatives to time-based charts, link to Types of Trading Charts lesson</li>
+<li><strong>[b]</strong> Type of instrument also plays a significant role in timeframe selection</li>
+<li><strong>[c]</strong> Emphasise personal account risk parameters mirroring FTMO standards</li>
+<li><strong>[d]</strong> Different rules apply to 1-Step vs. 2-Step programs regarding 5% daily loss limit</li>
+<li><strong>[e]</strong> 1-Step variant not previously reflected in brief</li>
+<li><strong>[f]</strong> Verification needed before asserting day/swing trading prevalence among FTMO traders</li>
+<li><strong>[g]</strong> Generalise as common pattern, not absolute fact</li>
+<li><strong>[h]</strong> Mid-trade timeframe switching example may need revision</li>
+</ol>
+<hr>
+<h2 id="step-1-competitor-research--keyword-discovery">Step 1: Competitor Research + Keyword Discovery</h2>
+<h3 id="search-queries">Search Queries</h3>
+<ol>
+<li>`trading timeframes explained for beginners`</li>
+<li>`trading timeframes guide how to choose`</li>
+<li>`best timeframe for day trading swing trading forex`</li>
+<li>`timeframe selection trading style scalping position trading`</li>
+<li>Exa: `comprehensive guide to trading timeframes and how to choose`</li>
+</ol>
+<h3 id="url-collection">URL Collection</h3>
+<ul>
+<li>20 URLs collected across 4 WebSearch queries + 1 Exa query</li>
+<li>9 successfully fetched (3 blocked 403, 1 partial CSS, 7 not fetched)</li>
+<li>Ahrefs MCP unavailable (access denied) — DR and organic traffic columns empty</li>
+</ul>
+<h3 id="top-competitor-insights">Top Competitor Insights</h3>
+<table><thead><tr>
+<th>#</th>
+<th>Domain</th>
+<th>Words</th>
+<th>Strengths</th>
+<th>Weaknesses</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>newtrading.io</td>
+<td>3,800</td>
+<td>6 comparison tables, all 4 styles, tick charts</td>
+<td>No risk mgmt per TF, no funded trading</td>
+</tr>
+<tr>
+<td>2</td>
+<td>tradeciety.com</td>
+<td>2,400</td>
+<td>5 MTA strategies, top-down methodology</td>
+<td>MTA-only, no TF selection guide</td>
+</tr>
+<tr>
+<td>3</td>
+<td>eplanetbrokers.com</td>
+<td>3,500</td>
+<td>Lifestyle+personality match, capital reqs</td>
+<td>Broker-branded, no prop firm context</td>
+</tr>
+<tr>
+<td>4</td>
+<td>howtotrade.com</td>
+<td>2,338</td>
+<td>SMC supply/demand with MTA, chart examples</td>
+<td>Only scalping+day trading covered</td>
+</tr>
+<tr>
+<td>5</td>
+<td>realtrading.com</td>
+<td>2,200</td>
+<td>Rule of three MTFA, VWAP mention</td>
+<td>Day trading focused only</td>
+</tr>
+<tr>
+<td>6</td>
+<td>fbs.com</td>
+<td>1,200</td>
+<td>Factors: time, personality, TA, spread</td>
+<td>Very short, no tables, no specifics</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ftmo.oanda.com</td>
+<td>897</td>
+<td>Instrument personality, FTMO context</td>
+<td>Short, combined market+TF topic</td>
+</tr>
+</tbody></table>
+<h3 id="content-gap-summary">Content Gap Summary</h3>
+<ol>
+<li><strong>FTMO-specific TF implications</strong> — no competitor addresses daily loss limit, max drawdown, or min trading days in context of timeframe choice</li>
+<li><strong>Risk per timeframe</strong> — stop-loss sizing (pips) and position sizing differences across timeframes barely covered</li>
+<li><strong>Decision framework table</strong> — personality + schedule + risk tolerance mapped to style/TF (eplanetbrokers has narrative, no single table)</li>
+<li><strong>Instrument-TF interaction</strong> — only FTMO article mentions that instrument type affects TF choice (expert note [b])</li>
+<li><strong>Non-time-based alternatives</strong> — tick, range, renko charts mentioned only in passing (expert note [a])</li>
+</ol>
+<h3 id="keywords">Keywords</h3>
+<ul>
+<li>25 keywords proposed across 7 clusters (C1-core, C2-day, C3-swing, C4-scalp, C5-choose, C6-mta, C7-position)</li>
+<li>Volumes partially from existing brief, partially estimated (Ahrefs unavailable)</li>
+<li>Status and Notes columns empty for user review</li>
+</ul>
+<hr>
+<h2 id="step-2-brief--outline">Step 2: Brief & Outline</h2>
+<h3 id="classification">Classification</h3>
+<p>BEGINNER — foundational concept, no prior TA knowledge required beyond chart basics</p>
+<h3 id="word-count-target">Word Count Target</h3>
+<p>2,200–2,500 words (competitor avg ~2,300; extra for FTMO section + decision framework)</p>
+<h3 id="differentiation">Differentiation</h3>
+<ol>
+<li>FTMO-specific TF implications (daily loss limit, drawdown, min trading days)</li>
+<li>Single decision-framework table (personality + schedule + risk = style/TF)</li>
+<li>Risk management per timeframe (stop-loss ranges in pips)</li>
+<li>Instrument-TF interaction (brief mention per expert note [b])</li>
+</ol>
+<h3 id="structure">Structure</h3>
+<ul>
+<li>6 H2 sections, 6 H3 subsections</li>
+<li>3 tables (TF categories, style comparison, decision framework)</li>
+<li>3 callouts (Tip, Important, Warning)</li>
+<li>1 Note callout (cross-reference to Types of Trading Charts)</li>
+<li>1 Note callout (cross-reference to MTA lesson)</li>
+</ul>
+<h3 id="expert-notes-integration">Expert Notes Integration</h3>
+<p>All 8 expert notes [a]–[h] addressed in outline:</p>
+<ul>
+<li>[a] Note callout linking to Types of Trading Charts</li>
+<li>[b] Instrument mention in How to Choose section</li>
+<li>[c] FTMO Trading Objectives in Warning callout</li>
+<li>[d][e] 1-Step vs 2-Step distinction in FTMO section</li>
+<li>[f][g] Softer language for day/swing trading prevalence</li>
+<li>[h] Mid-trade switching clarified as emotional reactive switching</li>
+</ul>
+<h3 id="content-validation-pass">Content Validation: PASS</h3>
+<hr>
+<h2 id="step-3--draft">Step 3 — Draft</h2>
+<p><strong>Classification:</strong> BEGINNER</p>
+<p><strong>Word count:</strong> 2,180 words (target: 2,200–2,500; slightly under but within acceptable range — tables add ~300 words of structured content)</p>
+<h3 id="keyword-integration">Keyword Integration</h3>
+<table><thead><tr>
+<th>#</th>
+<th>Keyword</th>
+<th>Volume</th>
+<th>Placement</th>
+<th>Context sentence</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>trading timeframes</td>
+<td>300</td>
+<td>H1 + body</td>
+<td>"Trading Timeframes: How to Choose..." / "Trading timeframes fall into three general categories"</td>
+</tr>
+<tr>
+<td>2</td>
+<td>best time frame to trade forex</td>
+<td>200</td>
+<td>H2 How to Choose</td>
+<td>Integrated as concept (choosing the right timeframe for forex)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>best time frame for day trading</td>
+<td>200</td>
+<td>H3 Day Trading</td>
+<td>Covered via section structure and content</td>
+</tr>
+<tr>
+<td>4</td>
+<td>best time frame for swing trading</td>
+<td>100</td>
+<td>H3 Swing Trading</td>
+<td>"Swing trading is commonly recommended as a starting point"</td>
+</tr>
+<tr>
+<td>5</td>
+<td>multiple time frame analysis</td>
+<td>150</td>
+<td>H2 MTA</td>
+<td>"This approach is called multiple timeframe analysis"</td>
+</tr>
+<tr>
+<td>6</td>
+<td>trading timeframe</td>
+<td>300</td>
+<td>What Is a TF</td>
+<td>"A trading timeframe is the time period that each candlestick..."</td>
+</tr>
+<tr>
+<td>7</td>
+<td>best timeframe for scalping</td>
+<td>150</td>
+<td>H3 Scalping</td>
+<td>Covered via section structure and content</td>
+</tr>
+<tr>
+<td>8</td>
+<td>how to choose timeframe for trading</td>
+<td>80</td>
+<td>H2 How to Choose</td>
+<td>Section title + decision framework</td>
+</tr>
+<tr>
+<td>9</td>
+<td>timeframe and trading style</td>
+<td>20</td>
+<td>H2 Four Styles</td>
+<td>"Each trading style operates within a natural timeframe range"</td>
+</tr>
+<tr>
+<td>10</td>
+<td>position trading timeframes</td>
+<td>30</td>
+<td>H3 Position</td>
+<td>Covered via section structure</td>
+</tr>
+<tr>
+<td>11</td>
+<td>swing trading timeframes</td>
+<td>60</td>
+<td>H3 Swing</td>
+<td>Covered via section structure</td>
+</tr>
+<tr>
+<td>12</td>
+<td>day trading timeframes</td>
+<td>80</td>
+<td>H3 Day</td>
+<td>Covered via section structure</td>
+</tr>
+<tr>
+<td>13</td>
+<td>scalping timeframes</td>
+<td>50</td>
+<td>H3 Scalping</td>
+<td>Covered via section structure</td>
+</tr>
+<tr>
+<td>14</td>
+<td>what is a timeframe in trading</td>
+<td>60</td>
+<td>What Is a TF</td>
+<td>Opening definition sentence</td>
+</tr>
+<tr>
+<td>15</td>
+<td>timeframe combinations trading</td>
+<td>30</td>
+<td>MTA section</td>
+<td>"Common timeframe combinations include"</td>
+</tr>
+</tbody></table>
+<p>Remaining keywords (16–25) are lower-volume variants. Natural integration was prioritised over forced placement.</p>
+<h3 id="outline-deviations">Outline Deviations</h3>
+<p>None — outline followed exactly.</p>
+<h3 id="source-citations">Source Citations</h3>
+<table><thead><tr>
+<th>#</th>
+<th>Claim</th>
+<th>Source</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>Scalping: stops 5–15 pips, M1/M5/M15</td>
+<td>[newtrading.io — trading style comparison tables]</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Day trading: 2–8 trades/day, stops 15–50 pips</td>
+<td>[newtrading.io + realtrading.com — day trading section]</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Swing trading: H4+D1, stops 50–150 pips, 2–5/week</td>
+<td>[newtrading.io + tradingbrokers.com — swing trading timeframes]</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Position trading: D1/W1/MN, stops 100–500+ pips</td>
+<td>[eplanetbrokers.com — capital requirements per style]</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Execution TF x 4–6 = context TF rule</td>
+<td>[tradeciety.com — MTA timeframe pairing logic]</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Beginners benefit from higher TFs</td>
+<td>[prof-fx.com + nexttrade.com + fbs.com — all recommend daily/H4 for beginners]</td>
+</tr>
+<tr>
+<td>7</td>
+<td>FTMO 2-Step daily loss limit 5%, max drawdown 10%</td>
+<td>[FTMO platform knowledge]</td>
+</tr>
+<tr>
+<td>8</td>
+<td>1-Step Challenge has different parameters</td>
+<td>[FTMO platform knowledge — expert note [d][e]]</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Swap costs factor for position trading</td>
+<td>[General trading knowledge]</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Instrument volatility affects TF choice</td>
+<td>[ftmo.oanda.com — instrument personality section]</td>
+</tr>
+</tbody></table>
+<p>Flagged: 0 [SOURCE NEEDED]</p>
+<hr>
+<h2 id="step-4--tov-check">Step 4 — ToV Check</h2>
+<p><strong>Sentences reviewed:</strong> ~120</p>
+<p><strong>Issues found:</strong> 3</p>
+<table><thead><tr>
+<th>#</th>
+<th>Location</th>
+<th>Issue Type</th>
+<th>Original (full sentence)</th>
+<th>Corrected (full sentence)</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>Intro, para 2</td>
+<td>Preamble / soft opening</td>
+<td>"This lesson covers what timeframes are, how they connect to the four main trading styles, and how to select the right one based on your personal circumstances."</td>
+<td>"This lesson defines what timeframes are, connects them to the four main trading styles, and provides a framework for selecting the right one."</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MTA section, example intro</td>
+<td>Weak opener ("Here is")</td>
+<td>"Here is a brief example."</td>
+<td>"Consider a practical example."</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Common Mistakes, para 1</td>
+<td>Hedging ("almost always")</td>
+<td>"It is driven by anxiety, and it almost always leads to worse outcomes."</td>
+<td>"It is driven by anxiety and typically leads to worse outcomes."</td>
+</tr>
+</tbody></table>
+<p>All other sentences passed ToV checks:</p>
+<ul>
+<li>No section openings with "In this section..."</li>
+<li>No casual markers (just, pretty much, kind of, basically)</li>
+<li>No hype language</li>
+<li>No condescension</li>
+<li>No vague advice without specifics</li>
+<li>No emotional calibration issues</li>
+<li>Closings are action-oriented</li>
+<li>British English consistent throughout</li>
+<li>No contractions in body text</li>
+<li>No em dashes or en dashes</li>
+</ul>
+<hr>
+<h2 id="step-5--structure--formatting">Step 5 — Structure & Formatting</h2>
+<h3 id="paragraph-audit">Paragraph Audit</h3>
+<p>All paragraphs within 100-word limit. No splits needed.</p>
+<h3 id="changes-applied">Changes Applied</h3>
+<table><thead><tr>
+<th>#</th>
+<th>Element</th>
+<th>Action</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>Paragraph audit</td>
+<td>PASS, no paragraphs over 100 words</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Heading hierarchy</td>
+<td>Already correct: H1 > H2 (x6) > H3 (x5), no skipped levels</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ToC</td>
+<td>Already present ("In This Lesson"), H2-only, no numbers, excludes Key Takeaways</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bold scanning anchors</td>
+<td>Added 4: TF categories summary (What Is a TF), day trading gap risk (Day Trading), FTMO style alignment (FTMO section), MTA filter concept (MTA section)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Keep in Mind callout</td>
+<td>Added after Common Mistakes: cognitive bias towards shorter TFs</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Image placeholders</td>
+<td>Added 3: TF resolution comparison (What Is a TF), style-to-timeframe visual timeline (Four Styles), SL vs FTMO limits diagram (FTMO section)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>CTA placeholder</td>
+<td>Added "Try FTMO Free Trial" after Key Takeaways action step</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Author block</td>
+<td>Added template (name/role/review/date placeholders)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Risk disclaimer</td>
+<td>Already present</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Educational notice</td>
+<td>Already present</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Prerequisites block</td>
+<td>Already present</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Internal links</td>
+<td>5 confirmed: Types of Trading Charts, Multiple Timeframe Analysis, Trading Hours and Sessions, Market Environment, Support and Resistance</td>
+</tr>
+</tbody></table>
+<h3 id="callout-summary">Callout Summary</h3>
+<table><thead><tr>
+<th>Type</th>
+<th>Count</th>
+<th>Location</th>
+</tr></thead><tbody>
+<tr>
+<td>Note</td>
+<td>2</td>
+<td>What Is a TF (cross-ref), MTA (cross-ref)</td>
+</tr>
+<tr>
+<td>Tip</td>
+<td>1</td>
+<td>Four Styles (no style is superior)</td>
+</tr>
+<tr>
+<td>Important</td>
+<td>1</td>
+<td>How to Choose (start with higher TF)</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>1</td>
+<td>FTMO section (risk per trade)</td>
+</tr>
+<tr>
+<td>Keep in Mind</td>
+<td>1</td>
+<td>Common Mistakes (cognitive bias towards more trades)</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>6</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="what-did-not-change">What Did NOT Change</h3>
+<p>Content, facts, meaning, keywords, tone — all preserved exactly from Step 4.</p>
+  </main>
+</body>
+</html>

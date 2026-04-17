@@ -1,494 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Log &mdash; Types of Trading Charts — Edit Log</title>
-    <style>
-:root {
-    --red-bg: #ffeef0;
-    --red-text: #b91c1c;
-    --red-border: #f87171;
-    --green-bg: #f0fdf4;
-    --green-text: #15803d;
-    --green-border: #4ade80;
-    --gray-bg: #f8f9fa;
-    --border: #e1e5eb;
-    --dark: #111827;
-    --muted: #6b7280;
-    --blue: #0781fe;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--dark);
-    background: #fff;
-    padding: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.doc-header {
-    border-bottom: 3px solid var(--dark);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-}
-.doc-header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-.doc-meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.25rem 2rem;
-    font-size: 0.8125rem;
-    color: var(--muted);
-}
-.doc-meta span strong { color: var(--dark); }
-
-.legend {
-    display: flex;
-    gap: 1.5rem;
-    padding: 0.75rem 1rem;
-    background: var(--gray-bg);
-    border-radius: 6px;
-    margin-bottom: 2rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-}
-.legend-item { display: flex; align-items: center; gap: 0.5rem; }
-.legend-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    flex-shrink: 0;
-}
-.legend-dot-red { background: var(--red-bg); border: 1.5px solid var(--red-border); }
-.legend-dot-green { background: var(--green-bg); border: 1.5px solid var(--green-border); }
-.legend-dot-gray { background: #e5e7eb; border: 1.5px solid #9ca3af; }
-
-.step-section {
-    margin-bottom: 3rem;
-    page-break-inside: avoid;
-}
-.step-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-}
-.step-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--dark);
-}
-.step-meta {
-    font-size: 0.8125rem;
-    color: var(--muted);
-}
-
-.diff-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    font-size: 0.8125rem;
-}
-.diff-table thead tr {
-    background: var(--gray-bg);
-    border-bottom: 1px solid var(--border);
-}
-.diff-table thead th {
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-    font-weight: 600;
-    color: var(--muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-.diff-table th:first-child { width: 28px; }
-.diff-table th.col-orig { width: 34%; }
-.diff-table th.col-new { width: 34%; }
-.diff-table th.col-reason { width: auto; }
-
-.diff-row { border-bottom: 1px solid var(--border); }
-.diff-row:last-child { border-bottom: none; }
-.diff-row td {
-    padding: 0.625rem 0.75rem;
-    vertical-align: top;
-}
-.diff-row td:first-child {
-    text-align: center;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 0.75rem;
-    background: var(--gray-bg);
-    border-right: 1px solid var(--border);
-}
-
-.cell-orig {
-    background: var(--red-bg);
-    border-right: 1px solid var(--border);
-}
-.cell-orig .text {
-    color: var(--red-text);
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 0.8rem;
-}
-.cell-orig .text::before {
-    content: "- ";
-    font-weight: 700;
-    opacity: 0.7;
-}
-
-.cell-new {
-    background: var(--green-bg);
-    border-right: 1px solid var(--border);
-}
-.cell-new .text {
-    color: var(--green-text);
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 0.8rem;
-}
-.cell-new .text::before {
-    content: "+ ";
-    font-weight: 700;
-    opacity: 0.7;
-}
-
-.cell-merged {
-    background: #f3f4f6;
-    border-right: 1px solid var(--border);
-}
-.cell-merged .text {
-    color: var(--muted);
-    font-style: italic;
-    font-size: 0.8rem;
-}
-
-.cell-reason {
-    color: var(--muted);
-    font-size: 0.75rem;
-}
-.cell-reason .tag {
-    display: inline-block;
-    background: #e0e7ff;
-    color: #3730a3;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    margin-right: 0.25rem;
-}
-.cell-reason .tag-tov { background: #e0e7ff; color: #3730a3; }
-.cell-reason .tag-kw { background: #dcfce7; color: #166534; }
-.cell-reason .tag-skip { background: #fef9c3; color: #854d0e; }
-.cell-reason .tag-struct { background: #fce7f3; color: #9d174d; }
-
-.kw-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    font-size: 0.8125rem;
-}
-.kw-table thead tr { background: var(--gray-bg); }
-.kw-table thead th {
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-    font-weight: 600;
-    color: var(--muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--border);
-}
-.kw-table td {
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-}
-.kw-table tr:last-child td { border-bottom: none; }
-.kw-table .orig {
-    color: var(--red-text);
-    background: var(--red-bg);
-    font-family: monospace;
-    font-size: 0.775rem;
-}
-.kw-table .orig::before { content: "- "; font-weight: 700; opacity: 0.7; }
-.kw-table .newv {
-    color: var(--green-text);
-    background: var(--green-bg);
-    font-family: monospace;
-    font-size: 0.775rem;
-}
-.kw-table .newv::before { content: "+ "; font-weight: 700; opacity: 0.7; }
-.kw-table .skip-row td { opacity: 0.55; }
-
-.badge {
-    display: inline-block;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.6875rem;
-    font-weight: 600;
-}
-.badge-done { background: #dcfce7; color: #166534; }
-.badge-skip { background: #fef9c3; color: #854d0e; }
-.badge-pending { background: #fed7aa; color: #9a3412; }
-.badge-new { background: #dbeafe; color: #1e40af; }
-.badge-rejected { background: #fee2e2; color: #991b1b; }
-.vol { color: var(--muted); font-size: 0.75rem; }
-
-.struct-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid var(--border);
-    font-size: 0.8125rem;
-}
-.struct-table thead tr { background: var(--gray-bg); }
-.struct-table thead th {
-    padding: 0.5rem 0.75rem;
-    text-align: left;
-    font-weight: 600;
-    color: var(--muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid var(--border);
-}
-.struct-table td {
-    padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-}
-.struct-table tr:last-child td { border-bottom: none; }
-.struct-table .added { color: var(--green-text); font-weight: 600; }
-
-.summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    font-size: 0.875rem;
-}
-.summary-table thead tr { background: var(--dark); }
-.summary-table thead th {
-    padding: 0.625rem 1rem;
-    text-align: left;
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-.summary-table td {
-    padding: 0.625rem 1rem;
-    border-bottom: 1px solid var(--border);
-}
-.summary-table tr:last-child td { border-bottom: none; }
-.status-done { color: var(--green-text); font-weight: 600; }
-.status-pending { color: #b45309; font-weight: 600; }
-
-@media print {
-    body { padding: 1cm; font-size: 11px; }
-    .step-section { page-break-inside: avoid; }
-    .diff-table { page-break-inside: auto; }
-    .diff-row { page-break-inside: avoid; }
-}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Log: Types of Trading Charts (v11)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --azure: #0781fe; --torea-bay: #123a83; --light-gray: #f5f5f7; --body-text: #1a1a2e; --muted: #555; }
+  body { font-family: 'Poppins', sans-serif; font-size: 14px; line-height: 1.6; color: var(--body-text); max-width: 1160px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 1.6rem; color: var(--torea-bay); margin-bottom: 8px; }
+  h2 { font-size: 1.3rem; color: var(--torea-bay); margin: 32px 0 12px; border-bottom: 2px solid var(--light-gray); padding-bottom: 8px; }
+  h3 { font-size: 1.1rem; color: var(--torea-bay); margin: 20px 0 8px; }
+  p { margin: 0 0 12px; }
+  strong { font-weight: 600; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  .meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th { background: var(--torea-bay); color: #fff; padding: 10px 12px; text-align: left; font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  tr:nth-child(even) td { background: var(--light-gray); }
+  .diff-old { background: #fef2f2; color: #991b1b; }
+  .diff-new { background: #f0fdf4; color: #166534; }
+  .status-done { color: #166534; font-weight: 600; }
+  .status-skip { color: #92400e; font-weight: 600; }
+  hr { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
+  nav.sidebar { position: fixed; top: 24px; right: 24px; background: var(--light-gray); padding: 16px; border-radius: 6px; font-size: 13px; max-width: 200px; }
+  nav.sidebar a { display: block; color: var(--torea-bay); text-decoration: none; margin-bottom: 6px; }
+  nav.sidebar a:hover { color: var(--azure); }
+  @media (max-width: 1400px) { nav.sidebar { display: none; } }
+</style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="doc-header">
-    <h1>Edit Log &mdash; Types of Trading Charts — Edit Log</h1>
-    <div class="doc-meta">
-        <span><strong>Article:</strong> lesson_types-of-trading-charts_EN.md</span>
-        <span><strong>Source:</strong> https://academy.ftmo.com/lesson/types-of-trading-charts/</span>
-        <span><strong>Date:</strong> 2026-03-05</span>
-    </div>
+<nav class="sidebar">
+  <strong>Steps</strong>
+  <a href="#step-1">Step 1: Keywords</a>
+  <a href="#step-2">Step 2: ToV</a>
+  <a href="#step-3">Step 3: Structure</a>
+</nav>
+
+<h1>Edit Log: Types of Trading Charts (v11)</h1>
+<div class="meta">
+  <p><strong>Source:</strong> <a href="https://academy.ftmo.com/lesson/types-of-trading-charts/">https://academy.ftmo.com/lesson/types-of-trading-charts/</a></p>
+  <p><strong>Base:</strong> v10 &bull; <strong>Date:</strong> 2026-04-10 &bull; <strong>Version:</strong> v11</p>
 </div>
 
-<!-- Legend -->
-<div class="legend">
-    <div class="legend-item">
-        <div class="legend-dot legend-dot-red"></div>
-        <span>Original sentence (removed / changed)</span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-dot legend-dot-green"></div>
-        <span>New sentence (replacement)</span>
-    </div>
-    <div class="legend-item">
-        <div class="legend-dot legend-dot-gray"></div>
-        <span>Merged into another row / skipped</span>
-    </div>
-</div>
+<hr>
 
+<h2 id="step-1">Step 1: Keywords</h2>
+<p><strong>Keywords file:</strong> <code>types-of-trading-charts_keywords.xlsx</code></p>
 
-<!-- ===================== STEP 1 ===================== -->
-<div class="step-section">
-    <div class="step-header">
-        <span class="step-title">Step 1 — Keyword Integration</span>
-        <span class="step-meta">Keywords file: `types-of-trading-charts_keywords.xlsx` &nbsp;&middot;&nbsp; 12 integrated &nbsp;&middot;&nbsp; 1 skipped</span>
-    </div>
-    <table class="kw-table">
-        <thead>
-            <tr>
-                <th style="width:24px">#</th>
-                <th style="width:37%">Original sentence</th>
-                <th style="width:37%">New sentence</th>
-                <th style="width:12%">Keyword</th>
-                <th style="width:6%">Vol.</th>
-                <th style="width:5%">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-<tr><td style="color:var(--muted);text-align:center">1</td><td><span class="orig">## Types of trading charts – candlestick chart, Renko, Heikin Ashi</span></td><td><span class="newv">H2 removed in Post-QA — keywords integrated into H1: `Types of Trading Charts: Candlestick Charts, Renko Charts, and Heikin Ashi`</span></td><td style="font-size:0.75rem">candlestick charts / renko charts</td><td class="vol">1000 / 400</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">2</td><td><span class="orig">### Renko</span></td><td><span class="newv">### Renko Charts</span></td><td style="font-size:0.75rem">renko charts</td><td class="vol">400</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">3</td><td><span class="orig">### Heikin Ashi</span></td><td><span class="newv">### Heikin Ashi Candles</span></td><td style="font-size:0.75rem">heikin ashi candles</td><td class="vol">1400</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">4</td><td><span class="orig">Heikin Ashi is another chart representation that comes from Japan.</span></td><td><span class="newv">Heikin Ashi candles are another chart representation that comes from Japan.</span></td><td style="font-size:0.75rem">heikin ashi candles</td><td class="vol">1400</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">5</td><td><span class="orig">here we can have a look at how the Heikin Ashi candle is calculated</span></td><td><span class="newv">here we can have a look at how the Heikin Ashi candle formula works</span></td><td style="font-size:0.75rem">heikin ashi candle formula</td><td class="vol">150</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">6</td><td><span class="orig">Although most traders are using candlestick charts</span></td><td style="color:var(--muted);font-style:italic;font-size:0.775rem;padding:0.5rem 0.75rem">unchanged — keyword already present</td><td style="font-size:0.75rem">candlestick charts</td><td class="vol">1000</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">7</td><td><span class="orig">Renko is similar to the range and tick charts.</span></td><td><span class="newv">Renko charts are similar to range and tick charts.</span></td><td style="font-size:0.75rem">renko charts</td><td class="vol">400</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">8</td><td><span class="orig">In the tick chart, one tick represents one transaction.</span></td><td><span class="newv">In a tick chart, one tick represents one transaction.</span></td><td style="font-size:0.75rem">tick chart</td><td class="vol">700</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">9</td><td><span class="orig">Our traders can use tick and range charts</span></td><td><span class="newv">Our traders can use tick charts and range charts</span></td><td style="font-size:0.75rem">tick charts / range charts</td><td class="vol">100</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">10</td><td><span class="orig">Bar charts, often called OHLC charts</span></td><td style="color:var(--muted);font-style:italic;font-size:0.775rem;padding:0.5rem 0.75rem">unchanged — keyword already present</td><td style="font-size:0.75rem">ohlc charts</td><td class="vol">40</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">11</td><td><span class="orig">We have covered Japanese candlesticks in the previous lesson</span></td><td style="color:var(--muted);font-style:italic;font-size:0.775rem;padding:0.5rem 0.75rem">unchanged — keyword already present</td><td style="font-size:0.75rem">japanese candlesticks</td><td class="vol">200</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr><td style="color:var(--muted);text-align:center">12</td><td><span class="orig">Heikin Ashi filters out the movements and makes a much easier approach to trend following.</span></td><td><span class="newv">Added after: `Many traders incorporate it into their Heikin Ashi strategy specifically for trend-following entries.`</span></td><td style="font-size:0.75rem">heikin ashi strategy</td><td class="vol">250</td><td><span class="badge badge-done">DONE</span></td></tr>
-<tr class="skip-row"><td style="color:var(--muted);text-align:center">13</td><td colspan="3" style="color:var(--muted);font-style:italic;font-size:0.775rem">various</td><td class="vol">—</td><td><span class="badge badge-skip">SKIP</span></td></tr>
-        </tbody>
-    </table>
-</div>
+<h3>Applied Changes</h3>
+<table>
+<tr><th>#</th><th>Original</th><th>New</th><th>Keyword</th><th>Vol</th><th>Status</th></tr>
+<tr>
+  <td>1</td>
+  <td class="diff-old">...such as a <strong>footprint chart</strong> or <strong>market profile</strong> display...</td>
+  <td class="diff-new">...such as a <strong>footprint chart</strong>, <strong>order flow chart</strong>, or <strong>market profile</strong> display...</td>
+  <td>order flow chart</td>
+  <td>250</td>
+  <td class="status-done">DONE</td>
+</tr>
+</table>
 
-<!-- ===================== STEP 2 ===================== -->
-<div class="step-section">
-    <div class="step-header">
-        <span class="step-title">Step 2 — Tone of Voice Rewrite</span>
-        <span class="step-meta">Topic classification: BEGINNER — Part 2, Technical Analysis, Lesson 2. Introductory charting concepts. &nbsp;&middot;&nbsp; 36 changes</span>
-    </div>
-    <table class="diff-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th class="col-orig">Original sentence (full)</th>
-                <th class="col-new">New sentence (full)</th>
-                <th class="col-reason">Reason</th>
-            </tr>
-        </thead>
-        <tbody>
-<tr class="diff-row"><td>1</td><td class="cell-orig"><span class="text">What are the specifics of these charts and how do they differ? You will find out in this lesson.</span></td><td class="cell-new"><span class="text">This lesson covers the main types of trading charts, what makes each one different, and how to choose the right display for your analysis.</span></td><td class="cell-reason">ToV BEGINNER: &quot;This lesson covers...&quot; opener; original was a vague rhetorical question</td></tr>
-<tr class="diff-row"><td>2</td><td class="cell-orig"><span class="text">The ways of displaying data on our price chart are pretty much endless.</span></td><td class="cell-new"><span class="text">Price charts can be displayed in nearly unlimited ways.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> casual &quot;pretty much&quot; → &quot;nearly&quot;; inverted pyramid — direct statement first</td></tr>
-<tr class="diff-row"><td>3</td><td class="cell-orig"><span class="text">This is why we will never find two traders that do and watch exactly the same things in their trading.</span></td><td class="cell-new"><span class="text">This is why no two traders watch exactly the same things.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> redundant &quot;do and&quot;; shorter, more direct</td></tr>
-<tr class="diff-row"><td>4</td><td class="cell-orig"><span class="text">Although most traders are using candlestick charts which we covered in the previous video, there is more depth in those as well.</span></td><td class="cell-new"><span class="text">Although most traders use candlestick charts — covered in the previous lesson — there is more depth to explore.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;previous video&quot; → &quot;previous lesson&quot;; &quot;are using&quot; → &quot;use&quot;; &quot;in those as well&quot; → clearer</td></tr>
-<tr class="diff-row"><td>5</td><td class="cell-orig"><span class="text">Besides candlestick charts, we will also have a look at different graphical representations of price charts such as bar charts, Renko or Heikin Ashi charts.</span></td><td class="cell-new"><span class="text">This lesson also covers bar charts, Renko charts, and Heikin Ashi candles.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;we will have a look at&quot; → direct statement; shorter</td></tr>
-<tr class="diff-row"><td>6</td><td class="cell-orig"><span class="text">We have covered Japanese candlesticks in the previous lesson, so we will do just a quick recap now.</span></td><td class="cell-new"><span class="text">Japanese candlesticks are covered in the previous lesson. Here is a quick recap.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;just&quot; filler removed; split into two shorter sentences</td></tr>
-<tr class="diff-row"><td>7</td><td class="cell-orig"><span class="text">They are the most popular methods of charting and viewing technical analysis.</span></td><td class="cell-new"><span class="text">They are the most widely used chart type in technical analysis.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;most popular methods of charting and viewing&quot; → cleaner, more precise</td></tr>
-<tr class="diff-row"><td>8</td><td class="cell-orig"><span class="text">If the candle closes below the open, we look at a bearish candlestick.</span></td><td class="cell-new"><span class="text">If the candle closes below the open, it is a bearish candlestick.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;we look at&quot; → &quot;it is&quot; (factual, direct)</td></tr>
-<tr class="diff-row"><td>9</td><td class="cell-orig"><span class="text">As we can see in the image below, we have two candlestick charts next to each other in our FTMO cTrader platform.</span></td><td class="cell-new"><span class="text">The image below shows two candlestick charts side by side in the FTMO cTrader platform.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;As we can see&quot; filler removed; active sentence</td></tr>
-<tr class="diff-row"><td>10</td><td class="cell-orig"><span class="text">Although they look the same, there is one significant difference between them.</span></td><td class="cell-new"><span class="text">Although they look the same, there is one significant difference.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;between them&quot; redundant (implied)</td></tr>
-<tr class="diff-row"><td>11</td><td class="cell-orig"><span class="text">The time periodicity is the most popular and common amongst traders.</span></td><td class="cell-new"><span class="text">Time periodicity is the most common choice among traders.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;most popular and common&quot; redundant → &quot;most common&quot;; &quot;amongst&quot; → &quot;among&quot;</td></tr>
-<tr class="diff-row"><td>12</td><td class="cell-orig"><span class="text">Although we can set up our chart with any setting we want, using those popular timeframes works simply because many traders are also watching them.</span></td><td class="cell-new"><span class="text">You can set up a chart with any periodicity, but standard timeframes work because many traders monitor them.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;simply&quot; filler removed; &quot;watching&quot; → &quot;monitor&quot;; &quot;any setting we want&quot; → &quot;any periodicity&quot;</td></tr>
-<tr class="diff-row"><td>13</td><td class="cell-orig"><span class="text">If we use something like a 40-minute or 3-hour chart, the candlestick patterns on our chart might have a lower weight as no other traders see them.</span></td><td class="cell-new"><span class="text">A 40-minute or 3-hour chart carries less weight — fewer traders monitor those intervals, so candlestick patterns formed on them have reduced significance.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;might have a lower weight&quot; → &quot;carries less weight&quot;; &quot;as no other traders see them&quot; → specific and direct</td></tr>
-<tr class="diff-row"><td>14</td><td class="cell-orig"><span class="text">The non-time-based charts are less common, but they still can give traders valuable information.</span></td><td class="cell-new"><span class="text">Non-time-based charts are less common, but they can still provide valuable information.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;still can give&quot; → &quot;can still provide&quot;; removed unnecessary &quot;The&quot;</td></tr>
-<tr class="diff-row"><td>15</td><td class="cell-orig"><span class="text">Our traders can use tick charts and range charts in our FTMO cTrader platform, these two are also the most popular non-time-based charts.</span></td><td class="cell-new"><span class="text">In the FTMO cTrader platform, traders can access tick charts and range charts — the two most popular non-time-based options.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> comma splice fixed; &quot;Our traders&quot; → &quot;traders&quot;; cleaner structure</td></tr>
-<tr class="diff-row"><td>16</td><td class="cell-orig"><span class="text">In other words, one tick is made when the market fluctuates by the minimal price increment.</span></td><td class="cell-new"><span class="text">One tick occurs when the market moves by the minimum price increment.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;is made&quot; passive → &quot;occurs&quot;; &quot;In other words&quot; filler removed; &quot;minimal&quot; → &quot;minimum&quot;</td></tr>
-<tr class="diff-row"><td>17</td><td class="cell-orig"><span class="text">If we take a look at EURUSD, which is quoted in five decimal places.</span></td><td class="cell-new"><span class="text">Take EURUSD as an example — it is quoted in five decimal places.</span></td><td class="cell-reason">ToV + Grammar: sentence fragment fixed; direct framing</td></tr>
-<tr class="diff-row"><td>18</td><td class="cell-orig"><span class="text">One tick would equal 0.00001 or 1 pipette.</span></td><td class="cell-new"><span class="text">One tick equals 0.00001, or 1 pipette.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;would equal&quot; → &quot;equals&quot; (factual, present tense)</td></tr>
-<tr class="diff-row"><td>19</td><td class="cell-orig"><span class="text">Using a range of tick charts can eliminate noise and display trends in a much clearer picture as we will get rid of time periods when markets are not moving and staying range-bound.</span></td><td class="cell-new"><span class="text">Range and tick charts eliminate noise and display trends more clearly by removing periods when price is not moving.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> long sentence → shorter; &quot;in a much clearer picture&quot; → &quot;more clearly&quot;; &quot;we will get rid of&quot; → &quot;removing&quot;</td></tr>
-<tr class="diff-row"><td>20</td><td class="cell-orig"><span class="text">This can be clearly seen when we compare this DAX four-hour chart with the 100 range chart in cTrader.</span></td><td class="cell-new"><span class="text">The effect is visible when comparing a DAX four-hour chart with a 100-range chart in cTrader.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;This can be clearly seen&quot; passive → active; vague &quot;this&quot; removed</td></tr>
-<tr class="diff-row"><td>21</td><td class="cell-orig"><span class="text">We can notice that both uptrend and downtrend were much cleaner on the range chart once we eliminated the time factor and put our focus on price rotations.</span></td><td class="cell-new"><span class="text">Both the uptrend and downtrend appear cleaner on the range chart once the time factor is removed and focus shifts to price rotations.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;We can notice&quot; filler removed; &quot;put our focus on&quot; → &quot;focus shifts to&quot;</td></tr>
-<tr class="diff-row"><td>22</td><td class="cell-orig"><span class="text">Bar charts, often called OHLC charts, are represented as vertical bars with two notches that represent the open and close of the bar.</span></td><td class="cell-new"><span class="text">Bar charts, often called OHLC charts, display as vertical bars with two notches indicating the open and close of each bar.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;are represented as&quot; passive → &quot;display as&quot; active</td></tr>
-<tr class="diff-row"><td>23</td><td class="cell-orig"><span class="text">Compared to Japanese candlesticks, bar charts might be a little less clean for new traders when it comes to candlestick patterns.</span></td><td class="cell-new"><span class="text">Compared to Japanese candlesticks, bar charts are less intuitive for new traders when reading candlestick patterns.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;might be a little less clean&quot; → &quot;are less intuitive&quot;; &quot;when it comes to&quot; filler removed</td></tr>
-<tr class="diff-row"><td>24</td><td class="cell-orig"><span class="text">On the other hand, they might present a little cleaner picture when it comes to marking out support and resistance.</span></td><td class="cell-new"><span class="text">On the other hand, they may provide a clearer view for marking support and resistance levels.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;might present a little cleaner picture&quot; → &quot;may provide a clearer view&quot;; &quot;when it comes to&quot; removed</td></tr>
-<tr class="diff-row"><td>25</td><td class="cell-orig"><span class="text">It eliminates the time factor from trading and changes the visuals of our chart completely.</span></td><td class="cell-new"><span class="text">Renko eliminates the time factor from trading and changes the chart&#x27;s visual representation entirely.</span></td><td class="cell-reason">ToV + Grammar: &quot;It&quot; ambiguous pronoun → &quot;Renko&quot;; &quot;visuals of our chart&quot; → &quot;chart&#x27;s visual representation&quot;</td></tr>
-<tr class="diff-row"><td>26</td><td class="cell-orig"><span class="text">We won&#x27;t see candlesticks anymore, but we will be looking at bricks instead.</span></td><td class="cell-new"><span class="text">Instead of candlesticks, the chart displays bricks.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> more direct; contraction removed; unnecessary &quot;anymore&quot; removed</td></tr>
-<tr class="diff-row"><td>27</td><td class="cell-orig"><span class="text">The name Renko came from the Japanese renga, which stands for brick.</span></td><td class="cell-new"><span class="text">The name comes from the Japanese word renga, meaning brick.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> tighter; italics added for foreign word</td></tr>
-<tr class="diff-row"><td>28</td><td class="cell-orig"><span class="text">Let&#x27;s say we define that one brick signifies a movement of 5 pips.</span></td><td class="cell-new"><span class="text">For example, if one brick represents 5 pips...</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;Let&#x27;s say&quot; casual → &quot;For example, if&quot;; &quot;signifies a movement of&quot; → &quot;represents&quot;</td></tr>
-<tr class="diff-row"><td>29</td><td class="cell-orig"><span class="text">Renko charts are not only great for filtering out noise but also for marking out support and resistance areas.</span></td><td class="cell-new"><span class="text">Renko charts are effective for filtering out noise and marking support and resistance areas.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;great&quot; hype word → &quot;effective&quot;; &quot;not only... but also&quot; → simpler</td></tr>
-<tr class="diff-row"><td>30</td><td class="cell-orig"><span class="text">It means &#x27;average bar&#x27; and although this is not something we need to know, here we can have a look at how the Heikin Ashi candle formula works.</span></td><td class="cell-new"><span class="text">The name translates to &#x27;average bar.&#x27; Here is how the Heikin Ashi candle formula works:</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;this is not something we need to know&quot; dismissive → removed; &quot;here we can have a look&quot; → &quot;Here is how&quot;</td></tr>
-<tr class="diff-row"><td>31</td><td class="cell-orig"><span class="text">We can set up a Heikin Ashi chart as we want, on the specified time, range or tick.</span></td><td class="cell-new"><span class="text">A Heikin Ashi chart can be set up on any preferred timeframe — time-based, range, or tick.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;as we want&quot; casual → &quot;on any preferred timeframe&quot;; clearer enumeration</td></tr>
-<tr class="diff-row"><td>32</td><td class="cell-orig"><span class="text">Heikin Ashi filters out the movements and makes a much easier approach to trend following.</span></td><td class="cell-new"><span class="text">Heikin Ashi smooths price movements and simplifies trend following.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;filters out the movements&quot; → &quot;smooths price movements&quot;; &quot;makes a much easier approach&quot; → &quot;simplifies&quot;</td></tr>
-<tr class="diff-row"><td>33</td><td class="cell-orig"><span class="text">The downside of it is that we might miss some valuable information as it might smooth out the chart a little too much.</span></td><td class="cell-new"><span class="text">The trade-off is that some price detail is lost — the smoothing can obscure short-term signals.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;The downside of it is that&quot; → &quot;The trade-off is that&quot;; &quot;a little too much&quot; casual removed; more specific</td></tr>
-<tr class="diff-row"><td>34</td><td class="cell-orig"><span class="text">But it is a great tool for both entries and trade management.</span></td><td class="cell-new"><span class="text">However, it remains an effective tool for both entries and trade management.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;But&quot; sentence start → &quot;However,&quot;; &quot;great&quot; → &quot;effective&quot;</td></tr>
-<tr class="diff-row"><td>35</td><td class="cell-orig"><span class="text">To conclude this chapter, the best thing we can do is to play with different charts and settings and find what suits us the best, that is always the smartest approach.</span></td><td class="cell-new"><span class="text">Experimenting with different charts and settings is the most effective way to find what works for your trading style.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;To conclude this chapter&quot; filler removed; &quot;play with&quot; → &quot;experimenting with&quot;; &quot;us&quot; → &quot;your&quot; (consistent reader address)</td></tr>
-<tr class="diff-row"><td>36</td><td class="cell-orig"><span class="text">But tick charts, range charts, Renko or Heikin Ashi, can be utilized in our strategy and bring a lot of use to our personal trading.</span></td><td class="cell-new"><span class="text">However, tick charts, range charts, Renko charts, or Heikin Ashi candles can all be incorporated into your strategy and add value to your trading.</span></td><td class="cell-reason"><span class="tag tag-tov">ToV</span> &quot;But&quot; → &quot;However,&quot;; &quot;bring a lot of use&quot; vague → &quot;add value&quot;; &quot;our personal trading&quot; → &quot;your trading&quot;</td></tr>
-        </tbody>
-    </table>
-</div>
+<h3>Already Present (20 keywords)</h3>
+<table>
+<tr><th>#</th><th>Keyword</th><th>Vol</th><th>Location</th><th>Status</th></tr>
+<tr><td>1</td><td>heikin ashi</td><td>2000</td><td>H2 + body (multiple)</td><td class="status-done">DONE</td></tr>
+<tr><td>2</td><td>heikin ashi candles</td><td>1400</td><td>H2 heading + body</td><td class="status-done">DONE</td></tr>
+<tr><td>3</td><td>candlestick charts</td><td>1000</td><td>H2 + intro + body</td><td class="status-done">DONE</td></tr>
+<tr><td>4</td><td>tick chart</td><td>700</td><td>Body</td><td class="status-done">DONE</td></tr>
+<tr><td>5</td><td>footprint chart</td><td>700</td><td>Other Chart Types</td><td class="status-done">DONE</td></tr>
+<tr><td>6</td><td>market profile</td><td>500</td><td>Other Chart Types</td><td class="status-done">DONE</td></tr>
+<tr><td>7</td><td>renko charts</td><td>400</td><td>H2 + body</td><td class="status-done">DONE</td></tr>
+<tr><td>8</td><td>point and figure chart</td><td>400</td><td>Other Chart Types</td><td class="status-done">DONE</td></tr>
+<tr><td>9</td><td>heikin ashi strategy</td><td>250</td><td>Body</td><td class="status-done">DONE</td></tr>
+<tr><td>10</td><td>japanese candlesticks</td><td>200</td><td>Body + internal link</td><td class="status-done">DONE</td></tr>
+</table>
 
-<!-- ===================== STEP 3 ===================== -->
-<div class="step-section">
-    <div class="step-header">
-        <span class="step-title">Step 3 — Structure &amp; Formatting</span>
-        <span class="step-meta">~600 words → Short (&lt;1000 words) → limits: 1–2 callouts, 1 table, 1–2 lists</span>
-    </div>
-    <table class="struct-table">
-        <thead>
-            <tr>
-                <th style="width:24px">#</th>
-                <th style="width:18%">Change Type</th>
-                <th style="width:42%">Description</th>
-                <th>Reason</th>
-            </tr>
-        </thead>
-        <tbody>
-<tr><td style="color:var(--muted);text-align:center">1</td><td><span class="added">Prerequisites added</span></td><td>`&gt; **Prerequisites:** [Japanese Candlesticks](/lesson/japanese-candlesticks/)` at top</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-tov">E-E-A-T</span> learning path; lesson explicitly references prior lesson</td></tr>
-<tr><td style="color:var(--muted);text-align:center">2</td><td><span class="added">Bold — key terms</span></td><td>**candlestick charts**, **bar charts**, **Renko charts**, **Heikin Ashi candles** in H2 intro</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> key terms bolded on first use for scanning</td></tr>
-<tr><td style="color:var(--muted);text-align:center">3</td><td><span class="added">Internal link</span></td><td>&quot;Japanese Candlesticks&quot; → `/lesson/japanese-candlesticks/` in H3 opener</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> prerequisite linked inline</td></tr>
-<tr><td style="color:var(--muted);text-align:center">4</td><td><span class="added">Bold — anatomy terms</span></td><td>**body**, **wick** in candlestick anatomy paragraph</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> first-use term highlighting</td></tr>
-<tr><td style="color:var(--muted);text-align:center">5</td><td><span class="added">H4 added</span></td><td>`#### Time-Based Charts` before periodicity content</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> Candlestick Charts section splits into two distinct topics; H4 adds scannability without skipping levels</td></tr>
-<tr><td style="color:var(--muted);text-align:center">6</td><td><span class="added">Bold — term</span></td><td>**Chart periodicity** on first use</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> key concept highlighted</td></tr>
-<tr><td style="color:var(--muted);text-align:center">7</td><td><span class="added">Callout Tip added</span></td><td>After standard timeframes paragraph — &quot;Standard timeframes (1H, 4H, Daily) are monitored by a large number of traders simultaneously...&quot;</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> actionable insight; 1 callout for this H3 section</td></tr>
-<tr><td style="color:var(--muted);text-align:center">8</td><td><span class="added">H4 added</span></td><td>`#### Tick and Range Charts` before non-time-based content</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> logical split of time-based vs non-time-based; parallel H4 structure</td></tr>
-<tr><td style="color:var(--muted);text-align:center">9</td><td><span class="added">Bold — terms</span></td><td>**tick charts**, **range charts** on first use</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> key terms highlighted</td></tr>
-<tr><td style="color:var(--muted);text-align:center">10</td><td><span class="added">Bold — term</span></td><td>**bar chart** on first use in H3 Bar Charts</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> first-use term highlighting</td></tr>
-<tr><td style="color:var(--muted);text-align:center">11</td><td><span class="added">Internal link</span></td><td>&quot;support and resistance&quot; → `/lesson/support-and-resistance/` in Bar Charts section</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> inline link to related concept mentioned in text</td></tr>
-<tr><td style="color:var(--muted);text-align:center">12</td><td><span class="added">Internal link</span></td><td>&quot;support and resistance&quot; → `/lesson/support-and-resistance/` in Renko Charts section</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> second mention also linked (different H3 section)</td></tr>
-<tr><td style="color:var(--muted);text-align:center">13</td><td><span class="added">Callout Keep in Mind added</span></td><td>After Heikin Ashi effect paragraph — cognitive bias warning for TA lessons</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> standard Keep in Mind for all TA lessons per Structure Guide</td></tr>
-<tr><td style="color:var(--muted);text-align:center">14</td><td><span class="added">Comparison table added</span></td><td>Conclusion — 4 chart types × Time-Based / Best For</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> comparison data from existing content; aids decision-making</td></tr>
-<tr><td style="color:var(--muted);text-align:center">15</td><td><span class="added">Key Takeaways section added</span></td><td>6 bullet points — one per chart type/concept</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> scannable recap; E-E-A-T helpfulness signal</td></tr>
-<tr><td style="color:var(--muted);text-align:center">16</td><td><span class="added">Next Steps section added</span></td><td>3 internal links: Market Environment, Support &amp; Resistance, Technical Indicators</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-struct">Structure</span> 3–5 internal links requirement met (5 total including inline)</td></tr>
-<tr><td style="color:var(--muted);text-align:center">17</td><td><span class="added">Author box added</span></td><td>&quot;FTMO Academy Content Team / Last Updated: March 5, 2026&quot;</td><td style="color:var(--muted);font-size:0.75rem"><span class="tag tag-tov">E-E-A-T</span> authorship and freshness signals</td></tr>
-<tr><td style="color:var(--muted);text-align:center">18</td><td><span class="added">Educational Content Notice added</span></td><td>Standard disclaimer callout at article end</td><td style="color:var(--muted);font-size:0.75rem">YMYL: required for all lessons</td></tr>
-<tr><td style="color:var(--muted);text-align:center">19</td><td><span class="added">Risk Warning added</span></td><td>Standard risk disclaimer at article end</td><td style="color:var(--muted);font-size:0.75rem">YMYL: required for all lessons</td></tr>
-        </tbody>
-    </table>
-</div>
+<h3>Skipped (14 keywords)</h3>
+<table>
+<tr><th>#</th><th>Keyword</th><th>Vol</th><th>Reason</th><th>Status</th></tr>
+<tr><td>1</td><td>heikin ashi candles explained</td><td>250</td><td>"What is Heikin Ashi?" already serves same intent</td><td class="status-skip">SKIP</td></tr>
+<tr><td>2</td><td>renko chart patterns</td><td>200</td><td>No Renko patterns discussed; would add new content</td><td class="status-skip">SKIP</td></tr>
+<tr><td>3</td><td>heikin ashi vs candles</td><td>200</td><td>No comparison paragraph exists</td><td class="status-skip">SKIP</td></tr>
+<tr><td>4</td><td>renko chart strategy</td><td>150</td><td>No strategy discussion in scope</td><td class="status-skip">SKIP</td></tr>
+<tr><td>5</td><td>heikin ashi candle patterns</td><td>150</td><td>HA patterns not covered</td><td class="status-skip">SKIP</td></tr>
+</table>
 
+<hr>
 
-<!-- ===================== SUMMARY ===================== -->
-<div class="step-section">
-    <div class="step-header">
-        <span class="step-title">Summary</span>
-    </div>
-    <table class="summary-table">
-        <thead>
-            <tr>
-                <th>Step</th>
-                <th>Status</th>
-                <th>Changes</th>
-            </tr>
-        </thead>
-        <tbody>
-<tr><td><strong>Step 1: Keywords</strong></td><td><span class="status-done">DONE</span></td><td>12 changes applied, 1 SKIP (off-topic keywords)</td></tr>
-<tr><td><strong>Step 2: ToV Rewrite</strong></td><td><span class="status-done">DONE</span></td><td>36 changes — casual markers, hype words, passive voice, sentence fragments, filler phrases</td></tr>
-<tr><td><strong>Step 3: Structure</strong></td><td><span class="status-done">DONE</span></td><td>19 changes — H4s, callouts, table, Key Takeaways, Next Steps, E-E-A-T elements</td></tr>
-<tr><td><strong>Step 4: HTML</strong></td><td><span class="status-done">DONE</span></td><td>v3_standard template; 5 images placed at exact original positions; BEM callouts; :root CSS variables; responsive</td></tr>
-<tr><td><strong>Step 5: QA</strong></td><td><span class="status-done">DONE</span></td><td>All checks passed. 2 minor notes (short caption sentence, list-like H2) — both acceptable. Article approved.</td></tr>
-<tr><td><strong>Post-QA Amendments</strong></td><td><span class="status-done">DONE</span></td><td>H1 expanded, H2 container removed, headings promoted, ToC added, image resized — see below</td></tr>
-        </tbody>
-    </table>
-</div>
+<h2 id="step-2">Step 2: ToV Rewrite</h2>
+<p><strong>Topic classification:</strong> BEGINNER (Part 2.1.1., basic charting)</p>
+
+<table>
+<tr><th>#</th><th>Original</th><th>New</th><th>Reason</th></tr>
+<tr>
+  <td>1</td>
+  <td class="diff-old">Japanese Candlesticks are covered in the previous lesson.</td>
+  <td class="diff-new">The previous lesson covers Japanese Candlesticks.</td>
+  <td>Passive &rarr; active voice</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td class="diff-old">...highest and lowest points where the market traded.</td>
+  <td class="diff-new">...highest and lowest prices reached during the period.</td>
+  <td>Vague &rarr; precise</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td class="diff-old">...in the FTMO cTrader platform.</td>
+  <td class="diff-new">...in the cTrader platform.</td>
+  <td>Reduce FTMO brand mentions</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td class="diff-old">...may carry less relevance...</td>
+  <td class="diff-new">...may carry less weight...</td>
+  <td>Non-standard English &rarr; natural phrasing</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td class="diff-old">...in the FTMO cTrader platform.</td>
+  <td class="diff-new">...in the cTrader platform.</td>
+  <td>Reduce FTMO brand mentions</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td class="diff-old">...the same bar range and closes either at high or low.</td>
+  <td class="diff-new">...the same price range and closes at either its high or its low.</td>
+  <td>"bar range" redundant &rarr; "price range" clearer</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td class="diff-old">...once the time factor is eliminated and the focus shifts to...</td>
+  <td class="diff-new">...once you remove the time factor and focus on...</td>
+  <td>Passive &rarr; active; direct reader address</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td class="diff-old">Bar charts...are represented as vertical bars with two notches that mark the open and close of the bar.</td>
+  <td class="diff-new">Bar charts...use vertical bars with two notches to mark the open and close of each bar.</td>
+  <td>Passive &rarr; active</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td class="diff-old">...less intuitive for new traders reading candlestick charts.</td>
+  <td class="diff-new">...less intuitive for new traders used to reading candlestick charts.</td>
+  <td>Ambiguous &rarr; clear meaning</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td class="diff-old">...constructs candles the same way as a standard candlestick chart...</td>
+  <td class="diff-new">...uses the same visual structure as a standard candlestick chart...</td>
+  <td>"same way but different" contradiction &rarr; clarified</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td class="diff-old">Heikin Ashi candles filter out price movements and provide a smoother approach...</td>
+  <td class="diff-new">Heikin Ashi candles smooth out price movements and provide a clearer approach...</td>
+  <td>"filter out" imprecise (HA averages, not removes) &rarr; "smooth out" accurate</td>
+</tr>
+</table>
+
+<hr>
+
+<h2 id="step-3">Step 3: Structure &amp; Formatting</h2>
+
+<h3>Phase 0: Paragraph Audit</h3>
+<p>All paragraphs within 40-100 word range. No splits required.</p>
+
+<h3>Changes (14)</h3>
+<table>
+<tr><th>#</th><th>Type</th><th>Description</th><th>Reason</th></tr>
+<tr><td>1</td><td>Bold audit</td><td>5 bold keyword fragments &rarr; 1 scanning anchor + italic terms</td><td>Bold rules: anchors only</td></tr>
+<tr><td>2-5</td><td>Image captions</td><td>Added descriptive captions above all 5 images</td><td>DOCX readability</td></tr>
+<tr><td>6-8</td><td>Bold audit</td><td>Keyword fragments &rarr; italic (tick chart, range bar, OHLC, etc.)</td><td>Term introductions = italic</td></tr>
+<tr><td>9</td><td>Bold + restructure</td><td>Renko: keyword fragment &rarr; scanning anchor phrase</td><td>Bold rules</td></tr>
+<tr><td>13</td><td>Callout type</td><td>Warning &rarr; Keep in Mind</td><td>TA lesson cognitive bias requirement</td></tr>
+<tr><td>14</td><td>Date</td><td>2026-04-01 &rarr; 2026-04-10</td><td>E-E-A-T freshness</td></tr>
+</table>
 
 </body>
 </html>

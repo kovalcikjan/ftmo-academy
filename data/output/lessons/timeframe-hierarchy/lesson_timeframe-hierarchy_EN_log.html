@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Write Log: Timeframe Hierarchy | FTMO Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    color: #2d2d2d;
+    background: #f9f9fb;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    background: #123a83;
+    color: #fff;
+    padding: 32px 20px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar .logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .sidebar .subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .sidebar h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+    font-weight: 600;
+    border: none;
+  }
+
+  .sidebar nav a {
+    display: block;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 2px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .sidebar nav a:hover {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+
+  .sidebar nav a .step-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    display: block;
+    margin-top: 1px;
+  }
+
+  /* Main content */
+  .main {
+    margin-left: 260px;
+    padding: 48px 56px 80px;
+    max-width: calc(1160px + 112px + 260px);
+  }
+
+  .content {
+    max-width: 1160px;
+  }
+
+  /* Typography */
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2d2d2d;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #123a83;
+    margin-top: 48px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e4ed;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #123a83;
+    margin-top: 32px;
+    margin-bottom: 14px;
+  }
+
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #123a83;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin-bottom: 14px;
+  }
+
+  a {
+    color: #0781fe;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+
+  .meta strong {
+    color: #2d2d2d;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #c6c6c6;
+    margin: 40px 0;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+    font-size: 14px;
+    border: 1px solid #c6c6c6;
+  }
+
+  thead th {
+    background: #123a83;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    border: 1px solid #123a83;
+  }
+
+  thead th:first-child {
+    border-radius: 6px 0 0 0;
+  }
+
+  thead th:last-child {
+    border-radius: 0 6px 0 0;
+  }
+
+  tbody td {
+    padding: 10px 16px;
+    border: 1px solid #c6c6c6;
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #f5f5f7;
+  }
+
+  tbody tr:hover {
+    background: #eef1f8;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 10px 0 18px 24px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    border-left: 3px solid #123a83;
+    background: #f5f5f7;
+    padding: 14px 20px;
+    margin: 14px 0 18px;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+    color: #444;
+  }
+
+  blockquote strong {
+    color: #123a83;
+  }
+
+  blockquote small {
+    display: block;
+    margin-top: 6px;
+    color: #888;
+    font-size: 12px;
+  }
+
+  /* Outline block */
+  .outline-block {
+    background: #f5f5f7;
+    border: 1px solid #e0e4ed;
+    border-left: 4px solid #123a83;
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 16px 0 24px;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .outline-block .tag {
+    display: inline-block;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .outline-block .tag.h1 { background: #2d2d2d; }
+  .outline-block .tag.h2 { background: #123a83; }
+  .outline-block .tag.h3 { background: #4a6eb5; }
+
+  /* Code / inline */
+  code {
+    background: #eef1f8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    background: #0781fe;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge.superseded {
+    background: #999;
+  }
+
+  .badge.pass {
+    background: #28a745;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Sidebar Navigation -->
+<aside class="sidebar">
+  <div class="logo">FTMO Academy</div>
+  <div class="subtitle">Write Log<br>Timeframe Hierarchy</div>
+  <h3>Navigation</h3>
+  <nav>
+    <a href="#init">
+      INIT
+      <span class="step-label">Setup &amp; Position</span>
+    </a>
+    <a href="#step-1">
+      Step 1
+      <span class="step-label">Competitor Research + Keywords</span>
+    </a>
+    <a href="#step-2">
+      Step 2
+      <span class="step-label">Brief &amp; Outline</span>
+    </a>
+    <a href="#step-3-v1">
+      Step 3 (v1)
+      <span class="step-label">Draft &mdash; SUPERSEDED</span>
+    </a>
+    <a href="#step-3-v2">
+      Step 3 (v2)
+      <span class="step-label">Draft &mdash; Hierarchy</span>
+    </a>
+    <a href="#step-4">
+      Step 4
+      <span class="step-label">ToV Check</span>
+    </a>
+    <a href="#step-5">
+      Step 5
+      <span class="step-label">Structure &amp; Formatting</span>
+    </a>
+    <a href="#step-6">
+      Step 6
+      <span class="step-label">HTML</span>
+    </a>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<div class="main">
+<div class="content">
+
+<h1>Write Log: Timeframe Hierarchy</h1>
+<div class="meta">
+  <strong>Slug:</strong> timeframe-hierarchy<br>
+  <strong>Date:</strong> 2026-03-23<br>
+  <strong>Workflow version:</strong> 3.0
+</div>
+
+<hr>
+
+<!-- INIT -->
+<h2 id="init">INIT</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inventory position</td>
+      <td>Part 2: Trading Analysis &gt; Technical Analysis, new lesson (before #11 Multiple Timeframe Analysis)</td>
+    </tr>
+    <tr>
+      <td>Status in inventory</td>
+      <td>NEW (not in inventory yet)</td>
+    </tr>
+    <tr>
+      <td>Links to</td>
+      <td>Multiple Timeframe Analysis, Market Environment, Types of Trading Charts</td>
+    </tr>
+    <tr>
+      <td>Keywords source</td>
+      <td>Ahrefs MCP (Step 1)</td>
+    </tr>
+    <tr>
+      <td>Existing versions found</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Parent topic</td>
+      <td>Volba casovych ramcu pro ruzne styly obchodovani (3 subtopics: 1. Timeframe Hierarchy, 2. Timeframe Selection by Style, 3. Multiple Timeframe Analysis)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- STEP 1 -->
+<h2 id="step-1">Step 1 &mdash; Competitor Research + Keyword Discovery</h2>
+
+<p><strong>Seed keyword:</strong> trading timeframes (confirmed via WebSearch)<br>
+<strong>WebSearch queries:</strong> 4 (+ 1 seed validation)<br>
+<strong>URLs collected:</strong> 18 (deduped from ~26 raw results)<br>
+<strong>URLs fetched:</strong> 7 successful (britannica, tradeciety, newtrading, fbs, traderspost, myespresso, tradethatswing)<br>
+<strong>Failed fetches:</strong> heygotrade (CSS only), ig.com (CSS/JS only), babypips (paywall), fpmarkets (403), cfi.trade (403), fxpro (403), dailypriceaction (empty)<br>
+<strong>Skipped:</strong> ninjatrader (per user)<br>
+<strong>Ahrefs keyword calls:</strong> 3 (matching-terms + 2x related-terms)<br>
+<strong>Keywords proposed:</strong> 21 (3 clusters)</p>
+
+<h3>Keyword Clusters</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cluster</th>
+      <th>Intent</th>
+      <th>Keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 &mdash; Core concept</td>
+      <td>INFO</td>
+      <td>traders time frame, forex trading time frames, time frame analysis, trading time frames, time frame traders and investors, time frame trading, trading timeframes, what are timeframes in trading, trading timeframes explained, timeframes in trading</td>
+    </tr>
+    <tr>
+      <td>2 &mdash; Hierarchy &amp; types</td>
+      <td>INFO</td>
+      <td>different time frames, higher time frame trading, best trading time frame for beginners, trading the daily time frame, trading timeframes intraday daily</td>
+    </tr>
+    <tr>
+      <td>3 &mdash; Style-specific</td>
+      <td>INFO/COMM</td>
+      <td>best time frame for day trading, day trading time frames, best time frame for swing trading, swing trading time frame, best time frame for intraday trading, intraday trading timeframes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Content Gap Summary</h3>
+
+<ul>
+  <li><strong>Timeframe hierarchy as concept:</strong> No competitor explicitly explains the hierarchical relationship between timeframes (higher TF context &gt; lower TF detail). All mention it briefly within MTF analysis, but none dedicate a standalone article to WHY higher timeframes carry more weight.</li>
+  <li><strong>Signal-to-noise ratio explained:</strong> Only traderspost covers why strategies perform better on higher TFs (institutional flows, noise reduction). Most competitors state it without explaining the mechanism.</li>
+  <li><strong>Information layering:</strong> No competitor explains what specific information each timeframe tier provides &mdash; e.g., monthly = macro trend, daily = swing context, H1 = intraday momentum. All list TFs by trading style only.</li>
+  <li><strong>FTMO Challenge connection:</strong> No competitor connects timeframe understanding to prop trading rules. Opportunity to explain how timeframe choice affects drawdown risk and daily loss limits.</li>
+  <li><strong>Practical "what changes" demonstration:</strong> No competitor shows the SAME price action across 3-4 timeframes side by side to illustrate how the picture changes. All use separate examples.</li>
+</ul>
+
+<hr>
+
+<!-- STEP 2 -->
+<h2 id="step-2">Step 2 &mdash; Brief &amp; Outline</h2>
+
+<p><strong>Classification:</strong> <span class="badge">Beginner</span><br>
+<strong>Word count target:</strong> 1,800-2,200 words (competitor avg ~1,800, adjusted for Academy depth on hierarchy concept)<br>
+<strong>H2 sections:</strong> 7 (What Is a TF, Types, Nesting, Why Higher TFs Win, What Each TF Reveals, Signal-to-Noise, Takeaways)<br>
+<strong>H3 sections:</strong> 0<br>
+<strong>Keywords mapped to headings:</strong> 4 (trading time frames &rarr; H1, what are timeframes in trading &rarr; H2, different time frames &rarr; H2, higher time frame trading &rarr; H2)<br>
+<strong>Internal links planned:</strong> 5 (japanese-candlesticks, support-and-resistance, market-environment-range-vs-trend, types-of-trading-charts, risk-and-money-management)<br>
+<strong>Content validation:</strong> <span class="badge pass">PASS</span><br>
+<strong>Outline file:</strong> <code>lesson_timeframe-hierarchy_EN_outline.md</code> + <code>.docx</code></p>
+
+<h3>Step 2 &mdash; Client Review (2026-03-27)</h3>
+
+<p>Outline sent to client (Timotej Hlavac, Jiri Fiala) as Google Doc. 8 comments received. Major structural change: article refocused from "Timeframe Hierarchy" (nesting, signal-to-noise) to "Trading Timeframes for Different Trading Styles" (style-based selection, decision framework, FTMO rules). Outline updated per client comments on 2026-04-16.</p>
+
+<p><strong>Updated outline structure:</strong> 6 H2s + 4 H3s (What Is a TF, Four Styles [Scalping, Day, Swing, Position], How to Choose [FTMO subsection], MTF Intro, Common Mistakes, Next Steps)<br>
+<strong>Keywords remapped:</strong> best time frame for day trading (200) to H3, best time frame to trade forex (200) to H2, best time frame for swing trading (100) to H3, multiple time frame analysis (150) to H2<br>
+<strong>Internal links updated:</strong> 5 (types-of-trading-charts, japanese-candlesticks, forex-trading-hours-and-sessions, multiple-timeframe-analysis, market-environment-range-vs-trend)</p>
+
+<p><strong>Client comments resolved:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Location</th>
+      <th>Author</th>
+      <th>Comment</th>
+      <th>Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>H2: What Is a TF</td>
+      <td>Jiri Fiala</td>
+      <td>Link to types of trading charts for non-time-based alternatives</td>
+      <td>Added expert note with link</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Table: TF Categories</td>
+      <td>Jiri Fiala</td>
+      <td>Instrument type matters for TF choice</td>
+      <td>Added to table description</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>H3: FTMO-Specific</td>
+      <td>Jiri Fiala</td>
+      <td>Useful for personal accounts too, not just FTMO</td>
+      <td>Added note: universal practice, FTMO as concrete example</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Daily loss limit (5%)</td>
+      <td>Timotej Hlavac</td>
+      <td>1-Step has different rules, 5% is 2-Step only</td>
+      <td>Generalised: "differ between Evaluation types"</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Daily loss limit (5%)</td>
+      <td>Jan Kovalcik</td>
+      <td>Acknowledged, will fix</td>
+      <td>Fixed per above</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>"Day/swing most common"</td>
+      <td>Timotej Hlavac</td>
+      <td>Needs verification before claiming</td>
+      <td>Softened: "tend to be common, individual results vary"</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>"Day/swing most common"</td>
+      <td>Jan Kovalcik</td>
+      <td>Agrees to soften</td>
+      <td>Fixed per above</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>"Switching TF mid-trade"</td>
+      <td>Timotej Hlavac</td>
+      <td>Not entirely true</td>
+      <td>Replaced: "analysing on one TF, entering on another without defined framework"</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Step 2 &mdash; Expert Review #2 (2026-04-17)</h3>
+
+<p>Outline returned to ORIGINAL "Timeframe Hierarchy" focus (pre-restructure). Expert reviewed the hierarchy outline and added 3 comments.</p>
+
+<p><strong>Source:</strong> <a href="https://docs.google.com/document/d/1p3emLDhlUSwUffChWmK2LdhxuCxSsaJL/" target="_blank">Google Doc</a></p>
+
+<p><strong>Outline structure restored:</strong> 7 H2s (What Is a TF, Types, Nesting, Why Higher TFs Win, What Each TF Reveals, Signal-to-Noise, Takeaways)<br>
+<strong>Keywords:</strong> 4 mapped to headings (trading time frames H1, what are timeframes in trading H2, different time frames H2, higher time frame trading H2)<br>
+<strong>Internal links:</strong> 6 (added forex-trading-hours-and-sessions + risk-and-money-management per expert comments)</p>
+
+<p><strong>Expert comments resolved:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Location</th>
+      <th>Expert Feedback</th>
+      <th>Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[a]</td>
+      <td>H1 + Nesting section</td>
+      <td>Also called top-down analysis. Practical 3-TF example: D1 for S/R, M30 for confirmation, M1 for entry</td>
+      <td>Added to H1 intro + full example in Nesting section</td>
+    </tr>
+    <tr>
+      <td>[b]</td>
+      <td>Signal-to-Noise</td>
+      <td>Noise increases outside main trading hours (Asian vs London/NY example)</td>
+      <td>Added bullet with session-dependent noise + link to Trading Hours</td>
+    </tr>
+    <tr>
+      <td>[c]</td>
+      <td>Signal-to-Noise (entry timing)</td>
+      <td>Lower TF entries = risk management: tighter SL = better RRR but lower win rate</td>
+      <td>Expanded entry timing note with explicit RRR vs win rate trade-off</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Note:</strong> Previous Step 3 draft (2,174 words) was written for the restructured "Trading Styles" outline. That draft does not match the current hierarchy-focused outline and will be superseded by a new Step 3.</p>
+
+<hr>
+
+<!-- STEP 3 v1 -->
+<h2 id="step-3-v1">Step 3 &mdash; Draft (v1, "Trading Styles" structure) <span class="badge superseded">Superseded</span></h2>
+
+<p><strong>Status:</strong> SUPERSEDED by outline revert to hierarchy focus (2026-04-17). See v2 below.</p>
+
+<hr>
+
+<!-- STEP 3 v2 -->
+<h2 id="step-3-v2">Step 3 &mdash; Draft (v2, "Timeframe Hierarchy" structure, 2026-04-17)</h2>
+
+<p><strong>Classification:</strong> <span class="badge">Beginner</span><br>
+<strong>Word count:</strong> 1,778 words (target: 1,800-2,200; marginally below minimum, within tolerance)</p>
+
+<h3>Keyword Integration</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Keyword</th>
+      <th>Volume</th>
+      <th>Placement</th>
+      <th>Context sentence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>trading timeframes</td>
+      <td>30</td>
+      <td>H1</td>
+      <td>"Trading Timeframes: Understanding the Hierarchy"</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>what are timeframes in trading</td>
+      <td>20</td>
+      <td>H2 What Is a TF</td>
+      <td>implied in section context (definition)</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>different time frames</td>
+      <td>60</td>
+      <td>H2 Types</td>
+      <td>"Different timeframes answer different analytical questions"</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>higher time frame trading</td>
+      <td>50</td>
+      <td>H2 Why Higher TFs</td>
+      <td>section heading + body context</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>timeframes in trading</td>
+      <td>10</td>
+      <td>H2 Types</td>
+      <td>"Timeframes in trading fall into three general tiers"</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>trading timeframes explained</td>
+      <td>10</td>
+      <td>Intro</td>
+      <td>overall article intent (title + intro)</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>time frame analysis</td>
+      <td>100</td>
+      <td>H2 Nesting</td>
+      <td>"useful analysis chain" + MTF reference</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>traders time frame</td>
+      <td>200</td>
+      <td>Intro</td>
+      <td>"every trader faces" (natural variation)</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>forex trading time frames</td>
+      <td>150</td>
+      <td>H2 Signal-to-Noise</td>
+      <td>"liquidity in major forex pairs"</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>trading the daily time frame</td>
+      <td>30</td>
+      <td>H2 What Each TF Reveals</td>
+      <td>"The daily chart reveals the swing-level trend"</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>trading time frames</td>
+      <td>90</td>
+      <td>H1</td>
+      <td>"Trading Timeframes"</td>
+    </tr>
+    <tr>
+      <td>--</td>
+      <td>best time frame for day trading</td>
+      <td>200</td>
+      <td>Not placed</td>
+      <td>Article is about hierarchy, not style selection</td>
+    </tr>
+    <tr>
+      <td>--</td>
+      <td>best time frame for swing trading</td>
+      <td>100</td>
+      <td>Not placed</td>
+      <td>Same reason; covered in separate article</td>
+    </tr>
+    <tr>
+      <td>--</td>
+      <td>best trading time frame for beginners</td>
+      <td>80</td>
+      <td>Not placed</td>
+      <td>Same reason</td>
+    </tr>
+    <tr>
+      <td>--</td>
+      <td>Style-specific cluster (6 kw)</td>
+      <td>varies</td>
+      <td>Not placed</td>
+      <td>Out of scope for hierarchy article</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Keywords integrated:</strong> 11 of 21 (10 omitted: style-specific keywords do not fit the hierarchy article scope)</p>
+
+<h3>Outline Deviations</h3>
+
+<p>None. Outline followed exactly.</p>
+
+<h3>Full Article with Source Citations</h3>
+
+<div class="outline-block">
+  <p><span class="tag h1">H1</span> <strong>Trading Timeframes: Understanding the Hierarchy</strong></p>
+
+  <blockquote>
+    "A trading timeframe is the time period that each candlestick or bar on a chart represents."
+    <small>[<a href="https://www.myespresso.com/share-market-guide/timeframes-types-and-rules" target="_blank">myespresso.com: timeframes-types-and-rules</a>; <a href="https://fbs.com/analytics/guidebooks/how-to-choose-a-timeframe-for-trading-472" target="_blank">fbs.com: how-to-choose-a-timeframe-for-trading</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "This concept is also known as top-down analysis"
+    <small>[Expert comment [a]; <a href="https://www.tradeciety.com/how-to-perform-a-multiple-time-frame-analysis" target="_blank">tradeciety.com: how-to-perform-a-multiple-time-frame-analysis</a> (top-down concept)]</small>
+  </blockquote>
+
+  <p><span class="tag h2">H2</span> <strong>What Is a Timeframe</strong></p>
+
+  <blockquote>
+    "A timeframe defines the duration compressed into a single candlestick."
+    <small>[<a href="https://www.myespresso.com/share-market-guide/timeframes-types-and-rules" target="_blank">myespresso.com: timeframes-types-and-rules</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "The underlying market data is identical in both cases. Only the resolution changes."
+    <small>[<a href="https://fbs.com/analytics/guidebooks/how-to-choose-a-timeframe-for-trading-472" target="_blank">fbs.com: how-to-choose-a-timeframe-for-trading</a> (zoom level analogy)]</small>
+  </blockquote>
+
+  <blockquote>
+    "Standard timeframe notation: M1, M5, M15, M30, H1, H4, D1, W1, MN"
+    <small>[General trading knowledge; consistent across all competitor sources]</small>
+  </blockquote>
+
+  <blockquote>
+    "four data points: the open, high, low, and close (OHLC)"
+    <small>[General trading knowledge; <a href="https://www.myespresso.com/share-market-guide/timeframes-types-and-rules" target="_blank">myespresso.com</a>: OHLC definition]</small>
+  </blockquote>
+
+  <p><span class="tag h2">H2</span> <strong>Types of Trading Timeframes</strong></p>
+
+  <blockquote>
+    "Three tiers: short-term (M1-M15), medium-term (M30-H4), long-term (D1-MN)"
+    <small>[<a href="https://fbs.com/analytics/guidebooks/how-to-choose-a-timeframe-for-trading-472" target="_blank">fbs.com: TF classification</a>; <a href="https://www.myespresso.com/share-market-guide/timeframes-types-and-rules" target="_blank">myespresso.com: 3-tier categorisation</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "The rough dividing line sits at H1."
+    <small>[<a href="https://fbs.com/analytics/guidebooks/how-to-choose-a-timeframe-for-trading-472" target="_blank">fbs.com: H1 as boundary</a>; <a href="https://newtrading.io" target="_blank">newtrading.io: short vs long categorisation</a>]</small>
+  </blockquote>
+
+  <p><span class="tag h2">H2</span> <strong>How Timeframes Nest Inside Each Other</strong></p>
+
+  <blockquote>
+    "One daily candle holds 24 hourly candles, 96 fifteen-minute candles, and 1,440 one-minute candles."
+    <small>[General trading knowledge; mathematical fact for 24h markets]</small>
+  </blockquote>
+
+  <blockquote>
+    "Adjacent timeframes in a useful analysis chain are typically four to six times apart"
+    <small>[<a href="https://www.tradeciety.com/how-to-perform-a-multiple-time-frame-analysis" target="_blank">tradeciety.com: 4-6x rule</a>; <a href="https://fbs.com/analytics/guidebooks/how-to-choose-a-timeframe-for-trading-472" target="_blank">fbs.com: MTF intro section</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "D1 to identify key support and resistance levels, M30 to confirm activity... M1 to time the final entry"
+    <small>[Expert comment [a]; <a href="https://www.tradeciety.com/how-to-perform-a-multiple-time-frame-analysis" target="_blank">tradeciety.com: practical TF combinations</a>]</small>
+  </blockquote>
+
+  <p><span class="tag h2">H2</span> <strong>Why Higher Timeframes Carry More Weight</strong></p>
+
+  <blockquote>
+    "Higher TF candles represent more market participants, more traded volume, and more data."
+    <small>[<a href="https://blog.traderspost.io/why-strategies-perform-better-on-higher-time-frames" target="_blank">blog.traderspost.io: why-strategies-perform-better-on-higher-time-frames</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "Institutional participants tend to operate on higher timeframes."
+    <small>[<a href="https://blog.traderspost.io/why-strategies-perform-better-on-higher-time-frames" target="_blank">blog.traderspost.io: institutional flow and higher TF dominance</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "When the higher timeframe and lower timeframe disagree, the higher timeframe generally wins the directional bias."
+    <small>[<a href="https://www.tradeciety.com/how-to-perform-a-multiple-time-frame-analysis" target="_blank">tradeciety.com: top-down analysis principle</a>; <a href="https://blog.traderspost.io/why-strategies-perform-better-on-higher-time-frames" target="_blank">blog.traderspost.io: HT bias dominance</a>]</small>
+  </blockquote>
+
+  <p><span class="tag h2">H2</span> <strong>What Each Timeframe Reveals</strong></p>
+
+  <blockquote>
+    "Monthly/Weekly: macro trend direction, long-term support/resistance"
+    <small>[General trading knowledge; <a href="https://www.britannica.com/money/trading-time-frames" target="_blank">britannica.com: trading time frames overview</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "Daily: swing-level trend, key price levels for the current market cycle"
+    <small>[General trading knowledge; <a href="https://newtrading.io" target="_blank">newtrading.io: D1 as primary bias TF</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "H4/H1: intraday momentum, session-level structure"
+    <small>[<a href="https://newtrading.io" target="_blank">newtrading.io: intraday TF characteristics</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "M15/M5: entry precision, micro-structure"
+    <small>[<a href="https://tradethatswing.com" target="_blank">tradethatswing.com: lower TF for entries</a>; General trading knowledge]</small>
+  </blockquote>
+
+  <p><span class="tag h2">H2</span> <strong>The Signal-to-Noise Problem</strong></p>
+
+  <blockquote>
+    "Lower timeframes contain more noise: random price fluctuations that do not reflect meaningful buying or selling pressure."
+    <small>[<a href="https://blog.traderspost.io/why-strategies-perform-better-on-higher-time-frames" target="_blank">blog.traderspost.io: noise definition and mechanism</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "strategies tend to produce cleaner, more consistent signals on higher timeframes"
+    <small>[<a href="https://blog.traderspost.io/why-strategies-perform-better-on-higher-time-frames" target="_blank">blog.traderspost.io: strategy performance by TF</a>]</small>
+  </blockquote>
+
+  <blockquote>
+    "M15 candle during the Asian session does not carry the same informational value as an M15 candle during the London or New York open"
+    <small>[Expert comment [b]; FTMO platform knowledge (session liquidity)]</small>
+  </blockquote>
+
+  <blockquote>
+    "A tighter stop loss on a lower timeframe improves the risk-to-reward ratio (RRR)... at the cost of win rate"
+    <small>[Expert comment [c]; General risk management principle]</small>
+  </blockquote>
+
+  <blockquote>
+    "Beginners often gravitate towards lower timeframes because more candles feel like more opportunities."
+    <small>[<a href="https://newtrading.io" target="_blank">newtrading.io: beginner TF mistakes</a>; <a href="https://fbs.com/analytics/guidebooks/how-to-choose-a-timeframe-for-trading-472" target="_blank">fbs.com: experience level section</a>]</small>
+  </blockquote>
+</div>
+
+<hr>
+
+<!-- STEP 4 -->
+<h2 id="step-4">Step 4 &mdash; ToV Check</h2>
+
+<p><strong>Sentences reviewed:</strong> ~85<br>
+<strong>Issues found:</strong> 2</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Location</th>
+      <th>Issue Type</th>
+      <th>Original sentence (full)</th>
+      <th>Corrected sentence (full)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Signal-to-Noise, para 3</td>
+      <td>Rhythm (53 words)</td>
+      <td>"For example, an M15 candle formed during the Asian session (when liquidity in major forex pairs is lower) does not carry the same informational value as an M15 candle during the London or New York open, where order volume within a single 15-minute period can be several times higher."</td>
+      <td>"For example, an M15 candle formed during the Asian session carries less informational value than one formed during the London or New York open. Liquidity during off-peak hours is lower, and order volume within a single 15-minute period can be several times smaller."</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Nesting, para 3</td>
+      <td>Rhythm (47 words)</td>
+      <td>"For example, a trader might use D1 to identify key support and resistance levels, M30 to confirm that price is reacting at those levels (through a candlestick formation or a shift in momentum), and M1 to time the final entry (such as a trendline breakout)."</td>
+      <td>"For example, a trader might use D1 to identify key support and resistance levels, then M30 to confirm activity at those levels through a candlestick formation or momentum shift. The final step is M1 for entry timing, such as a trendline breakout."</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>All other checks pass: no casual markers, no hype, no condescension, no false certainty, no em/en dashes, no contractions, British English consistent.</p>
+
+<hr>
+
+<!-- STEP 5 -->
+<h2 id="step-5">Step 5 &mdash; Structure &amp; Formatting</h2>
+
+<p><strong>Article length:</strong> MEDIUM (1,778 words)</p>
+
+<h3>Paragraph Audit</h3>
+
+<p>1 paragraph at 97 words (Signal-to-Noise, RRR section). Split after "...smaller relative to the target." into two paragraphs.</p>
+
+<h3>Changes Applied</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Change Type</th>
+      <th>Description</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Paragraph split</td>
+      <td>Signal-to-Noise RRR paragraph (97 words) split into two: RRR explanation + win rate trade-off</td>
+      <td>Readability: close to 100-word limit</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>ToC added</td>
+      <td>"In This Lesson" section with 7 anchor links after intro</td>
+      <td>Navigation: article &gt;1,500 words</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Prerequisites added</td>
+      <td>Block with links to Types of Trading Charts + Japanese Candlesticks</td>
+      <td>E-E-A-T: learning path clarity</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Bold added</td>
+      <td>Key terms bolded for scanning: "top-down analysis", "timeframe", "OHLC", "three general tiers", "H1", "natural hierarchy", "four to six times apart", "reliability of price levels", "higher timeframe generally wins", "noise", "risk-to-reward ratio (RRR)", "win rate", "nest hierarchically", "price memory"</td>
+      <td>Readability: F-pattern scanning anchors</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Image placeholder 1</td>
+      <td>After "What Is a Timeframe": side-by-side M15/H1/D1 comparison</td>
+      <td>Visual: demonstrates zoom level concept</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Image placeholder 2</td>
+      <td>After "Nesting": diagram showing candle nesting D1 to M15</td>
+      <td>Visual: illustrates hierarchy structure</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Image placeholder 3</td>
+      <td>After "What Each TF Reveals": same price action on D1/H1/M15</td>
+      <td>Visual: demonstrates context-dependent interpretation</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>CTA placeholder</td>
+      <td>After Key Takeaways: "Try it on an FTMO Free Trial account"</td>
+      <td>Engagement: actionable next step</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Risk disclaimer</td>
+      <td>Standard YMYL risk warning at end</td>
+      <td>E-E-A-T: YMYL compliance</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Educational notice</td>
+      <td>Standard educational content notice at end</td>
+      <td>E-E-A-T: YMYL compliance</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Author block</td>
+      <td>FTMO Academy Content Team, date 2026-04-17</td>
+      <td>E-E-A-T: author attribution</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Callout Inventory (unchanged)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Type</th>
+      <th>Section</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Note</td>
+      <td>What Is a Timeframe</td>
+      <td>"Changing the timeframe does not change the market..."</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Tip</td>
+      <td>Nesting</td>
+      <td>"Multiply your timeframe by 4-6..."</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Important</td>
+      <td>Why Higher TFs</td>
+      <td>"A support level on the daily chart is not the same..."</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Keep in Mind</td>
+      <td>What Each TF Reveals</td>
+      <td>"What looks like a reversal on M15..."</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Warning</td>
+      <td>Signal-to-Noise</td>
+      <td>"More candles does not mean more opportunities..."</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>5 callouts across 7 H2 sections. Max 1 per section. No additions needed.</p>
+
+<h3>Internal Links (unchanged, 7 total)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Link Text</th>
+      <th>Target</th>
+      <th>Placement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Types of Trading Charts</td>
+      <td>types-of-trading-charts</td>
+      <td>Prerequisites + Types section</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Japanese candlestick</td>
+      <td>japanese-candlesticks</td>
+      <td>Prerequisites + What Is a TF</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>support and resistance</td>
+      <td>support-and-resistance</td>
+      <td>Nesting section</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>market regime</td>
+      <td>market-environment-range-vs-trend</td>
+      <td>What Each TF Reveals</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>trading hours and sessions</td>
+      <td>forex-trading-hours-and-sessions</td>
+      <td>Signal-to-Noise</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>risk management</td>
+      <td>risk-and-money-management</td>
+      <td>Signal-to-Noise</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Multiple Timeframe Analysis</td>
+      <td>multiple-timeframe-analysis</td>
+      <td>Why Higher TFs + Next Steps</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- STEP 6 -->
+<h2 id="step-6">Step 6 &mdash; HTML</h2>
+
+<p><strong>Elements converted:</strong> 7 headings (1x H1, 7x H2), 5 callouts, 2 tables, 3 lists, 3 image placeholders, 1 CTA placeholder<br>
+<strong>Meta title:</strong> "Trading Timeframes: Understanding the Hierarchy | FTMO Academy" (58 chars)<br>
+<strong>Meta description:</strong> "Learn how trading timeframes form a hierarchy, why higher timeframes carry more analytical weight, and how the signal-to-noise ratio affects every trading decision." (163 chars)<br>
+<strong>Canonical:</strong> /lesson/timeframe-hierarchy/<br>
+<strong>Manual fixes applied:</strong> none</p>
+
+<p><strong>Files generated:</strong></p>
+<ul>
+  <li><code>lesson_timeframe-hierarchy_EN.html</code> (lesson HTML)</li>
+  <li><code>lesson_timeframe-hierarchy_EN_log.html</code> (styled log HTML with sidebar nav)</li>
+  <li><code>lesson_timeframe-hierarchy_EN.docx</code> (DOCX version of article)</li>
+</ul>
+
+</div>
+</div>
+
+</body>
+</html>

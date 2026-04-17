@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Timeframes: Understanding the Hierarchy | FTMO Academy</title>
+    <meta name="description" content="Learn how trading timeframes form a hierarchy, why higher timeframes carry more analytical weight, and how noise affects signals across different chart intervals.">
+    <link rel="canonical" href="/lesson/timeframe-hierarchy/">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.7; color: #1a1a2e; background: #fff; }
+        .site-header, .site-footer { background: #000; color: #fff; padding: 20px 0; }
+        .site-header .container, .site-footer .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+        .site-header .logo { font-size: 1.4rem; font-weight: 700; color: #0781fe; text-decoration: none; }
+        .site-footer { font-size: 13px; color: #aaa; }
+        .site-footer a { color: #0781fe; text-decoration: none; }
+        .breadcrumbs { max-width: 1160px; margin: 0 auto; padding: 16px 24px; font-size: 13px; color: #555; }
+        .breadcrumbs a { color: #0781fe; text-decoration: none; }
+        .lesson-header { max-width: 1160px; margin: 0 auto; padding: 0 24px 24px; }
+        .lesson-header__module { font-size: 13px; font-weight: 500; color: #0781fe; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .lesson-header h1 { font-size: 2rem; font-weight: 700; color: #2d2d2d; line-height: 1.2; margin-bottom: 12px; }
+        .lesson-header__meta { font-size: 13px; color: #555; }
+        .lesson-wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px 48px; }
+        h2 { font-size: 1.4rem; font-weight: 700; color: #123a83; margin: 40px 0 16px; line-height: 1.3; }
+        h3 { font-size: 1.1rem; font-weight: 600; color: #123a83; margin: 28px 0 12px; line-height: 1.4; }
+        p { margin: 0 0 16px; }
+        a { color: #0781fe; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        strong { font-weight: 600; }
+        hr { border: none; border-top: 1px solid #c6c6c6; margin: 32px 0; }
+        .toc { background: #f5f5f7; border-left: 4px solid #123a83; border-radius: 6px; padding: 20px 28px; margin: 24px 0 32px; }
+        .toc__title { font-size: 1rem; font-weight: 700; color: #123a83; margin-bottom: 12px; }
+        .toc ol { list-style-position: inside; padding-left: 0; }
+        .toc li { margin: 6px 0; font-size: 15px; }
+        .toc a { color: #123a83; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 20px 0 24px; }
+        th { background: #123a83; color: #fff; font-weight: 600; text-align: left; padding: 12px 16px; }
+        td { padding: 10px 16px; border-bottom: 1px solid #c6c6c6; vertical-align: top; }
+        tr:nth-child(even) td { background: #f5f5f7; }
+        ul, ol { margin: 0 0 16px; padding-left: 24px; }
+        li { margin: 4px 0; }
+        .callout { border-radius: 6px; padding: 16px 20px; margin: 20px 0; border-left: 4px solid; }
+        .callout__label { font-weight: 600; display: block; margin-bottom: 4px; font-size: 14px; }
+        .callout p { margin: 0; }
+        .callout--tip { background: #e8f4ff; border-color: #0781fe; }
+        .callout--tip .callout__label { color: #0781fe; }
+        .callout--note { background: #eef2fa; border-color: #123a83; }
+        .callout--note .callout__label { color: #123a83; }
+        .callout--warning { background: #fff8e6; border-color: #e6a817; }
+        .callout--warning .callout__label { color: #a06b00; }
+        .callout--important { background: #fef0f0; border-color: #e05050; }
+        .callout--important .callout__label { color: #c03030; }
+        .callout--keep-in-mind { background: #f0f7f0; border-color: #4a7c59; }
+        .callout--keep-in-mind .callout__label { color: #2e5c3a; }
+        .key-takeaways { background: #f5f5f7; border-radius: 6px; padding: 24px 28px; margin: 32px 0; }
+        .key-takeaways h2 { margin-top: 0; }
+        .key-takeaways ul { margin-bottom: 0; }
+        .key-takeaways li { margin: 8px 0; }
+        .image-placeholder { background: #f5f5f7; border: 2px dashed #c6c6c6; border-radius: 6px; padding: 32px 24px; margin: 24px 0; text-align: center; color: #555; font-size: 14px; font-style: italic; }
+        .cta-placeholder { background: #e8f4ff; border: 2px dashed #0781fe; border-radius: 6px; padding: 20px 24px; margin: 24px 0; text-align: center; color: #0781fe; font-weight: 600; font-size: 15px; }
+        .author-box { display: flex; align-items: center; gap: 16px; padding: 24px 0; margin: 32px 0; border-top: 1px solid #c6c6c6; border-bottom: 1px solid #c6c6c6; }
+        .author-box__avatar { width: 48px; height: 48px; border-radius: 50%; background: #123a83; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+        .author-box__name { font-weight: 600; font-size: 15px; }
+        .author-box__meta { font-size: 13px; color: #555; }
+        .disclaimer { padding: 16px 20px; border-radius: 4px; margin: 12px 0; font-size: 13px; border-left: 3px solid; }
+        .disclaimer--educational { background: #f5f5f7; border-color: #c6c6c6; color: #555; }
+        .disclaimer--risk { background: #fff8e6; border-color: #e6a817; color: #6b4c00; }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo">FTMO Academy</a>
+        <nav><a href="/lessons/">Lessons</a></nav>
+    </div>
+</header>
+
+<nav class="breadcrumbs">
+    <a href="/">Academy</a> &rsaquo; <a href="/part/trading-analysis/">Trading Analysis</a> &rsaquo; <a href="/module/charts-and-timeframes/">Charts and Timeframes</a> &rsaquo; Timeframe Hierarchy
+</nav>
+
+<div class="lesson-header">
+    <div class="lesson-header__module">Part 2: Trading Analysis &bull; Charts and Timeframes</div>
+    <h1>Trading Timeframes: Understanding the Hierarchy</h1>
+    <div class="lesson-header__meta">By FTMO Academy Content Team &bull; Last updated: 17 April 2026</div>
+</div>
+
+<article class="lesson-wrap">
+
+    <p>A trading timeframe is the time period that each candlestick or bar on a chart represents. Timeframes range from one minute to one month, and choosing which one to analyse is one of the first decisions every trader faces. However, before selecting a timeframe for a specific trading style, it is essential to understand how timeframes relate to each other, why higher timeframes carry more analytical weight, and how this hierarchy shapes every trading decision.</p>
+
+    <p>This concept is also known as <strong>top-down analysis</strong>: reading the market from the highest timeframe down to the lowest, building context before precision.</p>
+
+    <nav class="toc">
+        <div class="toc__title">Table of Contents</div>
+        <ol>
+            <li><a href="#what-is-a-timeframe">What Is a Timeframe</a></li>
+            <li><a href="#types-of-trading-timeframes">Types of Trading Timeframes</a></li>
+            <li><a href="#how-timeframes-nest-inside-each-other">How Timeframes Nest Inside Each Other</a></li>
+            <li><a href="#why-higher-timeframes-carry-more-weight">Why Higher Timeframes Carry More Weight</a></li>
+            <li><a href="#what-each-timeframe-reveals">What Each Timeframe Reveals</a></li>
+            <li><a href="#the-signal-to-noise-problem">The Signal-to-Noise Problem</a></li>
+            <li><a href="#key-takeaways">Key Takeaways</a></li>
+        </ol>
+    </nav>
+
+    <h2 id="what-is-a-timeframe">What Is a Timeframe</h2>
+
+    <p>A <strong>timeframe</strong> defines the duration compressed into a single candlestick. On a 15-minute chart (M15), each candle represents 15 minutes of price action. On a daily chart (D1), each candle represents one full trading day. The underlying market data is identical in both cases. Only the resolution changes.</p>
+
+    <p>Think of it as a zoom level. A monthly chart shows the broadest picture, the dominant trend over years. A one-minute chart shows every micro-fluctuation within a session. The price did not change between the two views. The level of detail did.</p>
+
+    <p>Standard timeframe notation follows a simple convention:</p>
+
+    <ul>
+        <li><strong>M1, M5, M15, M30</strong> for minute-based charts</li>
+        <li><strong>H1, H4</strong> for hourly charts</li>
+        <li><strong>D1</strong> for the daily chart</li>
+        <li><strong>W1</strong> for the weekly chart</li>
+        <li><strong>MN</strong> for the monthly chart</li>
+    </ul>
+
+    <p>Each candle, regardless of timeframe, compresses all price movement within its period into four data points: the <strong>open, high, low, and close (OHLC)</strong>. These are the same four values used in <a href="/lesson/japanese-candlesticks/">Japanese candlestick</a> analysis.</p>
+
+    <div class="callout callout--note">
+        <span class="callout__label">Note</span>
+        <p>Changing the timeframe does not change the market. It changes how much detail you see.</p>
+    </div>
+
+    <div class="image-placeholder">[IMAGE: Side-by-side comparison of the same instrument on M15, H1, and D1 charts, showing how the same price data appears at different resolutions]</div>
+
+    <h2 id="types-of-trading-timeframes">Types of Trading Timeframes</h2>
+
+    <p>Timeframes in trading fall into <strong>three general tiers</strong> based on the type of information they provide and the level of noise they contain.</p>
+
+    <table>
+        <thead>
+            <tr><th>Tier</th><th>Timeframes</th><th>What It Shows</th><th>Noise Level</th><th>Typical Use</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Short-term</td><td>M1 to M15</td><td>Micro-structure, immediate supply and demand</td><td>High</td><td>Entry timing, intraday decisions</td></tr>
+            <tr><td>Medium-term</td><td>M30 to H4</td><td>Pattern formation, setup confirmation</td><td>Moderate</td><td>Swing setups, session-level analysis</td></tr>
+            <tr><td>Long-term</td><td>D1 to MN</td><td>Dominant trend, major support and resistance</td><td>Low</td><td>Directional bias, macro context</td></tr>
+        </tbody>
+    </table>
+
+    <p><strong>Short-term timeframes</strong> show high detail but contain the most noise. They generate the most candles per session, which means more signals, but also more false signals.</p>
+
+    <p><strong>Medium-term timeframes</strong> strike a balance between detail and context. Most <a href="/lesson/types-of-trading-charts/">chart patterns</a> become visible at this level, and confirmation signals carry more reliability than on lower timeframes.</p>
+
+    <p><strong>Long-term timeframes</strong> filter out noise and reveal the dominant trend. A support level on the daily or weekly chart reflects days or weeks of price interaction, not minutes. These timeframes provide the directional bias that frames everything below them.</p>
+
+    <p>The rough dividing line sits at <strong>H1</strong>. Below H1, the market is short-term territory. Above it, context and trend start to dominate.</p>
+
+    <h2 id="how-timeframes-nest-inside-each-other">How Timeframes Nest Inside Each Other</h2>
+
+    <p>Every higher timeframe candle contains multiple lower timeframe candles. One daily candle holds 24 hourly candles (for a 24-hour market), 96 fifteen-minute candles, and 1,440 one-minute candles. This nesting is not arbitrary. It creates a <strong>natural hierarchy</strong>: the information in a higher timeframe candle encompasses everything that happened on all the timeframes below it.</p>
+
+    <p>This hierarchy has a practical rule. Adjacent timeframes in a useful analysis chain are typically <strong>four to six times apart</strong>:</p>
+
+    <table>
+        <thead>
+            <tr><th>From</th><th>To</th><th>Candles Contained</th><th>Ratio</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>M15</td><td>H1</td><td>4</td><td>4x</td></tr>
+            <tr><td>H1</td><td>H4</td><td>4</td><td>4x</td></tr>
+            <tr><td>H4</td><td>D1</td><td>6</td><td>6x</td></tr>
+            <tr><td>D1</td><td>W1</td><td>5</td><td>5x</td></tr>
+        </tbody>
+    </table>
+
+    <p>When timeframes are too close (M5 to M15), the information is largely redundant. When they are too far apart (M5 to D1), gaps in the analytical chain make it difficult to connect context with precision.</p>
+
+    <p>In practice, traders typically combine two to three timeframes. For example, a trader might use D1 to identify key <a href="/lesson/support-and-resistance/">support and resistance</a> levels, then M30 to confirm activity at those levels through a candlestick formation or momentum shift. The final step is M1 for entry timing, such as a trendline breakout. If the D1 chart shows a clear uptrend, the trader looks for bullish setups on M30 and then refines the entry on M1.</p>
+
+    <div class="callout callout--tip">
+        <span class="callout__label">Tip</span>
+        <p>A useful rule: multiply your timeframe by four to six to find the next meaningful level up. M15 x 4 = H1. H1 x 4 = H4. H4 x 6 = D1.</p>
+    </div>
+
+    <div class="image-placeholder">[IMAGE: Diagram showing how one D1 candle nests 6x H4, 24x H1, and 96x M15 candles, illustrating the hierarchical relationship]</div>
+
+    <h2 id="why-higher-timeframes-carry-more-weight">Why Higher Timeframes Carry More Weight</h2>
+
+    <p>Higher timeframe candles represent <strong>more market participants, more traded volume, and more data</strong>. Each daily candle is a summary of thousands of individual trading decisions across all sessions. An M15 candle, by comparison, summarises a narrow slice of activity.</p>
+
+    <p>This difference has direct consequences for the <strong>reliability of price levels</strong>. A support zone visible on the daily chart reflects days or weeks of price memory. Buyers stepped in at that level repeatedly over an extended period. A support zone on M15 reflects minutes of activity. It may hold once and then disappear.</p>
+
+    <p>Higher timeframe trends are also structurally more stable. A trend established on the daily chart takes significant volume and time to reverse. A trend on the five-minute chart can reverse within a single session. This is one reason institutional participants tend to operate on higher timeframes. Their order sizes require time to fill, and the dominant price moves that result from their activity are most visible on higher timeframes.</p>
+
+    <p>When the higher timeframe and lower timeframe disagree, the <strong>higher timeframe generally wins the directional bias</strong>. A strong daily uptrend does not stop because the M15 chart shows a bearish pattern. This principle becomes the foundation for multiple timeframe analysis, covered in detail in a <a href="/lesson/multiple-timeframe-analysis/">separate lesson</a>.</p>
+
+    <div class="callout callout--important">
+        <span class="callout__label">Important</span>
+        <p>A support level on the daily chart is not the same as a support level on the 15-minute chart. The daily level represents days of price memory. The M15 level represents minutes.</p>
+    </div>
+
+    <h2 id="what-each-timeframe-reveals">What Each Timeframe Reveals</h2>
+
+    <p>Different timeframes answer different analytical questions. Understanding what each tier reveals helps traders extract the right information from the right chart.</p>
+
+    <p><strong>Monthly and Weekly (MN, W1):</strong> These show the macro trend direction, long-term support and resistance zones, and the overall <a href="/lesson/market-environment-range-vs-trend/">market regime</a> (trending versus ranging). Position traders and investors use these timeframes for their primary analysis.</p>
+
+    <p><strong>Daily (D1):</strong> The daily chart reveals the swing-level trend, key price levels for the current market cycle, and overnight gaps. It is the most commonly referenced timeframe for establishing directional bias across all trading styles.</p>
+
+    <p><strong>H4 and H1:</strong> These show intraday momentum, session-level structure, and short-term patterns. Day traders and swing traders often use H4 for setup identification and H1 for timing.</p>
+
+    <p><strong>M15 and M5:</strong> These provide entry precision, micro-structure visibility, and immediate supply and demand zones. They are rarely used in isolation. Their value comes from refining decisions made on a higher timeframe.</p>
+
+    <p>The same instrument can look entirely different depending on the timeframe. A strong downtrend on H1 may be nothing more than a shallow pullback within a dominant D1 uptrend. A consolidation range on D1 may contain multiple tradable swings on H1. Context depends entirely on which timeframe the trader is reading.</p>
+
+    <div class="callout callout--keep-in-mind">
+        <span class="callout__label">Keep in Mind</span>
+        <p>What looks like a reversal on the 15-minute chart may be a minor pullback on the daily chart. Always check at least one higher timeframe before acting on a lower timeframe signal.</p>
+    </div>
+
+    <div class="image-placeholder">[IMAGE: The same price action shown on D1 (smooth uptrend), H1 (visible pullbacks within the uptrend), and M15 (apparent downtrend that is actually just a D1 pullback)]</div>
+
+    <h2 id="the-signal-to-noise-problem">The Signal-to-Noise Problem</h2>
+
+    <p>Lower timeframes contain more <strong>noise</strong>: random price fluctuations that do not reflect meaningful buying or selling pressure. These movements are caused by thin order flow, algorithmic micro-adjustments, and short-term liquidity imbalances that resolve within minutes.</p>
+
+    <p>Higher timeframes filter this noise by aggregating larger samples of data into each candle. This is why strategies tend to produce cleaner, more consistent signals on higher timeframes. A moving average crossover on D1 carries more statistical weight than the same crossover on M5, because the daily candle summarises far more market activity.</p>
+
+    <p>Noise is not constant across the trading day. It increases significantly outside main <a href="/lesson/forex-trading-hours-and-sessions/">trading hours and sessions</a>. For example, an M15 candle formed during the Asian session carries less informational value than one formed during the London or New York open. Liquidity during off-peak hours is lower, and order volume within a single 15-minute period can be several times smaller. Traders who rely on lower timeframes need to account for this variation.</p>
+
+    <p>Noise does not make lower timeframes useless. Stepping down to a lower timeframe for trade entries is a legitimate and widely used technique, but it is primarily a <a href="/lesson/risk-and-money-management/">risk management</a> decision. A tighter stop loss on a lower timeframe improves the <strong>risk-to-reward ratio (RRR)</strong> because the distance between entry and stop is smaller relative to the target.</p>
+
+    <p>However, this comes at the cost of <strong>win rate</strong>. More noise on the lower timeframe means more false signals, which means more trades that hit the stop before the anticipated move develops. The trade-off must be understood before applying it.</p>
+
+    <p>Beginners often gravitate towards lower timeframes because more candles feel like more opportunities. In practice, the majority of price movements on M1 or M5 are noise. More candles means more decisions, more false signals, and faster capital erosion for traders without a defined edge.</p>
+
+    <div class="callout callout--warning">
+        <span class="callout__label">Warning</span>
+        <p>More candles does not mean more opportunities. On lower timeframes, the majority of price movements are noise: random fluctuations that trigger false signals and erode capital.</p>
+    </div>
+
+    <section class="key-takeaways">
+        <h2 id="key-takeaways">Key Takeaways</h2>
+        <ul>
+            <li>A <strong>timeframe</strong> defines how much price data is compressed into each candle. The market data is the same; only the resolution changes.</li>
+            <li>Timeframes <strong>nest hierarchically</strong>. Each higher timeframe candle contains all the information from the timeframes below it.</li>
+            <li>Higher timeframes carry more weight because they represent more participants, more volume, and more <strong>price memory</strong>.</li>
+            <li>Lower timeframes contain more noise. This noise increases outside main trading sessions when liquidity drops.</li>
+            <li>Stepping down to a lower timeframe for entries can improve risk-to-reward, but at the cost of win rate. Understand the trade-off.</li>
+        </ul>
+    </section>
+
+    <h2 id="next-steps">Next Steps</h2>
+
+    <p><strong>Next step:</strong> Open any instrument on three timeframes (D1, H1, M15) and compare how the same price action looks at each level. Notice how the trend, key levels, and apparent momentum differ depending on the resolution.</p>
+
+    <p>For guidance on choosing a timeframe based on your trading style, see the next lesson in this module. For strategies that combine multiple timeframes into a single analytical framework, see <a href="/lesson/multiple-timeframe-analysis/">Multiple Timeframe Analysis</a>.</p>
+
+    <div class="cta-placeholder">[CTA: Try it on an FTMO Free Trial account]</div>
+
+</article>
+
+<div class="lesson-wrap">
+    <div class="author-box">
+        <div class="author-box__avatar">FA</div>
+        <div>
+            <div class="author-box__name">FTMO Academy Content Team</div>
+            <div class="author-box__meta">Published: 17 April 2026 &bull; Last Updated: 17 April 2026</div>
+        </div>
+    </div>
+
+    <div class="disclaimer disclaimer--educational">
+        <strong>Educational Content Notice:</strong> This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.
+    </div>
+
+    <div class="disclaimer disclaimer--risk">
+        <strong>Risk Warning:</strong> Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="container">
+        <span>FTMO Academy</span>
+        <span><a href="/lessons/">All Lessons</a> &bull; <a href="/about/">About</a> &bull; <a href="/contact/">Contact</a></span>
+    </div>
+</footer>
+
+</body>
+</html>

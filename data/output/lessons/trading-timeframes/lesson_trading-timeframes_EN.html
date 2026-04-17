@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Timeframes: Choosing the Right One for Your Style</title>
+  <meta name="description" content="Learn how to choose the right trading timeframe for your style. Compare scalping, day trading, swing trading, and position trading with a clear framework.">
+  <link rel="canonical" href="/lesson/trading-timeframes/">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-h1: #2d2d2d;
+      --color-h2: #123a83;
+      --color-h3: #123a83;
+      --color-link: #0781fe;
+      --color-body: #333;
+      --color-bg: #fff;
+      --color-table-header: #123a83;
+      --color-table-border: #ddd;
+      --color-callout-note: #e8f0fe;
+      --color-callout-tip: #e6f4ea;
+      --color-callout-warning: #fef7e0;
+      --color-callout-important: #fce8e6;
+      --color-callout-keep-in-mind: #f0f4e8;
+      --color-callout-prerequisites: #f3f0ff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--color-body);
+      background: var(--color-bg);
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-h1);
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--color-h2);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--color-h3);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    p { margin-bottom: 1rem; }
+    a { color: var(--color-link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    th {
+      background: var(--color-table-header);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--color-table-border);
+    }
+    tr:nth-child(even) td { background: #f9f9fb; }
+    ul, ol { margin: 1rem 0 1rem 1.5rem; }
+    li { margin-bottom: 0.4rem; }
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 2rem 0;
+    }
+    .callout {
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      margin: 1.25rem 0;
+      border-left: 4px solid;
+    }
+    .callout-note { background: var(--color-callout-note); border-color: #4285f4; }
+    .callout-tip { background: var(--color-callout-tip); border-color: #34a853; }
+    .callout-warning { background: var(--color-callout-warning); border-color: #f9ab00; }
+    .callout-important { background: var(--color-callout-important); border-color: #ea4335; }
+    .callout-keep-in-mind { background: var(--color-callout-keep-in-mind); border-color: #7cb342; }
+    .callout-prerequisites { background: var(--color-callout-prerequisites); border-color: #7c4dff; }
+    .callout strong { display: inline; }
+    .image-placeholder {
+      background: #f5f5f5;
+      border: 2px dashed #ccc;
+      padding: 2rem;
+      text-align: center;
+      color: #888;
+      margin: 1.5rem 0;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    .cta-placeholder {
+      background: #e8f0fe;
+      border: 2px dashed var(--color-link);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--color-link);
+      margin: 1.5rem 0;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .lesson-author {
+      background: #f9f9fb;
+      padding: 1.25rem;
+      border-radius: 6px;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+    .lesson-disclaimers {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .lesson-disclaimers p { margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+<article class="academy-lesson">
+
+<h1>Trading Timeframes: How to Choose the Right One for Your Trading Style</h1>
+
+<p>A trading timeframe is the time period that each candlestick or bar on your chart represents. Your choice of timeframe shapes how often you trade, how long you hold positions, and how much of your day the screen consumes.</p>
+
+<p>Before committing to a style, you need to know what each timeframe actually shows and how that resolution changes the way price behaves on the chart. This lesson defines the timeframe concept, compares the four main trading styles, and gives you a framework for matching the right chart interval to your personality, schedule, and risk profile. If you plan to trade a funded account, the choice also interacts with specific rules you will need to respect.</p>
+
+<div class="callout callout-prerequisites"><strong>Prerequisites:</strong> Before starting this lesson, complete:
+<ul>
+<li><a href="/lesson/types-of-trading-charts/">Types of Trading Charts</a></li>
+<li><a href="/lesson/japanese-candlesticks/">Japanese Candlesticks</a></li>
+</ul>
+</div>
+
+<h2 id="table-of-contents">In This Lesson</h2>
+<ul>
+<li><a href="#what-is-a-trading-timeframe">What Is a Trading Timeframe?</a></li>
+<li><a href="#four-trading-styles-and-their-timeframes">Four Trading Styles and Their Timeframes</a></li>
+<li><a href="#how-to-choose-the-right-timeframe">How to Choose the Right Timeframe</a></li>
+<li><a href="#introduction-to-multiple-timeframe-analysis">Introduction to Multiple Timeframe Analysis</a></li>
+<li><a href="#common-mistakes-in-timeframe-selection">Common Mistakes in Timeframe Selection</a></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ul>
+
+<hr>
+
+<h2 id="what-is-a-trading-timeframe">What Is a Trading Timeframe?</h2>
+
+<p>On the M15 chart, every candle covers fifteen minutes of price action. On the D1 chart, every candle represents one full trading day. The underlying market is the same. Only the resolution changes.</p>
+
+<p>Think of it as a camera lens. Zoom in and you see texture, noise, and quick reactions. Zoom out and the same market resolves into cleaner trends and structural levels. Both views are correct, and both are incomplete on their own.</p>
+
+<p>For retail trading, timeframes fall into three practical categories:</p>
+
+<table>
+<thead>
+<tr><th>Category</th><th>Chart intervals</th><th>Typical holding time</th><th>Signal frequency</th><th>Noise level</th></tr>
+</thead>
+<tbody>
+<tr><td>Short-term</td><td>M1 to M15</td><td>Seconds to a few hours</td><td>Very high</td><td>High</td></tr>
+<tr><td>Medium-term</td><td>M30 to H4</td><td>Hours to a few days</td><td>Moderate</td><td>Medium</td></tr>
+<tr><td>Long-term</td><td>D1 to MN</td><td>Days to months</td><td>Low</td><td>Low</td></tr>
+</tbody>
+</table>
+
+<p>A general principle follows from this table. Higher timeframes produce smoother trends, fewer signals, and require wider stops. Lower timeframes show more noise, permit tighter stops, and generate many more setups, but also many more false positives.</p>
+
+<p>The trade-off applies to every market, although instrument type still matters. Major forex pairs behave very differently from indices or commodities within the same category, so the pip ranges in this lesson should be treated as orientation rather than absolutes.</p>
+
+<p>Most traders work with time-based charts, but not all charts are time-based. Tick charts, range charts, and Renko charts group price action by volume, price movement, or fixed range instead of elapsed time. These alternatives are covered in the lesson on <a href="/lesson/types-of-trading-charts/">types of trading charts</a>.</p>
+
+<div class="callout callout-note"><strong>Note:</strong> Timeframe hierarchy matters even when you only look at one chart. The higher timeframe defines the context. The lower timeframe defines the trigger.</div>
+
+<div class="image-placeholder">[IMAGE: side-by-side comparison of the same forex pair shown on M15 and D1 charts, illustrating how resolution changes the perception of trend and noise]</div>
+
+<hr>
+
+<h2 id="four-trading-styles-and-their-timeframes">Four Trading Styles and Their Timeframes</h2>
+
+<p>Each trading style has a natural timeframe range. The style defines the timeframe, not the other way around. Trying to force scalping onto a daily chart, or position trading onto a one-minute chart, simply does not work, because the timeframe cannot deliver what the style requires.</p>
+
+<h3 id="scalping">Scalping (M1 to M15)</h3>
+
+<p>Scalpers hold positions for seconds up to a few minutes. The chart mix is typically M1, M5, and sometimes M15 for quick structural context. Setups appear constantly, but most of them are noise, so execution speed and pattern recognition matter more than analytical depth.</p>
+
+<p>Risk per trade is small in absolute terms. Stops usually sit between 5 and 15 pips on major pairs, targets are similarly tight, and a normal session may produce twenty or more trades. The profile requires constant screen time, reliable low-latency execution, and brokers or platforms with tight spreads, because spread is a meaningful part of the cost on every position.</p>
+
+<div class="callout callout-warning"><strong>Warning:</strong> Scalping is one of the most demanding styles for beginners. High frequency combined with small margins means that lapses in discipline show up almost immediately in the equity curve.</div>
+
+<h3 id="day-trading">Day Trading (M15 to H4)</h3>
+
+<p>Day trading covers trades opened and closed within the same session. The typical chart mix is M15 for entries, H1 for directional bias, and H4 for broader context. Positions last from minutes to several hours, and all positions are closed by the end of the trading day.</p>
+
+<p>The workload is lighter than scalping but still concentrated: two to six focused hours of screen time is common, and even less with well-defined setups. Frequency usually runs from two to eight trades per day. Stops sit between 15 and 50 pips on major pairs, which aligns with typical intraday volatility and news-driven moves. The best time frame for day trading depends on how actively you want to manage positions. The M15 gives you more setups, while the H1 filters the noise.</p>
+
+<h3 id="swing-trading">Swing Trading (H4 to D1)</h3>
+
+<p>Swing traders hold positions for days to weeks. The core chart mix is H4 for entries and D1 for trend direction, sometimes with a weekly check for structural levels. Requirements are modest compared with intraday styles: a general awareness of news and trends through the day, plus thirty to sixty minutes of focused screen time to review positions, plan new setups, and adjust stops.</p>
+
+<p>Frequency is low, typically two to five trades per week. Stops are wider, usually 50 to 150 pips on major forex pairs, because swing setups aim to capture multi-day moves and must absorb normal market noise. The best time frame for swing trading tends to be D1 for trend and H4 for entries, and this combination is often the recommended starting point for beginners. Signals are cleaner, decisions are less reactive, and the slower pace makes it easier to follow a written plan.</p>
+
+<h3 id="position-trading">Position Trading (D1 to MN)</h3>
+
+<p>Position traders hold for weeks to months, and sometimes longer. The chart mix is D1 for entries, W1 for trend, and MN for the structural long-term view. A weekly review is usually sufficient, and intraday monitoring adds little value at this horizon.</p>
+
+<p>The profile has the lowest frequency and the widest stops, often 100 to 500 pips or more on forex, and frequently more on volatile instruments. Swap and financing costs become material over weeks, so position traders pay close attention to the cost of carry. Capital requirements also tend to be higher, because stops are wider and position size must stay proportionate.</p>
+
+<div class="callout callout-tip"><strong>Tip:</strong> No trading style is superior. The best style is the one you can execute consistently given your schedule, personality, and capital.</div>
+
+<table>
+<thead>
+<tr><th>Style</th><th>Timeframes</th><th>Holding period</th><th>Trades/week</th><th>Stop-loss range</th><th>Screen time</th></tr>
+</thead>
+<tbody>
+<tr><td>Scalping</td><td>M1 to M15</td><td>Seconds to minutes</td><td>20+</td><td>5 to 15 pips</td><td>Full-time</td></tr>
+<tr><td>Day trading</td><td>M15 to H4</td><td>Minutes to hours</td><td>10 to 40</td><td>15 to 50 pips</td><td>2 to 6 hours</td></tr>
+<tr><td>Swing trading</td><td>H4 to D1</td><td>Days to weeks</td><td>2 to 5</td><td>50 to 150 pips</td><td>30 to 60 min/day</td></tr>
+<tr><td>Position trading</td><td>D1 to MN</td><td>Weeks to months</td><td>1 to 4/month</td><td>100 to 500+ pips</td><td>Weekly review</td></tr>
+</tbody>
+</table>
+
+<div class="image-placeholder">[IMAGE: infographic comparing the four trading styles across holding period, frequency, and typical stop distance]</div>
+
+<hr>
+
+<h2 id="how-to-choose-the-right-timeframe">How to Choose the Right Timeframe</h2>
+
+<p>Picking a timeframe is a decision about how your strategy, your day, and your personal risk tolerance fit together. Five factors are worth considering before you commit.</p>
+
+<p><strong>Time availability.</strong> Be honest about how many uninterrupted hours per day you can dedicate to screens. Scalping and day trading require presence. Swing and position trading do not.</p>
+
+<p><strong>Personality and stress tolerance.</strong> Some traders need the rhythm of quick decisions. Others need time to analyse a setup, write down the plan, and execute without adrenaline. Neither profile is wrong, but mismatched choices produce overtrading and revenge trades.</p>
+
+<p><strong>Risk tolerance.</strong> Higher timeframes produce fewer, larger drawdowns. Lower timeframes produce more frequent, smaller ones. Long-run profitability can be similar, but the emotional experience is very different.</p>
+
+<p><strong>Experience level.</strong> Beginners tend to do better on higher timeframes. Fewer signals mean fewer chances to break the rules, and wider stops give the strategy room to work through normal volatility.</p>
+
+<p><strong>Market and instrument.</strong> Forex majors, indices, commodities, and crypto each have different volatility profiles. The best time frame to trade forex is not automatically the best time frame for an index or a commodity. Adjust stop distance and holding time to the instrument, not only to the style.</p>
+
+<table>
+<thead>
+<tr><th>Factor</th><th>Scalping</th><th>Day trading</th><th>Swing trading</th><th>Position trading</th></tr>
+</thead>
+<tbody>
+<tr><td>Time per day</td><td>6+ hours</td><td>2 to 6 hours</td><td>30 to 60 min</td><td>Weekly review</td></tr>
+<tr><td>Stress tolerance</td><td>Very high</td><td>High</td><td>Moderate</td><td>Low</td></tr>
+<tr><td>Risk profile</td><td>Frequent small losses</td><td>Moderate</td><td>Infrequent larger</td><td>Low frequency, wide</td></tr>
+<tr><td>Suited to beginners</td><td>No</td><td>Partly</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Instrument fit</td><td>Tight-spread forex, indices</td><td>Forex, indices, commodities</td><td>All major markets</td><td>All major markets</td></tr>
+</tbody>
+</table>
+
+<div class="callout callout-important"><strong>Important:</strong> When in doubt, start higher. Moving down from D1 to H4 after a period of consistent execution is much easier than climbing back up from M5 after a drawdown driven by noise and overtrading.</div>
+
+<h3 id="ftmo-specific-considerations">FTMO-Specific Considerations</h3>
+
+<p>If you plan to trade a funded account, timeframe selection is not only a personal preference. It interacts directly with the rules of the evaluation and the funded phase.</p>
+
+<p><strong>Daily loss limit.</strong> On the 2-Step Challenge, the daily loss limit is 5% of the initial balance. Scalpers and day traders need to count concurrent positions carefully, because many small stops can still add up to that limit during a volatile session. The 1-Step Challenge uses a different set of parameters, so check the specific rules of the programme you are trading.</p>
+
+<p><strong>Maximum drawdown.</strong> The overall drawdown cap is 10% on the Challenge. Wider stops on higher timeframes are not a problem in themselves, but they reduce the number of positions you can run in parallel without breaching the cap.</p>
+
+<p><strong>Minimum trading days.</strong> Position trading with very few trades per month can run into the minimum trading days requirement. If you plan to hold for weeks, you still need to place enough qualifying trades during the evaluation window.</p>
+
+<p><strong>Style mix among funded traders.</strong> Day trading and swing trading tend to be common approaches among funded traders, but no single style is a guaranteed route. Scalpers and position traders also pass evaluations. The rules reward discipline and risk management, not a particular timeframe.</p>
+
+<div class="callout callout-warning"><strong>Warning:</strong> Your timeframe choice directly affects your risk per trade. Calculate how your stop-loss distance fits within the Trading Objectives before committing to a style. Position size flows from the stop, not the other way around.</div>
+
+<p>These boundaries are not only useful for evaluations. Setting equivalent daily loss and drawdown limits on a personal broker account enforces the same discipline and protects your capital in the same way.</p>
+
+<div class="cta-placeholder">[CTA: "Start the FTMO Challenge" or "Try the FTMO Free Trial" — link to evaluation signup]</div>
+
+<hr>
+
+<h2 id="introduction-to-multiple-timeframe-analysis">Introduction to Multiple Timeframe Analysis</h2>
+
+<p>Multiple timeframe analysis uses at least two charts of the same instrument to separate context from execution. The higher timeframe defines direction, support, and resistance. The lower timeframe provides precise entries and exits.</p>
+
+<p>A practical rule of thumb: the execution timeframe multiplied by four to six gives a useful context timeframe. Standard combinations follow this pattern:</p>
+
+<ul>
+<li>Swing: D1 for trend, H4 for entries</li>
+<li>Intraday: H4 for context, M30 for entries</li>
+<li>Scalping: M30 for context, M5 for entries</li>
+</ul>
+
+<p>A simple example: the D1 is in an uptrend, price pulls back to a clear support level, and on the H4 a bullish reversal candle forms at that support. The higher timeframe gives you the bias. The lower timeframe gives you the trigger.</p>
+
+<div class="callout callout-note"><strong>Note:</strong> This is an introduction only. Full strategies, alignment rules, and common pitfalls are covered in the dedicated lesson on <a href="/lesson/multiple-timeframe-analysis/">multiple timeframe analysis</a>.</div>
+
+<div class="image-placeholder">[IMAGE: multi-pane chart showing D1 (uptrend), H4 (pullback), and M30 (entry trigger) aligned for a single forex pair]</div>
+
+<hr>
+
+<h2 id="common-mistakes-in-timeframe-selection">Common Mistakes in Timeframe Selection</h2>
+
+<p>Most timeframe mistakes are not analytical. They come from entering trades without a plan, or from changing the plan under pressure.</p>
+
+<ul>
+<li><strong>No defined timeframe plan before entering.</strong> Opening a position without knowing which chart you will manage it on leads to inconsistent exits and emotional decisions. Decide in advance: entry chart, management chart, and invalidation chart.</li>
+<li><strong>Using too short a timeframe as a beginner.</strong> Lower timeframes amplify noise and emotion. With limited experience, more signals mean more opportunities to break your own rules, not more opportunities for profit.</li>
+<li><strong>Ignoring the higher timeframe trend.</strong> Taking short setups on M15 when the D1 is in a clear uptrend is a statistical disadvantage you do not need to accept. The lower timeframe fights. The higher timeframe drives.</li>
+<li><strong>Choosing a timeframe that does not fit your schedule.</strong> If your best trading hours overlap with work or family commitments, committing to day trading leads to missed exits and half-managed positions. Match the timeframe to your actual availability, not your ideal availability.</li>
+</ul>
+
+<div class="callout callout-keep-in-mind"><strong>Keep in Mind:</strong> Dropping to a lower timeframe after a losing streak is almost always an emotional response, not an analytical one. If your strategy was built on H4, switching to M15 does not fix it. It only adds noise on top of the problem.</div>
+
+<hr>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>The key takeaways:</p>
+
+<ul>
+<li>Timeframe is resolution, not a different market.</li>
+<li>The style defines the timeframe. Scalping to position trading each has a narrow natural range.</li>
+<li>The right timeframe is the one you can execute consistently given your time, personality, and capital.</li>
+<li>On a funded account, timeframe choice interacts directly with daily loss, drawdown, and minimum trading day rules.</li>
+</ul>
+
+<p><strong>Action step.</strong> Pick one style that matches your honest availability and stress tolerance. Set up the corresponding timeframe combination in your platform. Trade it on a demo account, or on the FTMO Free Trial, for at least two weeks before evaluating your results. Two weeks is long enough to see whether the rhythm fits you. It is short enough to change course without wasting months.</p>
+
+<p>To continue, see <a href="/lesson/multiple-timeframe-analysis/">multiple timeframe analysis</a> for the full framework, <a href="/lesson/types-of-trading-charts/">types of trading charts</a> for alternatives to time-based charts, <a href="/lesson/market-environment-range-vs-trend/">market environment</a> for identifying trends versus ranges, and <a href="/lesson/forex-trading-hours-and-sessions/">trading hours and sessions</a> for aligning your timeframe with the most liquid parts of the day.</p>
+
+<div class="cta-placeholder">[CTA: "Start your FTMO Free Trial" — link to Free Trial signup]</div>
+
+<hr>
+
+<div class="lesson-disclaimers">
+  <p><strong>Risk Warning:</strong> Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.</p>
+  <p><strong>Educational Content Notice:</strong> This material is for educational purposes only and does not constitute financial advice.</p>
+</div>
+
+<div class="lesson-author">
+  <p><strong>Author:</strong> FTMO Academy Content Team<br>
+  <strong>Last Updated:</strong> 17 April 2026</p>
+</div>
+
+</article>
+</body>
+</html>

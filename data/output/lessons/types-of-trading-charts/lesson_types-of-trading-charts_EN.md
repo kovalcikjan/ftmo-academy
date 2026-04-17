@@ -1,108 +1,127 @@
-# Types of Trading Charts: Candlestick Charts, Renko Charts, and Heikin Ashi
+# Types of Trading Charts
 
 > **Prerequisites:** Before starting this lesson, complete [Japanese Candlesticks](/lesson/japanese-candlesticks/).
 
-This lesson covers the main types of trading charts, what makes each one different, and how to choose the right display for your analysis.
+Reading price data in real time starts with choosing the right chart type. There are several types of trading charts, from a standard candlestick chart to Renko charts or Heikin Ashi candles. This lesson covers the specifics of these chart types and how they differ.
 
-## In This Lesson
-- [Candlestick Charts](#candlestick-charts)
-- [Bar Charts](#bar-charts)
-- [Renko Charts](#renko-charts)
-- [Heikin Ashi Candles](#heikin-ashi-candles)
-- [Conclusion](#conclusion)
-
-Price charts can be displayed in nearly unlimited ways. This is why no two traders watch exactly the same things. Although most traders use **candlestick charts** — covered in the previous lesson — there is more depth to explore. This lesson also covers **bar charts**, **Renko charts**, and **Heikin Ashi candles**.
+---
 
 ## Candlestick Charts
 
-[Japanese Candlesticks](/lesson/japanese-candlesticks/) are covered in the previous lesson. Here is a quick recap. They are the most widely used chart type in technical analysis. The anatomy of a candlestick consists of the **body** and the **wick**. If the candle closes above the open, it is a bullish candlestick. If the candle closes below the open, it is a bearish candlestick. Wicks represent the highest and lowest points where the market traded.
+The previous lesson covers [Japanese Candlesticks](/lesson/japanese-candlesticks/). Here is a quick recap. **Candlestick charts are the most popular format for technical analysis.** The anatomy of a candlestick consists of the *body* and the *wick*. If the candle closes above the open, it forms a *bullish candlestick*. If the candle closes below the open, it forms a *bearish candlestick*. Wicks represent the highest and lowest prices reached during the period.
 
-![Candlestick chart anatomy](https://academy.ftmo.com/wp-content/uploads/2023/03/c-25.jpg)
+*Candlestick anatomy: body, wick, bullish vs bearish candle*
 
-The image below shows two candlestick charts side by side in the FTMO cTrader platform.
+![](https://academy.ftmo.com/wp-content/uploads/2023/03/c-25.jpg)
 
-![Time-based vs range-based candlestick charts](https://academy.ftmo.com/wp-content/uploads/2021/03/timeframevsrange.png)
+The image below shows two candlestick charts next to each other in the cTrader platform. The chart on the left uses a time-based periodicity, the chart on the right does not.
+
+*Two candlestick charts: time-based (left) vs non-time-based (right)*
+
+![](https://academy.ftmo.com/wp-content/uploads/2021/03/timeframevsrange.png)
+
+**Chart periodicity is the main function you can control when setting up a candlestick chart.**
 
 ### Time-Based Charts
 
-Although they look the same, there is one significant difference. The chart on the left is time-based; the chart on the right is not. **Chart periodicity** is the main variable to control when setting up a candlestick chart. Time periodicity is the most common choice among traders. Most trading platforms support charts based on minutes, hours, days, weeks, and seconds. The most popular timeframes are 1-minute, 5-minute, 15M, 30M, 60M, 4-hour, daily, weekly, and monthly.
+**Time-based periodicity** is the most common setting among traders. Most trading platforms allow you to set up charts based on minutes, hours, days, weeks, and seconds. The most popular timeframes are:
 
-You can set up a chart with any periodicity, but standard timeframes work because many traders monitor them. A 40-minute or 3-hour chart carries less weight — fewer traders monitor those intervals, so candlestick patterns formed on them have reduced significance.
+- 1-minute, 5-minute, 15M, 30M, 60M
+- 4-hour, daily, weekly, monthly
 
-> **Tip:** Standard timeframes (1H, 4H, Daily) are monitored by a large number of traders simultaneously. Candlestick patterns on these timeframes carry more market weight because more participants react to them at the same time.
+Although you can set up a chart with any setting, using popular timeframes is practical because many traders monitor them simultaneously. If you use a 40-minute or 3-hour chart, the [candlestick patterns](/lesson/chart-patterns-trading/) on your chart may carry less weight since fewer traders observe them.
 
-### Tick and Range Charts
+> **Note:** For a deeper look at how different timeframes work together, see [Multiple Timeframe Analysis](/lesson/multiple-timeframe-analysis/).
 
-Non-time-based charts are less common, but they can still provide valuable information. In the FTMO cTrader platform, traders can access **tick charts** and **range charts** — the two most popular non-time-based options. In a tick chart, one tick represents one transaction. One tick occurs when the market moves by the minimum price increment.
+### Non-Time-Based Charts
 
-Take EURUSD as an example — it is quoted in five decimal places. One tick equals 0.00001, or 1 pipette. In a range bar, every bar closes once the range between its high and low equals the chosen range value. This means every bar has the same range and closes either at its high or low. Range and tick charts eliminate noise and display trends more clearly by removing periods when price is not moving.
+Non-time-based charts are less common, but they provide traders with valuable information. Traders can use *tick charts* and *range charts* in the cTrader platform. **These are the two most popular non-time-based formats.**
 
-The effect is visible when comparing a DAX four-hour chart with a 100-range chart in cTrader. Both the uptrend and downtrend appear cleaner on the range chart once the time factor is removed and focus shifts to price rotations.
+In a *tick chart*, one tick represents one transaction. One tick is recorded when the market fluctuates by the minimal price increment. Consider EURUSD, which is quoted in five decimal places: one tick would equal 0.00001 or 1 pipette.
+
+In a *range bar*, every bar ends once the range between its high and low equals the chosen range. This means every bar covers the same price range and closes at either its high or its low.
+
+Using range charts or tick charts can eliminate noise and display trends more clearly by filtering out time periods when markets are not moving and remain range-bound. This effect is visible when comparing a DAX four-hour chart with a 100 range chart in cTrader. Both the uptrend and downtrend appear cleaner on the range chart once you remove the time factor and focus on price rotations.
+
+> **Tip:** If your candlestick charts feel visually noisy, try a higher timeframe first before switching to a non-time-based format. A daily chart often filters the same noise that range or tick charts do, with less complexity.
 
 ## Bar Charts
 
-The only difference between a candlestick and a **bar chart** is the visual representation.
+The only difference between the candlestick and the bar chart is the visual representation.
 
-![OHLC bar chart example](https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115043.png)
+*Bar chart (OHLC): vertical bars with open and close notches*
 
-Bar charts, often called OHLC charts, display as vertical bars with two notches indicating the open and close of each bar. Compared to Japanese candlesticks, bar charts are less intuitive for new traders when reading candlestick patterns. On the other hand, they may provide a clearer view for marking [support and resistance](/lesson/support-and-resistance/) levels.
+![](https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115043.png)
+
+*Bar charts*, often called *OHLC charts*, use vertical bars with two notches to mark the open and close of each bar. Compared to [Japanese candlesticks](/lesson/japanese-candlesticks/), bar charts are less intuitive for new traders used to reading candlestick charts. However, they may present a cleaner picture for marking out [support and resistance](/lesson/support-and-resistance/).
 
 ## Renko Charts
 
-Renko charts are similar to range and tick charts. Renko eliminates the time factor from trading and changes the chart's visual representation entirely. Instead of candlesticks, the chart displays bricks. The name comes from the Japanese word *renga*, meaning brick.
+**Renko charts eliminate the time factor from trading entirely.** They are similar to range and tick charts, but change the visuals of the chart completely. Instead of candlesticks, the chart displays bricks. The name Renko comes from the Japanese word *renga*, which means brick.
 
-![Renko brick chart example](https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115503.png)
+*Renko chart: price bricks without a time axis*
 
-A Renko chart prints a new brick when the market moves more than the brick size away from the previous brick. For example, if one brick represents 5 pips, no new brick is drawn until the market moves those 5 pips in one direction from the close of the last brick. Renko charts are effective for filtering out noise and marking [support and resistance](/lesson/support-and-resistance/) areas.
+![](https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115503.png)
+
+A Renko chart prints a new brick when the market moves more than the brick size away from the previous brick. For example, if one brick represents a movement of 5 pips, no new bricks appear until the market moves those 5 pips in one direction from the close of the last brick. Renko charts are effective for filtering out noise and for marking out [support and resistance](/lesson/support-and-resistance/) areas.
 
 ## Heikin Ashi Candles
 
-Heikin Ashi candles are another chart representation that comes from Japan. The name translates to "average bar." Here is how the Heikin Ashi candle formula works: the chart is constructed the same way as a candlestick chart but uses a different calculation method. A Heikin Ashi chart can be set up on any preferred timeframe — time-based, range, or tick.
+**What is Heikin Ashi?** Heikin Ashi candles are a chart representation that originates from Japan. Heikin Ashi translates to "average bar." The *Heikin Ashi candle formula* uses the same visual structure as a standard candlestick chart but applies a different calculation method. You can set up a Heikin Ashi chart on any specified time, range, or tick setting.
 
-![Heikin Ashi smoothed candlestick chart](https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115656.png)
+*Heikin Ashi chart: smoothed candles for trend following*
 
-Heikin Ashi smooths price movements and simplifies trend following. Many traders incorporate it into their Heikin Ashi strategy specifically for trend-following entries. The trade-off is that some price detail is lost — the smoothing can obscure short-term signals. However, it remains an effective tool for both entries and trade management.
+![](https://academy.ftmo.com/wp-content/uploads/2023/03/Snimek-obrazovky-2023-07-18-115656.png)
 
-> **Keep in Mind:** Some human tendencies can work against you when reading charts:
-> - Seeing patterns where there are none
-> - Favouring a chart type based on habit rather than evidence
-> - Sticking with a chart setup after market conditions have changed
+Heikin Ashi candles smooth out price movements and provide a clearer approach to trend following. The trade-off is that some valuable information may be lost, as the smoothing can become excessive. However, Heikin Ashi candles are an effective tool for entries and trade management, making them a core component of any Heikin Ashi strategy focused on riding trends.
+
+> **Keep in Mind:** Switching chart formats does not create an edge. Every chart type displays the same underlying price data. The edge comes from your analysis of what the chart shows, not from the format itself.
+
+## Other Chart Types
+
+Beyond the chart types covered in this lesson, traders may encounter additional formats. A **point and figure chart** strips away time entirely and plots only significant price moves, making it one of the oldest charting methods. **Kagi charts** and **line break charts** follow a similar philosophy, focusing on price direction rather than time intervals.
+
+More advanced formats such as a **footprint chart**, **order flow chart**, or **market profile** display volume at each price level, giving traders insight into where the most activity occurs. These specialised chart types are less common among retail traders but can complement candlestick or Renko analysis in specific contexts.
 
 ## Conclusion
 
-Experimenting with different charts and settings is the most effective way to find what works for your trading style. Regular time-based candlestick charts remain the most popular, used by traders worldwide. However, tick charts, range charts, Renko charts, or Heikin Ashi candles can all be incorporated into your strategy and add value to your trading.
+Start with candlestick charts. They are the industry standard for a reason. Once you are comfortable reading price action, experiment with different types of trading charts and settings to find what works for your trading style. Tick charts, range charts, Renko charts, and Heikin Ashi candles can add value to your strategy when applied to the right context.
 
-| Chart Type | Time-Based | Best For |
-|------------|------------|----------|
-| **Candlestick** | Yes (also Range / Tick) | General analysis, pattern recognition |
-| **Bar (OHLC)** | Yes | Support and resistance marking |
-| **Renko** | No (price-based) | Noise filtering, trend clarity |
-| **Heikin Ashi** | Yes (also Range / Tick) | Trend following, entries |
-
----
+| Chart Type | Shows | Time Factor | Best For |
+|------------|-------|-------------|----------|
+| Candlestick | OHLC (body + wicks) | Yes | Pattern recognition, most analysis |
+| Bar (OHLC) | OHLC (vertical bar + ticks) | Yes | Volatility context, support/resistance |
+| Renko | Price bricks | No | Trend direction, noise filtering |
+| Heikin Ashi | Averaged OHLC | Yes | Trend following, smoother view |
+| Tick | Per-transaction bars | No | Intraday activity, volume context |
+| Range | Fixed-range bars | No | Trend clarity, filtering chop |
 
 ## Key Takeaways
 
-- **Candlestick charts** are the most widely used chart type; time periodicity determines how each candle forms.
-- **Standard timeframes** (1H, 4H, Daily) carry more market weight because more traders monitor them simultaneously.
-- **Tick and range charts** remove the time factor and can display trends more clearly by eliminating low-activity periods.
-- **Bar charts** use a different visual format — useful for traders who prefer a cleaner view when marking support and resistance.
-- **Renko charts** filter noise by only drawing a new brick when price moves a defined distance.
-- **Heikin Ashi candles** smooth price data to simplify trend following — at the cost of some short-term detail.
+- **Candlestick charts** are the most widely used format. Start here as your default.
+- **Bar charts (OHLC)** show the same data in a different visual form, useful for [support and resistance](/lesson/support-and-resistance/) analysis.
+- **Non-time-based charts** (tick, range) filter out periods of low activity and display trends more clearly.
+- **Renko charts** eliminate time entirely and focus on price movement through bricks.
+- **Heikin Ashi candles** smooth price data for easier trend following, at the cost of precise price information.
+- The right chart depends on your trading style, timeframe, and what you need to see.
 
 ## Next Steps
 
-- [Market Environment: Range vs. Trend](/lesson/market-environment-range-vs-trend/) — understand the conditions each chart type is designed to display
-- [Support and Resistance](/lesson/support-and-resistance/) — apply the chart reading skills from this lesson
-- [Technical Indicators](/lesson/technical-indicators/) — combine chart types with indicators for a complete analysis framework
+Build on this foundation with these related lessons:
+
+- [Market Environment: Range vs. Trend](/lesson/market-environment-range-vs-trend/): how to identify what the chart is showing you
+- [Support and Resistance](/lesson/support-and-resistance/): key price levels visible across all chart types
+- [Chart Patterns](/lesson/chart-patterns-trading/): recognisable formations on candlestick charts
+- [Multiple Timeframe Analysis](/lesson/multiple-timeframe-analysis/): combining different timeframes for stronger analysis
 
 ---
 
-**Author:** FTMO Academy Content Team
-**Last Updated:** March 5, 2026
+**About the Author**
+**FTMO Academy Content Team**
+*Last Updated: 2026-04-10*
 
 ---
-
-> **Educational Content Notice:** This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.
 
 > **Risk Warning:** Trading involves significant risk of loss. Past performance is not indicative of future results. Only trade with capital you can afford to lose.
+
+> **Educational Content Notice:** This material is for educational purposes only and does not constitute financial advice. Trading decisions should be based on your own analysis and risk tolerance.

@@ -280,6 +280,35 @@ research      reports                       (HERE)     Discord     memes
 
 ---
 
+### Straight to the Point — No Filler
+
+Every sentence must open with the actual point. Throat-clearing phrases pad word count without adding value and undermine the confident, direct voice.
+
+**Banned opening constructions:**
+
+| Instead of | Write |
+|------------|-------|
+| "It is important to note that X" | State X directly |
+| "It is worth mentioning that X" | State X directly |
+| "When it comes to X, ..." | Start with X |
+| "In order to X, ..." | "To X, ..." |
+| "One of the most important things is..." | Name the thing |
+| "There are several reasons why..." | State the reasons |
+| "As we have already seen / mentioned..." | Delete — do not recap |
+| "With that said, ..." | Delete or restructure |
+| "Having said that, ..." | "But" or restructure |
+| "Let us now look at / explore..." | Start the section |
+| "Before we dive in, ..." | Delete |
+| "The fact that X means Y" | "X means Y" |
+| "This is because X" | Direct cause-effect sentence |
+| "As a result of this, ..." | State the consequence |
+
+**Rule:** If removing the opening phrase leaves the sentence intact and clearer — remove it.
+
+**Why this matters:** Filler phrases create the impression of hedging or padding. The Academy voice is confident and direct. Every sentence should respect the reader's time.
+
+---
+
 ### Addressing the Reader
 
 **Primary:** 2nd person "you" (direct, personal)
@@ -380,11 +409,7 @@ The tone reflects financial industry caution. This is critical for YMYL (Your Mo
 
 ### Required Disclaimers
 
-Every lesson should include (typically at the end):
-
-> **Risk Warning:** Trading involves significant risk of loss. Past performance is not indicative of future results.
-
-> **Educational Notice:** This material is for educational purposes only and does not constitute financial advice.
+Risk warning and educational notice are injected by the CMS at publish time. Do not add them to article content.
 
 ---
 
@@ -495,6 +520,7 @@ Before publishing any Academy content, verify voice and tone compliance:
 - [ ] No jargon without explanation
 - [ ] No prohibited phrases (see Section 5)
 - [ ] Power phrases used appropriately
+- [ ] No filler openers — every sentence starts with the actual point (see "Straight to the Point" in Section 5)
 
 ### Persona Fit
 - [ ] Appropriate for target persona(s)

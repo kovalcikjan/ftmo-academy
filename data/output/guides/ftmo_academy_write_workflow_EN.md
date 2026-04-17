@@ -644,6 +644,31 @@ WRONG: "Now that we've covered candlestick charts, let's look at bar charts."
 RIGHT: "Bar charts display the same four data points. The difference is visual."
 ```
 
+### No Filler — Straight to the Point
+
+Every sentence must earn its place. Cut throat-clearing phrases and replace with the actual statement.
+
+**Banned constructions:**
+
+| Filler | Replace with |
+|--------|-------------|
+| "It is important to note that X" | State X directly |
+| "It is worth mentioning that X" | State X directly |
+| "When it comes to X, ..." | Start with X |
+| "In order to X, ..." | "To X, ..." |
+| "One of the most important things is..." | Name the thing |
+| "There are several reasons why..." | State the reasons |
+| "As we have already seen / mentioned..." | Delete — do not recap |
+| "With that said, ..." | Delete |
+| "Having said that, ..." | "But" or restructure |
+| "Let us now look at / explore..." | Start the section |
+| "Before we dive in, ..." | Delete |
+| "The fact that X means Y" | "X means Y" |
+| "This is because X" | Restructure into direct cause-effect |
+| "As a result of this, ..." | State the consequence directly |
+
+**Rule:** If removing the opening phrase leaves the sentence intact and clearer — remove it.
+
 ### Output Format
 
 Output as plain markdown. Start directly with `#`.
@@ -678,12 +703,12 @@ Complete article text with each factual claim followed by its source in brackets
 > [https://zerodha.com/varsity/chapter/chart-types/]
 >
 > "In cTrader, tick and range charts are available natively."
-> [FTMO platform knowledge — no external source]
+> [platform knowledge — no external source]
 
 Rules:
 - Every factual sentence needs a source URL from Step 1 research
 - Interpretations, ToV phrasing, and general knowledge do not need a source
-- FTMO-specific or platform knowledge: mark as [FTMO platform knowledge]
+- Platform-specific knowledge: mark as [platform knowledge — no external source]
 - If no source found: flag as [SOURCE NEEDED]
 ```
 
@@ -711,6 +736,7 @@ Light verification pass. The draft is already in Academy ToV. This step catches 
 |-------|----------------|
 | Section openings | Lead with value — no "In this section we will..." |
 | Sentence rhythm | No 3+ consecutive long sentences |
+| Filler & padding | No throat-clearing phrases (see "No Filler" rules in Step 3) — every sentence opens with the actual point |
 | Casual markers | No "pretty much", "kind of", "a bit", "just" (filler), "basically" |
 | Hype language | No "amazing", "great", "life-changing", "guaranteed" |
 | Condescension | No "It's simple", "Obviously", "Even beginners can" |
@@ -773,11 +799,8 @@ Split any paragraph over 100 words. Paragraphs from Step 3 do not automatically 
 | Bold | Highlight key terms for scanning |
 | ToC | Add if >1,500 words |
 | Image placeholders | Add after each H2 section and where visual explanation would help — format: `[IMAGE: description of what the image should show]` |
-| CTA placeholders | Add where relevant — format: `[CTA: description, e.g. "Start FTMO Challenge" button]` |
+| CTA placeholders | Add where relevant — format: `[CTA: description]` |
 | Internal links | Ensure 3–5 minimum |
-| Author block | Add at end |
-| Risk disclaimer | Add at end |
-| Educational notice | Add at end |
 
 ### What Does NOT Change
 
@@ -811,18 +834,7 @@ Max 1–2 callouts per H2. No back-to-back callouts.
 
 ### Required E-E-A-T Elements
 
-```markdown
-> **Risk Warning:** Trading involves significant risk of loss.
-> Past performance is not indicative of future results. Only trade with capital you can afford to lose.
-
-> **Educational Content Notice:** This material is for educational purposes only
-> and does not constitute financial advice.
-
----
-**Author:** FTMO Academy Content Team
-**Last Updated:** [Date]
----
-```
+No risk disclaimer or author block generated — these are injected by the CMS at publish time. Do not add them to the article.
 
 ### Stop Condition
 
@@ -893,15 +905,7 @@ Both files are created in this step. Do not finish Step 6 without both files sav
   <!-- <div class="image-placeholder">[IMAGE: description of what the image should show]</div> -->
 
   <!-- CTA placeholder format: -->
-  <!-- <div class="cta-placeholder">[CTA: description, e.g. "Start FTMO Challenge" button]</div> -->
-
-  <div class="lesson-disclaimers">
-    <!-- risk warning + educational notice -->
-  </div>
-
-  <div class="lesson-author">
-    <!-- author block -->
-  </div>
+  <!-- <div class="cta-placeholder">[CTA: description]</div> -->
 
 </article>
 ```
@@ -957,14 +961,11 @@ This is the first and most important QA check. Review independently of ToV and f
 
 - [ ] All factual claims have source citations in log
 - [ ] No [SOURCE NEEDED] flags remaining (or flagged for human review)
-- [ ] FTMO-specific claims marked as [FTMO platform knowledge]
+- [ ] Platform-specific claims marked as [platform knowledge — no external source]
 
 ### QA Checklist
 
 #### E-E-A-T & YMYL
-- [ ] Risk disclaimer present and visible
-- [ ] Educational notice included
-- [ ] Author attribution block present
 - [ ] No profit guarantees or hype language
 - [ ] All statistics have sources
 
